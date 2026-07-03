@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ООО "Астория К-3 </title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #00b3ff, #06b6d4);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #011c85;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #222;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Рады видеть вас на сайте Астория К-3 !</h1>
+        <p>Узнайте больше о нашей компании, выбрав один из разделов ниже</p>
+    </header>
+
+    <main>
+        <div class="grid-container">
+            
+            <a href="#achievements" class="card">
+                <h3>О наших достижениях</h3>
+                <p>Посмотрите, чего мы добились, какими проектами гордимся и какие награды успели завоевать.</p>
+            </a>
+
+            <a href="#history" class="card">
+                <h3>Чем мы занимаемся </h3>
+                <p>Наша история: от первой скромной идеи и трудностей до активного развития и роста в большую команду.</p>
+            </a>
+
+            <a href="contacts.html" class="card">
+                <h3>Контакты</h3>
+                <p>Свяжитесь с нами любым удобным способом. Мы всегда открыты к новым предложениям и общению.</p>
+            </a>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; NT.Studio All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
