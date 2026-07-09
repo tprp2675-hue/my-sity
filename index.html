@@ -43,8 +43,10 @@
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1fr;
             gap: 25px;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .card {
@@ -87,19 +89,19 @@
 <body>
 
     <header>
-        <h1>Рады видеть вас на сайте Астория К-3 !</h1>
+        <h1>Рады видеть вас на сайте компании Астория К-3 !</h1>
         <p>Узнайте больше о нашей компании, выбрав один из разделов ниже</p>
     </header>
 
     <main>
         <div class="grid-container">
             
-            <a href="#achievements" class="card">
+            <a href="achievements.html" class="card">
                 <h3>О наших достижениях</h3>
                 <p>Посмотрите, чего мы добились, какими проектами гордимся и какие награды успели завоевать.</p>
             </a>
 
-            <a href="#history" class="card">
+            <a href="whatwedo.html" class="card">
                 <h3>OOO "Астория К-3" лучшие в своём деле:</h3>
                 <p>Наша история: от первой скромной идеи и трудностей до активного развития и роста в большую команду.</p>
             </a>
