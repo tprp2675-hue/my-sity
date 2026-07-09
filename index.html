@@ -1,127 +1,589 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ООО "Астория К-3 </title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121417;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Астория К-3 — Строительная компания</title>
 
-        header {
-            background: linear-gradient(135deg, #0a0c10, #1a1f26);
-            color: white;
-            text-align: center;
-            padding: 60px 20px;
-            border-bottom: 1px solid #2a2f37;
-        }
+  <!-- ================================================================
+       ШРИФТ: Inter (можно заменить на Poppins или другой sans-serif)
+       ================================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-        header h1 {
-            margin: 0 0 10px 0;
-            font-size: 2.5rem;
-        }
+  <style>
+    /* ================================================================
+       1. ПЕРЕМЕННЫЕ — здесь можно быстро поменять всю палитру и текст
+       ================================================================ */
+    :root {
+      /* --- Цвета --- */
+      --bg-dark:        #0e0f11;   /* Основной тёмный фон */
+      --bg-dark-2:      #15171a;   /* Второй тёмный оттенок (секции) */
+      --text-white:     #ffffff;   /* Основной белый текст */
+      --text-muted:     rgba(255, 255, 255, 0.6); /* Приглушённый текст */
+      --text-faint:     rgba(255, 255, 255, 0.4); /* Совсем тихий текст */
+      --accent:         #e8e0d3;   /* Акцентный светлый/бежевый (кнопки) */
+      --accent-hover:   #ffffff;   /* Акцент при наведении */
+      --border-soft:    rgba(255, 255, 255, 0.25); /* Обводка кнопок/линии */
 
-        header p {
-            margin: 0;
-            font-size: 1.2rem;
-            opacity: 0.7;
-            color: #b0b0b0;
-        }
+      /* --- Прочее --- */
+      --radius:         999px;     /* Скругление кнопок */
+      --nav-height:     84px;      /* Высота навбара */
+      --max-width:      1400px;    /* Максимальная ширина контента */
+      --ease:           cubic-bezier(0.22, 1, 0.36, 1); /* Плавность анимаций */
+    }
 
-        main {
-            flex: 1;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+    /* ================================================================
+       2. БАЗОВЫЕ СБРОСЫ И ТИПОГРАФИКА
+       ================================================================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        .card {
-            background-color: #1c1f24;
-            border: 1px solid #2a2f37;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-            text-decoration: none;
-            color: inherit;
-        }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            border-color: #3d8bfd;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        .card h3 {
-            margin-top: 0;
-            color: #5b9dff;
-            font-size: 1.4rem;
-        }
+    ul {
+      list-style: none;
+    }
 
-        .card p {
-            color: #a0a0a0;
-            font-size: 1rem;
-            line-height: 1.5;
-        }
+    /* Утилита-контейнер для ограничения ширины */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #0a0c10;
-            color: #666;
-            font-size: 0.9rem;
-            border-top: 1px solid #2a2f37;
-        }
-    </style>
+    /* ================================================================
+       3. НАВБАР (полупрозрачный, поверх фото)
+       ================================================================ */
+    .navbar {
+      position: absolute;   /* Лежит поверх hero, не занимая места */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      /* Лёгкая полупрозрачная подложка + размытие */
+      background: rgba(14, 15, 17, 0.15);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar__inner {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    /* Левый блок: логотип + пункты меню */
+    .navbar__left {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .navbar__brand {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    /* Пункты меню */
+    .navbar__menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .navbar__menu a {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-muted);
+      position: relative;
+      transition: color 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover {
+      color: var(--text-white);
+    }
+
+    /* Подчёркивание, «выезжающее» при наведении */
+    .navbar__menu a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1px;
+      background: var(--text-white);
+      transition: width 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover::after {
+      width: 100%;
+    }
+
+    /* Правый блок: кнопки действий */
+    .navbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* ================================================================
+       4. КНОПКИ (переиспользуемые классы)
+       ================================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.3s var(--ease);
+      white-space: nowrap;
+    }
+
+    /* Кнопка с обводкой (прозрачная) */
+    .btn--outline {
+      background: transparent;
+      border-color: var(--border-soft);
+      color: var(--text-white);
+    }
+    .btn--outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+    }
+
+    /* Акцентная светлая кнопка (заполненная) */
+    .btn--accent {
+      background: var(--accent);
+      color: #111;
+    }
+    .btn--accent:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Белая скруглённая кнопка с тёмным текстом (CTA под заголовком) */
+    .btn--white {
+      background: var(--text-white);
+      color: #111;
+      padding: 15px 30px;
+      font-weight: 600;
+    }
+    .btn--white:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    /* ================================================================
+       5. HERO — полноэкранная шапка с фоновым фото
+       ================================================================ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      width: 100%;
+      display: flex;
+      /* Контент прижат к низу экрана */
+      align-items: flex-end;
+
+      /* --------------------------------------------------------------
+         ФОНОВОЕ ФОТО:
+         Здесь два слоя через запятую:
+         1) linear-gradient — затемнение поверх фото для читаемости текста
+         2) url(...) — САМА КАРТИНКА  <<< ВСТАВЬТЕ СВОЁ ФОТО СЮДА >>>
+
+         Замените 'YOUR-IMAGE.jpg' на путь к вашему изображению,
+         например: url('images/house-evening.jpg')
+
+         Градиент можно усилить/ослабить, меняя значения rgba (0.x = прозрачность).
+         -------------------------------------------------------------- */
+      background-image:
+        linear-gradient(
+          to bottom,
+          rgba(14, 15, 17, 0.55) 0%,   /* затемнение сверху (под навбаром) */
+          rgba(14, 15, 17, 0.25) 35%,  /* светлее в середине */
+          rgba(14, 15, 17, 0.85) 100%  /* сильное затемнение снизу (под текстом) */
+        ),
+        url('YOUR-IMAGE.jpg'); /* <<< ВСТАВЬТЕ ФОТО ДОМА (вечер/закат) СЮДА */
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero__content {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px 72px; /* нижний отступ, чтобы текст был чуть выше края */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* Крупный заголовок в 2 строки */
+    .hero__title {
+      font-size: clamp(40px, 6vw, 84px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      max-width: 15ch;
+      margin-bottom: 24px;
+    }
+
+    /* Пояснение под заголовком */
+    .hero__subtitle {
+      font-size: clamp(16px, 1.4vw, 19px);
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 52ch;
+      margin-bottom: 36px;
+    }
+
+    /* ================================================================
+       6. ПОДПИСЬ «Прокрутите вниз» в правом нижнем углу
+       ================================================================ */
+    .scroll-hint {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      z-index: 10;
+    }
+
+    .scroll-hint__arrow {
+      display: inline-flex;
+      /* Плавная анимация «подпрыгивания» стрелки */
+      animation: bounce 1.8s var(--ease) infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(6px); }
+    }
+
+    /* ================================================================
+       7. СЕКЦИЯ «НАШИ ПРОЕКТЫ» — заглушка с 3 карточками
+       ================================================================ */
+    .projects {
+      background: var(--bg-dark-2);
+      padding: 120px 0;
+    }
+
+    .projects__header {
+      margin-bottom: 56px;
+      max-width: 640px;
+    }
+
+    .projects__eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .projects__title {
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .projects__desc {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* Сетка карточек: 3 в ряд на десктопе */
+    .projects__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    /* Отдельная карточка проекта (заглушка) */
+    .project-card {
+      background: var(--bg-dark);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-soft);
+    }
+
+    /* Место под фото проекта (замените фон на своё изображение) */
+    .project-card__image {
+      aspect-ratio: 4 / 3;
+      width: 100%;
+      /* Плейсхолдер-градиент. Замените на: url('images/project-1.jpg') */
+      background: linear-gradient(135deg, #23262b 0%, #16181b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-faint);
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .project-card__body {
+      padding: 24px;
+    }
+
+    .project-card__tag {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .project-card__name {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .project-card__text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ================================================================
+       8. АДАПТИВНОСТЬ (планшеты и телефоны)
+       ================================================================ */
+
+    /* Планшеты */
+    @media (max-width: 1024px) {
+      .projects__grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      /* Прячем часть пунктов меню, оставляем ключевое */
+      .navbar__menu {
+        gap: 22px;
+      }
+    }
+
+    /* Телефоны */
+    @media (max-width: 768px) {
+      .container,
+      .navbar__inner,
+      .hero__content {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      /* Скрываем текстовое меню — оставляем бренд и главную кнопку */
+      .navbar__menu {
+        display: none;
+      }
+
+      /* Оставляем только акцентную кнопку в шапке на мобильном */
+      .navbar__actions .btn--outline {
+        display: none;
+      }
+
+      .hero {
+        min-height: 560px;
+      }
+
+      .hero__content {
+        padding-bottom: 90px;
+      }
+
+      .hero__title {
+        font-size: clamp(34px, 9vw, 52px);
+      }
+
+      /* Скрываем подсказку прокрутки на маленьких экранах */
+      .scroll-hint {
+        display: none;
+      }
+
+      .projects {
+        padding: 72px 0;
+      }
+
+      .projects__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Рады видеть вас на сайте компании Астория К-3 !</h1>
-        <p>Узнайте больше о нашей компании, выбрав один из разделов ниже</p>
-    </header>
+  <!-- ================================================================
+       НАВБАР
+       ================================================================ -->
+  <header class="navbar">
+    <div class="navbar__inner">
 
-    <main>
-        <div class="grid-container">
-            
-            <a href="achievements.html" class="card">
-                <h3>О наших достижениях</h3>
-                <p>Посмотрите, чего мы добились, какими проектами гордимся и какие награды успели завоевать.</p>
-            </a>
+      <!-- Левая часть: название компании + пункты меню -->
+      <div class="navbar__left">
+        <div class="navbar__brand">Астория&nbsp;К-3</div>
+        <nav class="navbar__menu">
+          <a href="#home">Главная</a>
+          <a href="#about">О нас</a>
+          <a href="#services">Услуги</a>
+          <a href="#projects">Проекты</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
 
-            <a href="whatwedo.html" class="card">
-                <h3>OOO "Астория К-3" лучшие в своём деле:</h3>
-                <p>Наша история: от первой скромной идеи и трудностей до активного развития и роста в большую команду.</p>
-            </a>
+      <!-- Правая часть: две кнопки -->
+      <div class="navbar__actions">
+        <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+        <a href="#estimate" class="btn btn--accent">Получить смету</a>
+      </div>
 
-            <a href="contacts.html" class="card">
-                <h3>Контакты</h3>
-                <p>Свяжитесь с нами любым удобным способом. Мы всегда открыты к новым предложениям и общению.</p>
-            </a>
+    </div>
+  </header>
 
-        </div>
-    </main>
+  <!-- ================================================================
+       HERO / ШАПКА
+       ================================================================ -->
+  <section class="hero" id="home">
+    <div class="hero__content">
 
-    <footer>
-        <p>&copy; NT.Studio All rights reserved.</p>
-    </footer>
+      <!-- Крупный заголовок в 2 строки -->
+      <h1 class="hero__title">Воплотим ваше видение в реальность</h1>
+
+      <!-- Пояснение приглушённым цветом -->
+      <p class="hero__subtitle">
+        Мы реализуем ваши идеи — от концепции до сдачи объекта —
+        с гарантией качества и прозрачностью на каждом этапе.
+      </p>
+
+      <!-- CTA-кнопка -->
+      <a href="#projects" class="btn btn--white">Смотреть проекты</a>
+
+    </div>
+
+    <!-- Подпись «Прокрутите вниз» в правом нижнем углу -->
+    <div class="scroll-hint">
+      <span>Прокрутите вниз</span>
+      <span class="scroll-hint__arrow" aria-hidden="true">
+        <!-- Иконка стрелки вниз (SVG) -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="4" x2="12" y2="20"></line>
+          <polyline points="6 14 12 20 18 14"></polyline>
+        </svg>
+      </span>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       СЕКЦИЯ «НАШИ ПРОЕКТЫ» — заглушка (наполните контентом позже)
+       ================================================================ -->
+  <section class="projects" id="projects">
+    <div class="container">
+
+      <div class="projects__header">
+        <div class="projects__eyebrow">Портфолио</div>
+        <h2 class="projects__title">Наши проекты</h2>
+        <p class="projects__desc">
+          Избранные работы, в которых точность инженерии встречается
+          с продуманной архитектурой. Скоро здесь появятся детали.
+        </p>
+      </div>
+
+      <!-- Сетка из 3 карточек-заглушек -->
+      <div class="projects__grid">
+
+        <!-- Карточка 1 -->
+        <article class="project-card">
+          <!-- Замените фон .project-card__image на url('...') с фото проекта -->
+          <div class="project-card__image">ФОТО ПРОЕКТА</div>
+          <div class="project-card__body">
+            <div class="project-card__tag">Жилой дом</div>
+            <h3 class="project-card__name">Проект №1</h3>
+            <p class="project-card__text">
+              Краткое описание проекта появится здесь.
+            </p>
+          </div>
+        </article>
+
+        <!-- Карточка 2 -->
+        <article class="project-card">
+          <div class="project-card__image">ФОТО ПРОЕКТА</div>
+          <div class="project-card__body">
+            <div class="project-card__tag">Коммерция</div>
+            <h3 class="project-card__name">Проект №2</h3>
+            <p class="project-card__text">
+              Краткое описание проекта появится здесь.
+            </p>
+          </div>
+        </article>
+
+        <!-- Карточка 3 -->
+        <article class="project-card">
+          <div class="project-card__image">ФОТО ПРОЕКТА</div>
+          <div class="project-card__body">
+            <div class="project-card__tag">Загородный дом</div>
+            <h3 class="project-card__name">Проект №3</h3>
+            <p class="project-card__text">
+              Краткое описание проекта появится здесь.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
 
 </body>
 </html>

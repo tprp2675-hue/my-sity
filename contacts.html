@@ -1,99 +1,413 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Контакты</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffffff;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Контакты — Астория К-3</title>
 
-        header {
-            background: linear-gradient(135deg, #4f46e5, #06b6d4);
-            color: white;
-            text-align: center;
-            padding: 40px 20px;
-        }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-        header h1 { margin: 0; font-size: 2rem; }
+  <style>
+    :root {
+      --bg-dark:        #0e0f11;
+      --bg-dark-2:      #15171a;
+      --bg-card:        #1a1c20;
+      --text-white:     #ffffff;
+      --text-muted:     rgba(255, 255, 255, 0.6);
+      --text-faint:     rgba(255, 255, 255, 0.4);
+      --accent:         #e8e0d3;
+      --accent-hover:   #ffffff;
+      --border-soft:    rgba(255, 255, 255, 0.25);
+      --border-faint:   rgba(255, 255, 255, 0.08);
+      --radius:         999px;
+      --radius-card:    18px;
+      --nav-height:     84px;
+      --max-width:      1400px;
+      --ease:           cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
-        main {
-            flex: 1;
-            max-width: 600px;
-            width: 100%;
-            margin: 40px auto;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
-        .contact-box {
-            background-color: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(1200px 600px at 15% -10%, rgba(232, 224, 211, 0.06), transparent 60%),
+        radial-gradient(1000px 500px at 100% 10%, rgba(232, 224, 211, 0.04), transparent 55%);
+      background-attachment: fixed;
+    }
 
-        .info-block {
-            margin-bottom: 25px;
-        }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
 
-        .info-block p {
-            margin: 5px 0;
-            font-size: 1.1rem;
-        }
+    .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
 
-        .back-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #4f46e5;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
+    /* НАВБАР */
+    .navbar {
+      position: sticky; top: 0; width: 100%; height: var(--nav-height);
+      z-index: 50; display: flex; align-items: center;
+      background: rgba(14, 15, 17, 0.7);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-faint);
+    }
+    .navbar__inner {
+      width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+    }
+    .navbar__left { display: flex; align-items: center; gap: 48px; }
+    .navbar__brand { font-size: 20px; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; }
+    .navbar__menu { display: flex; align-items: center; gap: 32px; }
+    .navbar__menu a {
+      font-size: 15px; color: var(--text-muted); position: relative;
+      transition: color 0.3s var(--ease);
+    }
+    .navbar__menu a:hover, .navbar__menu a.is-active { color: var(--text-white); }
+    .navbar__menu a::after {
+      content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px;
+      background: var(--text-white); transition: width 0.3s var(--ease);
+    }
+    .navbar__menu a:hover::after, .navbar__menu a.is-active::after { width: 100%; }
+    .navbar__actions { display: flex; align-items: center; gap: 14px; }
 
-        .back-btn:hover {
-            background-color: #3730a3;
-        }
-    </style>
+    /* КНОПКИ */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 15px; font-weight: 500; padding: 12px 24px; border-radius: var(--radius);
+      cursor: pointer; border: 1px solid transparent; transition: all 0.3s var(--ease); white-space: nowrap;
+    }
+    .btn--outline { background: transparent; border-color: var(--border-soft); color: var(--text-white); }
+    .btn--outline:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--text-white); }
+    .btn--accent { background: var(--accent); color: #111; }
+    .btn--accent:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+    /* ШАПКА СТРАНИЦЫ */
+    .page-head { padding: 90px 0 40px; position: relative; }
+    .page-head__eyebrow {
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .page-head__title {
+      font-size: clamp(38px, 5.5vw, 68px); font-weight: 600; letter-spacing: -1px;
+      line-height: 1.05; margin-bottom: 20px;
+    }
+    .page-head__desc {
+      font-size: clamp(16px, 1.4vw, 18px); font-weight: 300;
+      color: var(--text-muted); max-width: 56ch;
+    }
+    .divider {
+      height: 1px; width: 100%;
+      background: linear-gradient(90deg, var(--border-soft), transparent 70%); margin: 8px 0 0;
+    }
+
+    /* ОСНОВНОЙ БЛОК */
+    .contacts { padding: 56px 0 110px; }
+    .contacts__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 32px; align-items: start; }
+    .contact-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .contact-card--wide { grid-column: 1 / -1; }
+    .contact-card {
+      background: var(--bg-card); border: 1px solid var(--border-faint);
+      border-radius: var(--radius-card); padding: 26px; display: flex; gap: 18px; align-items: flex-start;
+      transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), background 0.35s var(--ease);
+    }
+    .contact-card:hover { transform: translateY(-4px); border-color: var(--border-soft); background: #1e2126; }
+    .contact-card__icon {
+      flex-shrink: 0; width: 46px; height: 46px; border-radius: 14px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(232, 224, 211, 0.1); color: var(--accent); transition: background 0.35s var(--ease);
+    }
+    .contact-card:hover .contact-card__icon { background: rgba(232, 224, 211, 0.18); }
+    .contact-card__label {
+      font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-faint); margin-bottom: 6px;
+    }
+    .contact-card__value {
+      font-size: 18px; font-weight: 500; color: var(--text-white);
+      transition: color 0.3s var(--ease); word-break: break-word;
+    }
+    a.contact-card__value:hover { color: var(--accent); }
+    .contact-card__value + .contact-card__value { margin-top: 8px; display: block; }
+
+    /* ПРАВАЯ КОЛОНКА */
+    .side { display: flex; flex-direction: column; gap: 22px; }
+
+    /* Блок с адресом (вместо блокирующейся карты) */
+    .map-card {
+      position: relative; border: 1px solid var(--border-faint); border-radius: var(--radius-card);
+      overflow: hidden;
+      background:
+        radial-gradient(600px 300px at 80% -20%, rgba(232, 224, 211, 0.10), transparent 60%),
+        linear-gradient(135deg, #1e2126 0%, #131519 100%);
+      min-height: 300px; padding: 30px;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      transition: border-color 0.35s var(--ease);
+    }
+    .map-card:hover { border-color: var(--border-soft); }
+    .map-card::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at 70% 30%, #000 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle at 70% 30%, #000 0%, transparent 75%);
+      pointer-events: none;
+    }
+    .map-card__pin {
+      position: relative; width: 52px; height: 52px; border-radius: 16px;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(232, 224, 211, 0.12); color: var(--accent); margin-bottom: auto;
+    }
+    .map-card__label {
+      position: relative; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-faint); margin: 18px 0 6px;
+    }
+    .map-card__address {
+      position: relative; font-size: 17px; font-weight: 500; line-height: 1.45; margin-bottom: 18px;
+    }
+    .map-card__link {
+      position: relative; align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500; color: var(--accent);
+      border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 9px 18px;
+      transition: all 0.3s var(--ease);
+    }
+    .map-card__link:hover { background: rgba(255,255,255,0.08); border-color: var(--text-white); color: var(--text-white); }
+
+    /* РЕКВИЗИТЫ */
+    .req-card {
+      background: var(--bg-card); border: 1px solid var(--border-faint);
+      border-radius: var(--radius-card); padding: 26px;
+    }
+    .req-card__title {
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 18px;
+    }
+    .req-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 12px 0; border-bottom: 1px solid var(--border-faint);
+    }
+    .req-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .req-row:first-of-type { padding-top: 0; }
+    .req-row__label { font-size: 14px; color: var(--text-muted); font-weight: 300; }
+    .req-row__value { font-size: 16px; font-weight: 500; letter-spacing: 0.3px; }
+    .copy-btn {
+      margin-left: 10px; font-size: 12px; color: var(--accent);
+      border: 1px solid var(--border-soft); background: transparent; border-radius: var(--radius);
+      padding: 4px 12px; cursor: pointer; transition: all 0.3s var(--ease); font-family: inherit;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.08); border-color: var(--text-white); }
+
+    /* CTA */
+    .cta {
+      margin-top: 56px; background: linear-gradient(135deg, #1c1f24 0%, #131519 100%);
+      border: 1px solid var(--border-faint); border-radius: 24px; padding: 56px 48px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px;
+    }
+    .cta__title { font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.5px; max-width: 22ch; }
+    .cta__text { font-size: 16px; font-weight: 300; color: var(--text-muted); margin-top: 8px; max-width: 40ch; }
+
+    /* ФУТЕР */
+    .footer { border-top: 1px solid var(--border-faint); padding: 34px 0; }
+    .footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .footer__brand { font-weight: 600; font-size: 16px; }
+    .footer__copy { color: var(--text-faint); font-size: 13px; }
+
+    /* АДАПТИВ */
+    @media (max-width: 1024px) {
+      .contacts__grid { grid-template-columns: 1fr; }
+      .navbar__menu { gap: 22px; }
+    }
+    @media (max-width: 768px) {
+      .container, .navbar__inner { padding-left: 22px; padding-right: 22px; }
+      .navbar__menu { display: none; }
+      .navbar__actions .btn--outline { display: none; }
+      .contact-cards { grid-template-columns: 1fr; }
+      .cta { padding: 38px 24px; }
+    }
+  </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Наши контакты</h1>
-    </header>
+  <header class="navbar">
+    <div class="navbar__inner">
+      <div class="navbar__left">
+        <div class="navbar__brand">Астория&nbsp;К-3</div>
+        <nav class="navbar__menu">
+          <a href="index.html#home">Главная</a>
+          <a href="index.html#about">О нас</a>
+          <a href="index.html#services">Услуги</a>
+          <a href="index.html#projects">Проекты</a>
+          <a href="contacts.html" class="is-active">Контакты</a>
+        </nav>
+      </div>
+      <div class="navbar__actions">
+        <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
+        <a href="mailto:chastoria@mail.ru" class="btn btn--accent">Написать нам</a>
+      </div>
+    </div>
+  </header>
 
-    <main>
-        <div class="contact-box">
-            <div class="info-block">
-                <p><strong>ИНН:</strong> 7708423119</p>
-                <p><strong>Email:</strong> chastoria@mail.ru</p>
-                <p><strong>Телефон:</strong> +7 (926) 892-43-31</p>
-                <p><strong>Телефон:</strong> +7 (901) 714-74-25</p>
-                <p><strong>Адрес:</strong> г. Москва, муниципальный округ Красносельский, пер 3-й Новый, дом 5 стр 1.</p>
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow">Контакты</div>
+      <h1 class="page-head__title">Свяжитесь с нами</h1>
+      <p class="page-head__desc">
+        Готовы обсудить ваш проект? Позвоните, напишите на почту или приезжайте
+        в офис — ответим на все вопросы и подготовим смету.
+      </p>
+      <div class="divider"></div>
+    </div>
+  </section>
+
+  <section class="contacts">
+    <div class="container">
+      <div class="contacts__grid">
+
+        <div class="contact-cards">
+
+          <article class="contact-card">
+            <span class="contact-card__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                <polyline points="3 7 12 13 21 7"></polyline>
+              </svg>
+            </span>
+            <div>
+              <div class="contact-card__label">Email</div>
+              <a href="mailto:chastoria@mail.ru" class="contact-card__value">chastoria@mail.ru</a>
             </div>
-            
-            
-            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+          </article>
 
-            <!-- Кнопка возврата на главную -->
-            <a href="index.html" class="back-btn">&larr; Назад на главную</a>
+          <article class="contact-card">
+            <span class="contact-card__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07
+                         19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3
+                         a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09
+                         9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57
+                         2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </span>
+            <div>
+              <div class="contact-card__label">Телефон</div>
+              <a href="tel:+79268924331" class="contact-card__value">+7 (926) 892-43-31</a>
+              <a href="tel:+79017147425" class="contact-card__value">+7 (901) 714-74-25</a>
+            </div>
+          </article>
+
+          <article class="contact-card contact-card--wide">
+            <span class="contact-card__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </span>
+            <div>
+              <div class="contact-card__label">Адрес офиса</div>
+              <div class="contact-card__value">
+                г. Москва, муниципальный округ Красносельский,<br />
+                пер. 3-й Новый, дом 5, стр. 1
+              </div>
+            </div>
+          </article>
+
         </div>
-    </main>
-    <footer>
-        <p style="text-align: center; padding: 20px; color: #666; font-size: 0.9rem;">
-            &copy; 2026 by NT.Studio.  Все права защищены.
-        </p>
-    </footer>
+
+        <div class="side">
+
+          <!-- Блок с адресом и ссылкой на карты (открывается в новой вкладке) -->
+          <div class="map-card">
+            <span class="map-card__pin" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.6"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </span>
+            <div class="map-card__label">Мы находимся здесь</div>
+            <div class="map-card__address">
+              г. Москва, Красносельский р-н,<br />
+              пер. 3-й Новый, дом 5, стр. 1
+            </div>
+            <a class="map-card__link"
+               href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0%2C%203-%D0%B9%20%D0%9D%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%BF%D0%B5%D1%80%D0%B5%D1%83%D0%BB%D0%BE%D0%BA%2C%205%20%D1%81%D1%82%D1%80%201"
+               target="_blank" rel="noopener">
+              Открыть на карте
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7"></path>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          <div class="req-card">
+            <div class="req-card__title">Реквизиты</div>
+            <div class="req-row">
+              <span class="req-row__label">ИНН</span>
+              <span>
+                <span class="req-row__value" id="inn">7708423119</span>
+                <button class="copy-btn" type="button" onclick="copyInn()">Копировать</button>
+              </span>
+            </div>
+            <div class="req-row">
+              <span class="req-row__label">Email</span>
+              <a href="mailto:chastoria@mail.ru" class="req-row__value">chastoria@mail.ru</a>
+            </div>
+            <div class="req-row">
+              <span class="req-row__label">Телефон</span>
+              <a href="tel:+79268924331" class="req-row__value">+7 (926) 892-43-31</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="cta">
+        <div>
+          <div class="cta__title">Хотите узнать стоимость проекта?</div>
+          <p class="cta__text">Оставьте заявку — подготовим смету и перезвоним в течение дня.</p>
+        </div>
+        <a href="mailto:chastoria@mail.ru?subject=Заявка на смету" class="btn btn--accent">Получить смету</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">Астория&nbsp;К-3</div>
+      <div class="footer__copy">© 2026 Астория К-3. Все права защищены.</div>
+    </div>
+  </footer>
+
+  <script>
+    function copyInn() {
+      const inn = document.getElementById('inn').textContent.trim();
+      navigator.clipboard.writeText(inn).then(function () {
+        const btn = document.querySelector('.copy-btn');
+        const old = btn.textContent;
+        btn.textContent = 'Скопировано ✓';
+        setTimeout(function () { btn.textContent = old; }, 1600);
+      });
+    }
+  </script>
+
 </body>
 </html>
-
