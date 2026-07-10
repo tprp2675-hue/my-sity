@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Астория К-3 — О компании</title>
+
+  <!-- ================================================================
+       ШРИФТ: Inter (тот же, что на главной)
+       ================================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================================
+       1. ПЕРЕМЕННЫЕ — идентичны главной странице
+       ================================================================ */
+    :root {
+      --bg-dark:        #0e0f11;
+      --bg-dark-2:      #15171a;
+      --text-white:     #ffffff;
+      --text-muted:     rgba(255, 255, 255, 0.6);
+      --text-faint:     rgba(255, 255, 255, 0.4);
+      --accent:         #e8e0d3;
+      --accent-hover:   #ffffff;
+      --border-soft:    rgba(255, 255, 255, 0.25);
+
+      --radius:         999px;
+      --nav-height:     84px;
+      --max-width:      1400px;
+      --ease:           cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ================================================================
+       2. БАЗОВЫЕ СБРОСЫ И ТИПОГРАФИКА
+       ================================================================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ================================================================
+       3. НАВБАР — тот же, но фиксированный на тёмном фоне
+       ================================================================ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      background: rgba(14, 15, 17, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar__inner {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .navbar__left {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .navbar__brand {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .navbar__menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .navbar__menu a {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-muted);
+      position: relative;
+      transition: color 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover,
+    .navbar__menu a.is-active {
+      color: var(--text-white);
+    }
+
+    .navbar__menu a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1px;
+      background: var(--text-white);
+      transition: width 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover::after,
+    .navbar__menu a.is-active::after {
+      width: 100%;
+    }
+
+    .navbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* ================================================================
+       4. КНОПКИ — те же классы
+       ================================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.3s var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn--outline {
+      background: transparent;
+      border-color: var(--border-soft);
+      color: var(--text-white);
+    }
+    .btn--outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+    }
+
+    .btn--accent {
+      background: var(--accent);
+      color: #111;
+    }
+    .btn--accent:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn--white {
+      background: var(--text-white);
+      color: #111;
+      padding: 15px 30px;
+      font-weight: 600;
+    }
+    .btn--white:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    /* ================================================================
+       5. ШАПКА РАЗДЕЛА «О КОМПАНИИ»
+       ================================================================ */
+    .page-head {
+      padding: 100px 0 72px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .page-head__eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .page-head__title {
+      font-size: clamp(36px, 5.5vw, 72px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 28px;
+      max-width: 16ch;
+    }
+
+    .page-head__lead {
+      font-size: clamp(17px, 1.5vw, 20px);
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 60ch;
+    }
+
+    /* ================================================================
+       6. ОСНОВНОЙ ТЕКСТ «КТО МЫ»
+       ================================================================ */
+    .about-intro {
+      padding: 96px 0;
+    }
+
+    .about-intro__grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-intro__side {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-top: 8px;
+    }
+
+    .about-intro__body p {
+      font-size: clamp(17px, 1.5vw, 21px);
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 24px;
+    }
+
+    .about-intro__body p:last-child { margin-bottom: 0; }
+
+    .about-intro__body strong {
+      font-weight: 600;
+      color: var(--text-white);
+    }
+
+    /* ================================================================
+       7. БЛОК ПРЕИМУЩЕСТВ — 4 карточки (стиль project-card)
+       ================================================================ */
+    .advantages {
+      background: var(--bg-dark-2);
+      padding: 120px 0;
+    }
+
+    .advantages__header {
+      margin-bottom: 56px;
+      max-width: 640px;
+    }
+
+    .advantages__eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .advantages__title {
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .advantages__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .adv-card {
+      background: var(--bg-dark);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+    }
+
+    .adv-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-soft);
+    }
+
+    .adv-card__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(232, 224, 211, 0.08);
+      border: 1px solid rgba(232, 224, 211, 0.2);
+      color: var(--accent);
+      margin-bottom: 22px;
+    }
+
+    .adv-card__title {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    .adv-card__text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ================================================================
+       8. БЛОК «НАШ ПОДХОД»
+       ================================================================ */
+    .approach {
+      padding: 120px 0;
+    }
+
+    .approach__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .approach__eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .approach__title {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .approach__text {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* Список принципов справа */
+    .approach__list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .approach__item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 22px 24px;
+      background: var(--bg-dark-2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      transition: border-color 0.3s var(--ease);
+    }
+
+    .approach__item:hover { border-color: var(--border-soft); }
+
+    .approach__item-num {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      min-width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(232, 224, 211, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .approach__item-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .approach__item-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ================================================================
+       9. CTA-БЛОК
+       ================================================================ */
+    .cta {
+      background: var(--bg-dark-2);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 110px 0;
+    }
+
+    .cta__inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-size: clamp(30px, 4.5vw, 54px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 22px;
+      line-height: 1.08;
+    }
+
+    .cta__text {
+      font-size: clamp(16px, 1.4vw, 19px);
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 38px;
+    }
+
+    /* ================================================================
+       10. ФУТЕР — идентичен главной
+       ================================================================ */
+    .footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 32px 0;
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer__brand { font-weight: 600; font-size: 16px; }
+    .footer__copy { color: var(--text-faint); font-size: 13px; }
+    .footer__privacy {
+      margin-left: 16px;
+      font-size: 12px;
+      color: var(--text-faint);
+      text-decoration: underline;
+      transition: color 0.3s var(--ease);
+    }
+    .footer__privacy:hover { color: var(--text-white); }
+
+    /* ================================================================
+       11. АДАПТИВНОСТЬ
+       ================================================================ */
+    @media (max-width: 1024px) {
+      .advantages__grid { grid-template-columns: repeat(2, 1fr); }
+      .about-intro__grid,
+      .approach__grid { grid-template-columns: 1fr; gap: 40px; }
+      .navbar__menu { gap: 22px; }
+    }
+
+    @media (max-width: 768px) {
+      .container,
+      .navbar__inner {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+      .navbar__menu { display: none; }
+      .navbar__actions .btn--outline { display: none; }
+
+      .page-head { padding: 64px 0 48px; }
+      .about-intro,
+      .advantages,
+      .approach,
+      .cta { padding: 72px 0; }
+
+      .advantages__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================================================================
+       НАВБАР
+       ================================================================ -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <div class="navbar__left">
+        <div class="navbar__brand">Астория&nbsp;К-3</div>
+        <nav class="navbar__menu">
+          <a href="index.html">Главная</a>
+          <a href="about.html" class="is-active">О нас</a>
+          <a href="services.html">Услуги</a>
+          <a href="index.html#projects">Реализованные проекты</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </div>
+      <div class="navbar__actions">
+        <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+        <a href="#estimate" class="btn btn--accent">Получить смету</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================================================================
+       ШАПКА РАЗДЕЛА
+       ================================================================ -->
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow">О компании</div>
+      <h1 class="page-head__title">Строим надёжно, продуманно и ответственно</h1>
+      <p class="page-head__lead">
+        ООО «АСТОРИЯ-К3» — строительная компания, объединяющая инженерную
+        точность и высокий стандарт исполнения на каждом этапе работ.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       ОСНОВНОЙ ТЕКСТ «КТО МЫ»
+       ================================================================ -->
+  <section class="about-intro">
+    <div class="container">
+      <div class="about-intro__grid">
+
+        <div class="about-intro__side">Кто мы</div>
+
+        <div class="about-intro__body">
+          <p>
+            <strong>ООО «АСТОРИЯ-К3»</strong> специализируется на строительном
+            направлении: выполняем строительно-монтажные работы, возводим объекты
+            и разрабатываем строительные проекты. Мы сопровождаем каждый объект
+            от первичной проработки решения до его реализации.
+          </p>
+          <p>
+            В основе нашей работы — инженерный подход и внимание к деталям.
+            Мы стремимся к тому, чтобы каждый этап был прозрачным для заказчика,
+            а результат соответствовал заявленным требованиям качества и технологиям
+            строительства.
+          </p>
+          <p>
+            Нам доверяют, потому что мы ответственно подходим к обязательствам,
+            выстраиваем понятное взаимодействие и предлагаем решения, отвечающие
+            конкретным задачам клиента. Наша цель — не просто выполнить работу,
+            а создать результат, который служит долго.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       БЛОК ПРЕИМУЩЕСТВ — 4 карточки
+       ================================================================ -->
+  <section class="advantages">
+    <div class="container">
+
+      <div class="advantages__header">
+        <div class="advantages__eyebrow">Почему мы</div>
+        <h2 class="advantages__title">Наши принципы работы</h2>
+      </div>
+
+      <div class="advantages__grid">
+
+        <!-- Карточка 1 -->
+        <article class="adv-card">
+          <div class="adv-card__icon">
+            <!-- Иконка: слои / комплексность -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="adv-card__title">Комплексный подход к строительству</h3>
+          <p class="adv-card__text">
+            Ведём объект целостно — от проектных решений до строительно-монтажных
+            работ, сохраняя единый стандарт на всех этапах.
+          </p>
+        </article>
+
+        <!-- Карточка 2 -->
+        <article class="adv-card">
+          <div class="adv-card__icon">
+            <!-- Иконка: щит с галочкой / контроль качества -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <h3 class="adv-card__title">Контроль качества на каждом этапе</h3>
+          <p class="adv-card__text">
+            Проверяем соответствие работ технологиям и требованиям, чтобы
+            результат был предсказуемым и надёжным.
+          </p>
+        </article>
+
+        <!-- Карточка 3 -->
+        <article class="adv-card">
+          <div class="adv-card__icon">
+            <!-- Иконка: рукопожатие / ответственность -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"></path>
+              <path d="M2 8l4-4h12l4 4"></path>
+              <path d="M9 12l2 2 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="adv-card__title">Ответственное выполнение обязательств</h3>
+          <p class="adv-card__text">
+            Держим слово и соблюдаем договорённости, выстраивая долгосрочные
+            и доверительные отношения с заказчиками.
+          </p>
+        </article>
+
+        <!-- Карточка 4 -->
+        <article class="adv-card">
+          <div class="adv-card__icon">
+            <!-- Иконка: настройки / индивидуальные решения -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+          <h3 class="adv-card__title">Индивидуальные решения под задачи клиента</h3>
+          <p class="adv-card__text">
+            Подбираем оптимальные решения, исходя из специфики объекта
+            и конкретных целей заказчика.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       БЛОК «НАШ ПОДХОД»
+       ================================================================ -->
+  <section class="approach">
+    <div class="container">
+      <div class="approach__grid">
+
+        <!-- Левая колонка: текст -->
+        <div class="approach__left">
+          <div class="approach__eyebrow">Наш подход</div>
+          <h2 class="approach__title">Качество, технологии и партнёрство</h2>
+          <p class="approach__text">
+            Мы уделяем особое внимание качеству работ и строгому соблюдению
+            строительных технологий. Для нас это не формальность, а основа
+            надёжного и долговечного результата.
+          </p>
+          <p class="approach__text">
+            Не менее важным мы считаем профессиональное взаимодействие
+            с заказчиком: открытый диалог, понятные решения и внимание
+            к задачам клиента на каждом этапе сотрудничества.
+          </p>
+        </div>
+
+        <!-- Правая колонка: список принципов -->
+        <div class="approach__list">
+
+          <div class="approach__item">
+            <div class="approach__item-num">01</div>
+            <div>
+              <div class="approach__item-title">Качество работ</div>
+              <div class="approach__item-text">
+                Ориентируемся на высокий стандарт исполнения и надёжность
+                каждого выполненного этапа.
+              </div>
+            </div>
+          </div>
+
+          <div class="approach__item">
+            <div class="approach__item-num">02</div>
+            <div>
+              <div class="approach__item-title">Соблюдение технологий</div>
+              <div class="approach__item-text">
+                Следуем требованиям и строительным нормам, обеспечивая
+                корректное выполнение работ.
+              </div>
+            </div>
+          </div>
+
+          <div class="approach__item">
+            <div class="approach__item-num">03</div>
+            <div>
+              <div class="approach__item-title">Взаимодействие с заказчиком</div>
+              <div class="approach__item-text">
+                Выстраиваем прозрачное и профессиональное сотрудничество
+                на всех стадиях проекта.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       CTA-БЛОК
+       ================================================================ -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta__inner">
+        <h2 class="cta__title">Готовы обсудить ваш проект?</h2>
+        <p class="cta__text">
+          Свяжитесь с ООО «АСТОРИЯ-К3», чтобы получить консультацию
+          и обсудить возможности реализации вашего объекта.
+        </p>
+        <a href="contacts.html" class="btn btn--white">Связаться с нами</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       ФУТЕР
+       ================================================================ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">Астория&nbsp;К-3</div>
+      <div class="footer__copy">
+        © 2023 Астория К-3. Все права защищены.
+        <a href="privacy.html" class="footer__privacy">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
