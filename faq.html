@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вопросы и ответы — Астория К-3</title>
+
+  <!-- ================================================================
+       ШРИФТ: Inter (тот же, что и на главной)
+       ================================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================================
+       1. ПЕРЕМЕННЫЕ — та же палитра, что и на всём сайте
+       ================================================================ */
+    :root {
+      --bg-dark:        #0e0f11;
+      --bg-dark-2:      #15171a;
+      --bg-card:        #1a1c20;
+      --text-white:     #ffffff;
+      --text-muted:     rgba(255, 255, 255, 0.6);
+      --text-faint:     rgba(255, 255, 255, 0.4);
+      --accent:         #e8e0d3;
+      --accent-hover:   #ffffff;
+      --border-soft:    rgba(255, 255, 255, 0.25);
+      --border-faint:   rgba(255, 255, 255, 0.08);
+
+      --radius:         999px;
+      --radius-card:    18px;
+      --nav-height:     84px;
+      --max-width:      1400px;
+      --ease:           cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ================================================================
+       2. БАЗОВЫЕ СБРОСЫ
+       ================================================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      /* Мягкое свечение-фон, чтобы страница «дышала» */
+      background-image:
+        radial-gradient(1200px 600px at 15% -10%, rgba(232, 224, 211, 0.06), transparent 60%),
+        radial-gradient(1000px 500px at 100% 10%, rgba(232, 224, 211, 0.04), transparent 55%);
+      background-attachment: fixed;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ================================================================
+       3. НАВБАР (тот же стиль, что и на контактах)
+       ================================================================ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: var(--nav-height);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      background: rgba(14, 15, 17, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-faint);
+    }
+
+    .navbar__inner {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .navbar__left {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .navbar__brand {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .navbar__menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .navbar__menu a {
+      font-size: 15px;
+      color: var(--text-muted);
+      position: relative;
+      transition: color 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover,
+    .navbar__menu a.is-active { color: var(--text-white); }
+
+    .navbar__menu a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1px;
+      background: var(--text-white);
+      transition: width 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover::after,
+    .navbar__menu a.is-active::after { width: 100%; }
+
+    .navbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* ================================================================
+       4. КНОПКИ (переиспользуемые, идентичны остальному сайту)
+       ================================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.3s var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn--outline {
+      background: transparent;
+      border-color: var(--border-soft);
+      color: var(--text-white);
+    }
+    .btn--outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+    }
+
+    .btn--accent {
+      background: var(--accent);
+      color: #111;
+    }
+    .btn--accent:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn--lg {
+      font-size: 16px;
+      padding: 15px 32px;
+    }
+
+    /* ================================================================
+       5. ШАПКА СТРАНИЦЫ FAQ
+       ================================================================ */
+    .page-head {
+      padding: 90px 0 40px;
+      position: relative;
+    }
+
+    .page-head__eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .page-head__title {
+      font-size: clamp(38px, 5.5vw, 68px);
+      font-weight: 600;
+      letter-spacing: -1px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .page-head__desc {
+      font-size: clamp(16px, 1.4vw, 18px);
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 60ch;
+    }
+
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--border-soft), transparent 70%);
+      margin: 8px 0 0;
+    }
+
+    /* ================================================================
+       6. БЛОК FAQ
+       ================================================================ */
+    .faq {
+      padding: 50px 0 90px;
+    }
+
+    /* Компоновка: слева «липкая» подпись, справа сам аккордеон.
+       На узких экранах превращается в одну колонку. */
+    .faq__layout {
+      display: grid;
+      grid-template-columns: 0.62fr 1.38fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Левая «липкая» колонка */
+    .faq__aside {
+      position: sticky;
+      top: calc(var(--nav-height) + 40px);
+    }
+
+    .faq__aside-eyebrow {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .faq__aside-title {
+      font-size: clamp(26px, 2.6vw, 34px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .faq__aside-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 34ch;
+      margin-bottom: 26px;
+    }
+
+    .faq__aside-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      padding: 10px 20px;
+      transition: all 0.3s var(--ease);
+    }
+    .faq__aside-link:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--text-white);
+      color: var(--text-white);
+    }
+
+    /* Список карточек-вопросов */
+    .faq__list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* --- Одна карточка вопроса --- */
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-faint);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      transition: border-color 0.35s var(--ease), background 0.35s var(--ease), transform 0.35s var(--ease);
+    }
+    .faq-item:hover {
+      border-color: var(--border-soft);
+      background: #1e2126;
+    }
+    .faq-item.is-open {
+      border-color: var(--border-soft);
+      background: #1e2126;
+    }
+
+    /* Кнопка-вопрос (весь верх карточки кликабелен) */
+    .faq-item__q {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text-white);
+      font-family: inherit;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 26px;
+      font-size: clamp(16px, 1.4vw, 18px);
+      font-weight: 500;
+      line-height: 1.4;
+      transition: color 0.3s var(--ease);
+    }
+    .faq-item__q:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+      border-radius: var(--radius-card);
+    }
+
+    /* Порядковый номер вопроса */
+    .faq-item__num {
+      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: var(--text-faint);
+      min-width: 26px;
+      transition: color 0.35s var(--ease);
+    }
+    .faq-item.is-open .faq-item__num { color: var(--accent); }
+
+    .faq-item__q-text { flex: 1; }
+
+    /* Кружок со стрелкой (chevron) */
+    .faq-item__icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-soft);
+      color: var(--accent);
+      transition: background 0.35s var(--ease), border-color 0.35s var(--ease), transform 0.45s var(--ease);
+    }
+    .faq-item__icon svg {
+      transition: transform 0.45s var(--ease);
+    }
+    .faq-item:hover .faq-item__icon {
+      background: rgba(232, 224, 211, 0.1);
+    }
+    /* Плавный поворот стрелки при открытии */
+    .faq-item.is-open .faq-item__icon {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #111;
+    }
+    .faq-item.is-open .faq-item__icon svg {
+      transform: rotate(180deg);
+    }
+
+    /* Обёртка ответа — анимируется через max-height */
+    .faq-item__a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s var(--ease);
+    }
+
+    .faq-item__a-inner {
+      padding: 0 26px 26px 72px;
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.65;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+    .faq-item.is-open .faq-item__a-inner {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Тонкая линия-разделитель над ответом */
+    .faq-item__a-inner::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: var(--border-faint);
+      margin-bottom: 18px;
+    }
+
+    /* Выделение мягкого призыва к консультации внутри ответа */
+    .faq-note {
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    /* ================================================================
+       7. CTA-БЛОК
+       ================================================================ */
+    .cta {
+      position: relative;
+      overflow: hidden;
+      margin-top: 20px;
+      background: linear-gradient(135deg, #1c1f24 0%, #131519 100%);
+      border: 1px solid var(--border-faint);
+      border-radius: 24px;
+      padding: 64px 56px;
+      text-align: center;
+    }
+
+    /* Декоративная сетка на фоне CTA (как на карточке-карте контактов) */
+    .cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta__eyebrow {
+      position: relative;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .cta__title {
+      position: relative;
+      font-size: clamp(26px, 3.4vw, 40px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin: 0 auto 16px;
+      max-width: 20ch;
+    }
+
+    .cta__text {
+      position: relative;
+      font-size: clamp(15px, 1.4vw, 17px);
+      font-weight: 300;
+      color: var(--text-muted);
+      margin: 0 auto 32px;
+      max-width: 58ch;
+    }
+
+    .cta__btn { position: relative; }
+
+    /* ================================================================
+       8. ФУТЕР
+       ================================================================ */
+    .footer {
+      border-top: 1px solid var(--border-faint);
+      padding: 34px 0;
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer__brand { font-weight: 600; font-size: 16px; }
+    .footer__copy { color: var(--text-faint); font-size: 13px; }
+
+    /* ================================================================
+       9. АДАПТИВ
+       ================================================================ */
+    @media (max-width: 1024px) {
+      .faq__layout { grid-template-columns: 1fr; gap: 32px; }
+      .faq__aside {
+        position: static;
+        top: auto;
+      }
+      .faq__aside-text { max-width: 60ch; }
+      .navbar__menu { gap: 22px; }
+    }
+
+    @media (max-width: 768px) {
+      .container,
+      .navbar__inner { padding-left: 22px; padding-right: 22px; }
+
+      .navbar__menu { display: none; }
+      .navbar__actions .btn--outline { display: none; }
+
+      .faq-item__q { padding: 20px 18px; gap: 14px; }
+      .faq-item__num { min-width: 22px; font-size: 12px; }
+      .faq-item__icon { width: 34px; height: 34px; }
+      .faq-item__a-inner { padding: 0 18px 22px 54px; }
+
+      .cta { padding: 44px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .faq-item__a-inner { padding-left: 18px; }
+    }
+
+    /* Уважение к настройкам «уменьшить движение» */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================================================================
+       НАВБАР
+       ================================================================ -->
+  <header class="navbar">
+    <div class="navbar__inner">
+      <div class="navbar__left">
+        <div class="navbar__brand">Астория&nbsp;К-3</div>
+        <nav class="navbar__menu">
+          <a href="index.html#home">Главная</a>
+          <a href="index.html#about">О нас</a>
+          <a href="index.html#services">Услуги</a>
+          <a href="index.html#projects">Реализованные проекты</a>
+          <a href="faq.html" class="is-active">Вопросы</a>
+          <a href="contacts.html">Контакты</a>
+        </nav>
+      </div>
+      <div class="navbar__actions">
+        <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
+        <a href="mailto:chastoria@mail.ru" class="btn btn--accent">Написать нам</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================================================================
+       ШАПКА СТРАНИЦЫ
+       ================================================================ -->
+  <section class="page-head">
+    <div class="container">
+      <div class="page-head__eyebrow">Вопросы и ответы</div>
+      <h1 class="page-head__title">Часто задаваемые<br />вопросы</h1>
+      <p class="page-head__desc">
+        Собрали ответы на главные вопросы о строительстве, стоимости, сроках
+        и гарантиях. Если не нашли нужное — специалисты ООО «АСТОРИЯ К-3»
+        всегда готовы проконсультировать.
+      </p>
+      <div class="divider"></div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       БЛОК FAQ
+       ================================================================ -->
+  <section class="faq">
+    <div class="container">
+      <div class="faq__layout">
+
+        <!-- Левая «липкая» колонка -->
+        <aside class="faq__aside">
+          <div class="faq__aside-eyebrow">Поддержка</div>
+          <h2 class="faq__aside-title">Всё, что важно знать перед стартом</h2>
+          <p class="faq__aside-text">
+            Прозрачно рассказываем о том, как выстроен наш процесс — от первой
+            заявки до сдачи объекта и гарантийного обслуживания.
+          </p>
+          <a href="mailto:chastoria@mail.ru?subject=Вопрос по строительству" class="faq__aside-link">
+            Задать свой вопрос
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.8"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17L17 7"></path>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        </aside>
+
+        <!-- Аккордеон вопросов -->
+        <div class="faq__list" id="faqList">
+
+          <!-- 1 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">01</span>
+              <span class="faq-item__q-text">Какие строительные услуги предоставляет ООО «АСТОРИЯ К-3»?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Компания выполняет полный цикл строительно-монтажных работ: проектирование,
+                возведение жилых, коммерческих и промышленных объектов, реконструкцию и
+                капитальный ремонт, а также инженерные и отделочные работы. Мы сопровождаем
+                проект на каждом этапе — от подготовки участка до ввода объекта в эксплуатацию.
+              </div>
+            </div>
+          </article>
+
+          <!-- 2 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">02</span>
+              <span class="faq-item__q-text">Как заказать строительство объекта в вашей компании?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Достаточно оставить заявку по телефону или на почту — мы согласуем встречу,
+                изучим задачу и исходные данные по участку. После этого наши инженеры готовят
+                техническое решение, смету и договор с чётко зафиксированными сроками и
+                стоимостью. <span class="faq-note">Оставьте заявку — и мы возьмём организационные
+                вопросы на себя.</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 3 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">03</span>
+              <span class="faq-item__q-text">Сколько стоит строительство и от чего зависит итоговая стоимость?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Стоимость формируется индивидуально и зависит от типа и площади объекта,
+                применяемых материалов, сложности инженерных систем и состояния участка.
+                Мы составляем детальную смету, где каждая позиция прозрачна и обоснована,
+                без скрытых наценок. Итоговая цена фиксируется в договоре и не меняется
+                без согласования с заказчиком.
+              </div>
+            </div>
+          </article>
+
+          <!-- 4 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">04</span>
+              <span class="faq-item__q-text">Можно ли получить предварительный расчёт стоимости строительства?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Да, мы бесплатно готовим предварительный расчёт на основе ваших исходных данных
+                и пожеланий по объекту. Он позволяет оценить порядок бюджета ещё до заключения
+                договора и спланировать проект без неожиданностей. <span class="faq-note">Свяжитесь
+                с нами для бесплатной консультации и расчёта под ваш объект.</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 5 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">05</span>
+              <span class="faq-item__q-text">Выполняете ли вы строительство объектов «под ключ»?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Да, формат «под ключ» — одно из ключевых направлений компании. Мы берём на себя
+                весь процесс: проектирование, закупку материалов, строительно-монтажные и
+                отделочные работы, подключение инженерных систем и сдачу готового объекта.
+                Заказчик получает результат, готовый к эксплуатации, и работает с единым
+                ответственным подрядчиком.
+              </div>
+            </div>
+          </article>
+
+          <!-- 6 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">06</span>
+              <span class="faq-item__q-text">Какие этапы включает процесс строительства?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Работа строится по чёткой последовательности: обследование участка и
+                проектирование, подготовка сметы и договора, подготовительные и земляные работы,
+                возведение конструкций, монтаж инженерных систем, отделка и финальная сдача
+                объекта. На каждом этапе ведётся технический контроль и отчётность, поэтому
+                заказчик всегда видит реальный ход работ.
+              </div>
+            </div>
+          </article>
+
+          <!-- 7 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">07</span>
+              <span class="faq-item__q-text">Какие сроки строительства объекта?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Сроки определяются масштабом и сложностью объекта и всегда фиксируются в договоре
+                с помесячным графиком работ. Мы планируем ресурсы и поставки заранее, что
+                позволяет придерживаться согласованных дат и избегать простоев. Точные сроки
+                по вашему проекту мы назовём после оценки исходных данных.
+              </div>
+            </div>
+          </article>
+
+          <!-- 8 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">08</span>
+              <span class="faq-item__q-text">Как вы обеспечиваете контроль качества строительных работ?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Качество контролируется на всех этапах: входная проверка материалов, пооперационный
+                контроль работ и приёмка каждого скрытого этапа с фиксацией в актах. Работы
+                выполняются в соответствии с СНиП, ГОСТ и проектной документацией под надзором
+                опытных инженеров технадзора. Такой подход гарантирует надёжность и долговечность
+                возводимых конструкций.
+              </div>
+            </div>
+          </article>
+
+          <!-- 9 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">09</span>
+              <span class="faq-item__q-text">Предоставляете ли вы гарантию на выполненные работы?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Да, на все выполненные работы предоставляется гарантия, закреплённая в договоре.
+                Мы отвечаем за качество построенного объекта и в течение гарантийного срока
+                оперативно устраняем любые вопросы, возникшие по нашей вине. Для нас гарантия —
+                это подтверждение ответственности за результат, а не формальность.
+              </div>
+            </div>
+          </article>
+
+          <!-- 10 -->
+          <article class="faq-item">
+            <button class="faq-item__q" type="button" aria-expanded="false">
+              <span class="faq-item__num">10</span>
+              <span class="faq-item__q-text">Почему стоит выбрать ООО «АСТОРИЯ К-3» в качестве строительного подрядчика?</span>
+              <span class="faq-item__icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </span>
+            </button>
+            <div class="faq-item__a">
+              <div class="faq-item__a-inner">
+                Мы объединяем инженерный опыт, современные технологии и строгий контроль качества,
+                предлагая заказчику прозрачные сметы и фиксированные сроки. Полный цикл работ
+                выполняется силами собственной команды и проверенных специалистов, что
+                исключает потерю качества на стыках подрядов. <span class="faq-note">Обсудите
+                свой проект с нашими специалистами — мы предложим оптимальное решение под ваши
+                задачи и бюджет.</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ================================================================
+           CTA-БЛОК
+           ================================================================ -->
+      <div class="cta">
+        <div class="cta__eyebrow">Консультация</div>
+        <h2 class="cta__title">Есть проект? Обсудим его вместе</h2>
+        <p class="cta__text">
+          Оставьте заявку, и специалисты ООО «АСТОРИЯ К-3» подготовят консультацию
+          и помогут определить оптимальное решение для вашего объекта.
+        </p>
+        <a href="mailto:chastoria@mail.ru?subject=Заявка на консультацию" class="btn btn--accent btn--lg cta__btn">
+          Получить консультацию
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       ФУТЕР
+       ================================================================ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">Астория&nbsp;К-3</div>
+      <div class="footer__copy">© 2026 Астория К-3. Все права защищены.</div>
+    </div>
+  </footer>
+
+  <!-- ================================================================
+       СКРИПТ: аккордеон (открыт только один ответ)
+       ================================================================ -->
+  <script>
+    (function () {
+      const list = document.getElementById('faqList');
+      if (!list) return;
+
+      const items = Array.from(list.querySelectorAll('.faq-item'));
+
+      function closeItem(item) {
+        item.classList.remove('is-open');
+        const panel = item.querySelector('.faq-item__a');
+        const btn = item.querySelector('.faq-item__q');
+        panel.style.maxHeight = null;
+        btn.setAttribute('aria-expanded', 'false');
+      }
+
+      function openItem(item) {
+        item.classList.add('is-open');
+        const panel = item.querySelector('.faq-item__a');
+        const btn = item.querySelector('.faq-item__q');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+
+      items.forEach(function (item) {
+        const btn = item.querySelector('.faq-item__q');
+        btn.addEventListener('click', function () {
+          const isOpen = item.classList.contains('is-open');
+          // Закрываем всё
+          items.forEach(closeItem);
+          // Если карточка была закрыта — открываем её (иначе остаётся закрытой)
+          if (!isOpen) openItem(item);
+        });
+      });
+
+      // Пересчёт высоты открытого ответа при изменении ширины окна
+      let resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          const open = list.querySelector('.faq-item.is-open .faq-item__a');
+          if (open) open.style.maxHeight = open.scrollHeight + 'px';
+        }, 120);
+      });
+    })();
+  </script>
+
+</body>
+</html>
