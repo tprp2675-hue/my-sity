@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Политика конфиденциальности — Астория К-3</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-dark:        #0e0f11;
+      --bg-dark-2:      #15171a;
+      --text-white:     #ffffff;
+      --text-muted:     rgba(255, 255, 255, 0.6);
+      --text-faint:     rgba(255, 255, 255, 0.4);
+      --accent:         #e8e0d3;
+      --accent-hover:   #ffffff;
+      --border-soft:    rgba(255, 255, 255, 0.25);
+      --radius:         999px;
+      --nav-height:     84px;
+      --max-width:      1400px;
+      --ease:           cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      background-color:var(--bg-dark); color:var(--text-white);
+      line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    a { color:inherit; text-decoration:none; }
+    ul { list-style:none; }
+    .container { width:100%; max-width:var(--max-width); margin:0 auto; padding:0 40px; }
+
+    .navbar {
+      position:sticky; top:0; left:0; width:100%; height:var(--nav-height);
+      z-index:50; display:flex; align-items:center;
+      background:rgba(14,15,17,0.85);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .navbar__inner { width:100%; max-width:var(--max-width); margin:0 auto; padding:0 40px;
+      display:flex; align-items:center; justify-content:space-between; gap:32px; }
+    .navbar__left { display:flex; align-items:center; gap:48px; }
+    .navbar__brand { font-size:20px; font-weight:600; letter-spacing:0.5px; white-space:nowrap; }
+    .navbar__menu { display:flex; align-items:center; gap:32px; }
+    .navbar__menu a { font-size:15px; font-weight:400; color:var(--text-muted);
+      position:relative; transition:color 0.3s var(--ease); }
+    .navbar__menu a:hover { color:var(--text-white); }
+    .navbar__menu a::after { content:''; position:absolute; left:0; bottom:-6px;
+      width:0; height:1px; background:var(--text-white); transition:width 0.3s var(--ease); }
+    .navbar__menu a:hover::after { width:100%; }
+    .navbar__actions { display:flex; align-items:center; gap:14px; }
+
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      font-size:15px; font-weight:500; padding:12px 24px; border-radius:var(--radius);
+      cursor:pointer; border:1px solid transparent; transition:all 0.3s var(--ease); white-space:nowrap; }
+    .btn--outline { background:transparent; border-color:var(--border-soft); color:var(--text-white); }
+    .btn--outline:hover { background:rgba(255,255,255,0.1); border-color:var(--text-white); }
+    .btn--accent { background:var(--accent); color:#111; }
+    .btn--accent:hover { background:var(--accent-hover); transform:translateY(-1px); }
+
+    .page-hero { position:relative; padding:88px 0 64px;
+      background:radial-gradient(1200px 480px at 50% -10%, rgba(232,224,211,0.10), transparent 70%), var(--bg-dark);
+      border-bottom:1px solid rgba(255,255,255,0.06); overflow:hidden; }
+    .breadcrumbs { display:flex; align-items:center; gap:10px; font-size:13px;
+      letter-spacing:0.5px; color:var(--text-faint); margin-bottom:24px; }
+    .breadcrumbs a { color:var(--text-muted); transition:color 0.3s var(--ease); }
+    .breadcrumbs a:hover { color:var(--text-white); }
+    .breadcrumbs span { color:var(--text-faint); }
+    .page-hero__eyebrow { font-size:13px; letter-spacing:2px; text-transform:uppercase;
+      color:var(--accent); margin-bottom:16px; }
+    .page-hero__title { font-size:clamp(32px,5vw,60px); font-weight:600;
+      letter-spacing:-1px; line-height:1.06; max-width:22ch; margin-bottom:18px; }
+    .page-hero__meta { font-size:15px; font-weight:300; color:var(--text-muted); }
+    .page-hero__meta strong { color:var(--text-white); font-weight:500; }
+
+    .policy { padding:64px 0 100px; background:var(--bg-dark-2); }
+    .policy__layout { display:grid; grid-template-columns:260px 1fr; gap:56px; align-items:start; }
+    .policy__toc { position:sticky; top:calc(var(--nav-height) + 28px);
+      background:var(--bg-dark); border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px; padding:26px 24px; }
+    .policy__toc-title { font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+      color:var(--text-faint); margin-bottom:18px; }
+    .policy__toc a { display:block; font-size:14px; color:var(--text-muted); padding:9px 0;
+      border-left:2px solid transparent; padding-left:14px; margin-left:-2px;
+      transition:color 0.25s var(--ease), border-color 0.25s var(--ease); }
+    .policy__toc a:hover { color:var(--text-white); border-left-color:var(--accent); }
+
+    .policy__body { max-width:820px; }
+    .policy__intro { font-size:18px; font-weight:300; color:var(--text-muted); line-height:1.7;
+      padding-bottom:40px; margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .policy-section { padding-top:48px; scroll-margin-top:calc(var(--nav-height) + 24px); }
+    .policy-section__head { display:flex; align-items:baseline; gap:16px; margin-bottom:22px; }
+    .policy-section__num { font-size:15px; font-weight:600; color:var(--accent);
+      flex-shrink:0; font-variant-numeric:tabular-nums; }
+    .policy-section__title { font-size:clamp(22px,2.6vw,30px); font-weight:600;
+      letter-spacing:-0.4px; line-height:1.2; }
+    .policy-section p { font-size:16.5px; font-weight:300; color:rgba(255,255,255,0.72);
+      line-height:1.8; margin-bottom:18px; }
+    .policy-section p:last-child { margin-bottom:0; }
+    .policy-section strong { color:var(--text-white); font-weight:500; }
+
+    .policy-list { margin:6px 0 18px; display:flex; flex-direction:column; gap:12px; }
+    .policy-list li { position:relative; padding-left:26px; font-size:16.5px;
+      font-weight:300; color:rgba(255,255,255,0.72); line-height:1.7; }
+    .policy-list li::before { content:''; position:absolute; left:4px; top:11px;
+      width:6px; height:6px; border-radius:50%; background:var(--accent); }
+
+    .policy-callout { margin:8px 0 4px; padding:22px 26px;
+      background:rgba(232,224,211,0.06); border:1px solid rgba(232,224,211,0.18);
+      border-radius:14px; display:flex; gap:16px; align-items:flex-start; }
+    .policy-callout__icon { flex-shrink:0; color:var(--accent); margin-top:2px; }
+    .policy-callout p { margin:0; color:rgba(255,255,255,0.82); font-size:16px; line-height:1.7; }
+
+    .contact-card { margin-top:8px; padding:28px; background:var(--bg-dark);
+      border:1px solid rgba(255,255,255,0.08); border-radius:16px; display:grid; gap:18px; }
+    .contact-row { display:flex; align-items:center; gap:14px; font-size:16px; color:var(--text-muted); }
+    .contact-row__icon { display:inline-flex; align-items:center; justify-content:center;
+      width:40px; height:40px; flex-shrink:0; border-radius:10px;
+      background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); color:var(--accent); }
+    .contact-row__label { display:block; font-size:12px; letter-spacing:1px; text-transform:uppercase;
+      color:var(--text-faint); margin-bottom:3px; }
+    .contact-row__value { color:var(--text-white); font-weight:500; font-size:17px; }
+    .contact-row__value:hover { color:var(--accent); }
+
+    @media (max-width:1024px) {
+      .policy__layout { grid-template-columns:1fr; gap:40px; }
+      .policy__toc { position:static; }
+      .navbar__menu { gap:22px; }
+    }
+    @media (max-width:768px) {
+      .container,.navbar__inner { padding-left:22px; padding-right:22px; }
+      .navbar__menu { display:none; }
+      .navbar__actions .btn--outline { display:none; }
+      .page-hero { padding:56px 0 44px; }
+      .policy { padding:44px 0 72px; }
+      .policy__toc { display:none; }
+      .policy-section__head { flex-direction:column; gap:6px; }
+      .contact-card { padding:22px; }
+    }
+
+    .footer { border-top:1px solid rgba(255,255,255,0.08); padding:32px 0; background:var(--bg-dark); }
+    .footer__inner { display:flex; align-items:center; justify-content:space-between;
+      gap:20px; flex-wrap:wrap; }
+    .footer__brand { font-weight:600; font-size:16px; }
+    .footer__copy { color:var(--text-faint); font-size:13px; }
+    .footer__privacy { margin-left:16px; font-size:12px; color:var(--text-faint);
+      text-decoration:underline; transition:color 0.3s var(--ease); }
+    .footer__privacy:hover { color:var(--text-white); }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+      <div class="navbar__left">
+        <a href="index.html" class="navbar__brand">Астория&nbsp;К-3</a>
+        <nav class="navbar__menu">
+          <a href="index.html#home">Главная</a>
+          <a href="index.html#about">О нас</a>
+          <a href="services.html">Услуги</a>
+          <a href="index.html#projects">Реализованные проекты</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </div>
+      <div class="navbar__actions">
+        <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+        <a href="index.html#estimate" class="btn btn--accent">Получить смету</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <a href="index.html">Главная</a>
+        <span>/</span>
+        <span>Политика конфиденциальности</span>
+      </nav>
+      <div class="page-hero__eyebrow">Правовая информация</div>
+      <h1 class="page-hero__title">Политика конфиденциальности</h1>
+      <p class="page-hero__meta">
+        ООО «АСТОРИЯ К-3» · Действует с <strong>30 августа 2023 года</strong>
+      </p>
+    </div>
+  </section>
+
+  <section class="policy">
+    <div class="container">
+      <div class="policy__layout">
+
+        <aside class="policy__toc">
+          <div class="policy__toc-title">Содержание</div>
+          <nav>
+            <a href="#s1">1. Общие положения</a>
+            <a href="#s2">2. Отсутствие сбора персональных данных</a>
+            <a href="#s3">3. Использование технических данных</a>
+            <a href="#s4">4. Защита информации</a>
+            <a href="#s5">5. Права пользователей</a>
+            <a href="#s6">6. Контактная информация</a>
+          </nav>
+        </aside>
+
+        <div class="policy__body">
+
+          <p class="policy__intro">
+            Настоящая Политика конфиденциальности определяет подход
+            ООО «АСТОРИЯ К-3» (далее — «Компания») к вопросам защиты
+            информации пользователей, посещающих официальный сайт Компании.
+            Мы уважаем частную жизнь каждого посетителя и стремимся обеспечить
+            максимальную прозрачность в отношении того, какая информация
+            обрабатывается при использовании нашего сайта.
+          </p>
+
+          <div class="policy-section" id="s1">
+            <div class="policy-section__head">
+              <span class="policy-section__num">01</span>
+              <h2 class="policy-section__title">Общие положения</h2>
+            </div>
+            <p>
+              Настоящая Политика конфиденциальности (далее — «Политика»)
+              разработана в соответствии с законодательством Российской Федерации
+              и регулирует порядок обработки информации, которая может стать
+              доступной Компании в процессе функционирования сайта.
+            </p>
+            <p>
+              Используя сайт ООО «АСТОРИЯ К-3», пользователь подтверждает, что
+              ознакомлен с условиями настоящей Политики и принимает их. В случае
+              несогласия с положениями Политики пользователю следует воздержаться
+              от использования сайта.
+            </p>
+            <p>
+              Компания оставляет за собой право вносить изменения в настоящую
+              Политику. Актуальная редакция документа всегда доступна на данной
+              странице сайта. Рекомендуем периодически знакомиться с содержанием
+              Политики для получения актуальной информации.
+            </p>
+          </div>
+
+          <div class="policy-section" id="s2">
+            <div class="policy-section__head">
+              <span class="policy-section__num">02</span>
+              <h2 class="policy-section__title">Отсутствие сбора персональных данных через сайт</h2>
+            </div>
+            <p>
+              Сайт ООО «АСТОРИЯ К-3» носит исключительно информационный характер.
+              Компания <strong>не собирает и не запрашивает персональные данные</strong>
+              посетителей через сайт. На сайте отсутствуют:
+            </p>
+            <ul class="policy-list">
+              <li>формы обратной связи и формы отправки заявок;</li>
+              <li>функция заказа обратного звонка;</li>
+              <li>регистрация пользователей и личный кабинет;</li>
+              <li>иные инструменты, предполагающие ввод и передачу персональных данных.</li>
+            </ul>
+            <div class="policy-callout">
+              <span class="policy-callout__icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </span>
+              <p>
+                Связаться с Компанией пользователь может <strong>исключительно
+                по собственной инициативе</strong> — самостоятельно позвонив по
+                указанному на сайте номеру телефона. При таком обращении Компания
+                не получает персональные данные посетителя через сайт: телефонный
+                звонок осуществляется средствами связи пользователя, а не
+                инструментами сайта.
+              </p>
+            </div>
+          </div>
+
+          <div class="policy-section" id="s3">
+            <div class="policy-section__head">
+              <span class="policy-section__num">03</span>
+              <h2 class="policy-section__title">Использование технических данных</h2>
+            </div>
+            <p>
+              При посещении сайта в автоматическом режиме может обрабатываться
+              обезличенная техническая информация, которая не позволяет
+              идентифицировать конкретного пользователя. К такой информации могут
+              относиться:
+            </p>
+            <ul class="policy-list">
+              <li>файлы cookie, необходимые для корректной работы сайта;</li>
+              <li>тип и версия браузера, параметры операционной системы;</li>
+              <li>обезличенный IP-адрес и данные о провайдере;</li>
+              <li>сведения о посещённых страницах, дате и времени визита;</li>
+              <li>источник перехода на сайт и данные о разрешении экрана устройства.</li>
+            </ul>
+            <p>
+              Указанные технические данные используются исключительно в
+              статистических целях — для анализа посещаемости, улучшения работы
+              сайта и повышения удобства его использования. Обработка может
+              осуществляться с применением сервисов веб-аналитики.
+            </p>
+            <p>
+              Пользователь вправе в любой момент отключить использование файлов
+              cookie в настройках своего браузера. Обращаем внимание, что
+              отключение cookie может повлиять на корректность отображения
+              отдельных элементов сайта.
+            </p>
+          </div>
+
+          <div class="policy-section" id="s4">
+            <div class="policy-section__head">
+              <span class="policy-section__num">04</span>
+              <h2 class="policy-section__title">Защита информации</h2>
+            </div>
+            <p>
+              Компания принимает необходимые организационные и технические меры
+              для защиты обрабатываемой технической информации от неправомерного
+              доступа, изменения, раскрытия или уничтожения.
+            </p>
+            <p>
+              ООО «АСТОРИЯ К-3» <strong>не продаёт, не передаёт и не раскрывает</strong>
+              какую-либо информацию третьим лицам в коммерческих целях. Передача
+              обезличенных технических данных возможна только поставщикам сервисов
+              веб-аналитики в объёме, необходимом для их работы, либо
+              уполномоченным государственным органам в случаях, прямо
+              предусмотренных законодательством Российской Федерации.
+            </p>
+          </div>
+
+          <div class="policy-section" id="s5">
+            <div class="policy-section__head">
+              <span class="policy-section__num">05</span>
+              <h2 class="policy-section__title">Права пользователей</h2>
+            </div>
+            <p>
+              Поскольку сайт не осуществляет сбор персональных данных,
+              пользователь взаимодействует с ним анонимно. При этом пользователю
+              гарантируются следующие права:
+            </p>
+            <ul class="policy-list">
+              <li>управлять использованием файлов cookie через настройки браузера;</li>
+              <li>получать разъяснения об обработке технических данных сайта;</li>
+              <li>обращаться в Компанию по вопросам, связанным с настоящей Политикой;</li>
+              <li>отказаться от использования сайта в случае несогласия с Политикой.</li>
+            </ul>
+            <p>
+              Для реализации своих прав или получения дополнительной информации
+              пользователь может связаться с Компанией по контактным данным,
+              указанным в разделе 6 настоящей Политики.
+            </p>
+          </div>
+
+          <div class="policy-section" id="s6">
+            <div class="policy-section__head">
+              <span class="policy-section__num">06</span>
+              <h2 class="policy-section__title">Контактная информация</h2>
+            </div>
+            <p>
+              По всем вопросам, связанным с настоящей Политикой конфиденциальности
+              и работой сайта, вы можете обратиться в Компанию по указанным ниже
+              контактам. Напоминаем, что телефонный звонок совершается
+              пользователем самостоятельно.
+            </p>
+            <div class="contact-card">
+              <div class="contact-row">
+                <span class="contact-row__icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 21h18M4 21V7l8-4 8 4v14M9 21v-6h6v6"></path>
+                  </svg>
+                </span>
+                <div>
+                  <span class="contact-row__label">Организация</span>
+                  <span class="contact-row__value">ООО «АСТОРИЯ К-3»</span>
+                </div>
+              </div>
+              <div class="contact-row">
+                <span class="contact-row__icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </span>
+                <div>
+                  <span class="contact-row__label">Телефон</span>
+                  <a href="tel:+79017147425" class="contact-row__value">+7 (901) 714-74-25</a>
+                </div>
+              </div>
+              <div class="contact-row">
+                <span class="contact-row__icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                    <path d="m3 7 9 6 9-6"></path>
+                  </svg>
+                </span>
+                <div>
+                  <span class="contact-row__label">E-mail</span>
+                  <a href="mailto:ckastoria@mail.ru" class="contact-row__value">ckastoria@mail.ru</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">Астория&nbsp;К-3</div>
+      <div class="footer__copy">
+        © 2023 Астория К-3. Все права защищены.
+        <a href="privacy.html" class="footer__privacy">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
