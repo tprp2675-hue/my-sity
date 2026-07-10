@@ -459,6 +459,60 @@
         grid-template-columns: 1fr;
       }
     }
+      .projects {
+        padding: 72px 0;
+      }
+      
+    
+
+    /* ================================================================
+       9. ФУТЕР
+       ================================================================ */
+      .footer {
+
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+      padding: 32px 0;
+
+    }
+
+    .footer__inner {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      flex-wrap: wrap;
+
+    }
+
+    .footer__brand { font-weight: 600; font-size: 16px; }
+
+    .footer__copy { color: var(--text-faint); font-size: 13px; }
+
+    .footer__privacy {
+
+      margin-left: 16px;
+
+      font-size: 12px;
+
+      color: var(--text-faint);
+
+      text-decoration: underline;
+
+      transition: color 0.3s var(--ease);
+
+    }
+
+    .footer__privacy:hover {
+
+      color: var(--text-white);
+
+    }
   </style>
 </head>
 
@@ -616,6 +670,14 @@
       </div>
     </div>
   </section>
-
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">Астория&nbsp;К-3</div>
+    <div class="footer__copy">
+      © 2023 Астория К-3. Все права защищены.
+       <a href="privacy.html" class="footer__privacy">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
