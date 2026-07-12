@@ -531,6 +531,12 @@
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; }
     }
+    .nvbar__menu {
+      gap: 40 px !important;
+    }
+    .navbar__menu a {
+      white-space: nowrap;
+    }
   </style>
 </head>
 
@@ -544,16 +550,16 @@
       <div class="navbar__left">
         <div class="navbar__brand">Астория&nbsp;К-3</div>
         <nav class="navbar__menu">
-          <a href="index.html#home">Главная</a>
-          <a href="index.html#about">О нас</a>
-          <a href="index.html#services">Услуги</a>
+          <a href="index.html">Главная</a>
+          <a href="index.html">О нас</a>
+          <a href="index.html">Услуги</a>
           <a href="index.html#projects">Реализованные проекты</a>
-          <a href="faq.html" class="is-active">FAQ</a>
+          <a href="faq.html#questions" class="is-active">FAQ</a>
           <a href="contacts.html">Контакты</a>
         </nav>
       </div>
       <div class="navbar__actions">
-        <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
+        <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
         <a href="mailto:ckastoria@mail.ru" class="btn btn--accent">Написать нам</a>
       </div>
     </div>
@@ -874,7 +880,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">Астория&nbsp;К-3</div>
-      <div class="footer__copy">© 2026 Астория К-3. Все права защищены.</div>
+      <div class="footer__copy">© 2023 Астория К-3. Все права защищены.</div>
     </div>
   </footer>
 
