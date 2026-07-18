@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Контакты — Астория К-3</title>
+  <title>Контакты | Астория К-3</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -63,7 +63,7 @@
     }
     .navbar__left { display: flex; align-items: center; gap: 48px; }
     .navbar__brand { font-size: 20px; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; }
-    .navbar__menu { display: flex; align-items: center; gap: 32px; }
+    .navbar__menu { display: flex; align-items: center; gap: 40px; }
     .navbar__menu a {
       font-size: 15px; color: var(--text-muted); position: relative;
       transition: color 0.3s var(--ease);
@@ -75,6 +75,84 @@
     }
     .navbar__menu a:hover::after, .navbar__menu a.is-active::after { width: 100%; }
     .navbar__actions { display: flex; align-items: center; gap: 14px; }
+
+    /* БУРГЕР (скрыт на десктопе, показывается только ≤768px) */
+    .burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      background: transparent;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+    }
+    .burger:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+    }
+    .burger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
+    }
+    .burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.is-open span:nth-child(2) { opacity: 0; }
+    .burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* МОБИЛЬНОЕ МЕНЮ (выпадает под шапкой, только ≤768px) */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      width: 100%;
+      flex-direction: column;
+      gap: 4px;
+      padding: 22px 22px 30px;
+      background: rgba(14, 15, 17, 0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 49;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-12px);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
+    }
+    .mobile-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .mobile-menu a {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text-muted);
+      padding: 14px 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: color 0.25s var(--ease);
+    }
+    .mobile-menu a:hover,
+    .mobile-menu a.is-active { color: var(--text-white); }
+    .mobile-menu__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .mobile-menu__actions .btn { width: 100%; }
+    .mobile-menu__actions .btn--accent { color: #0e0f11 !important; }
+    .mobile-menu__actions .btn--accent:hover { color: #0e0f11 !important; }
 
     /* КНОПКИ */
     .btn {
@@ -219,23 +297,68 @@
     .footer__copy { color: var(--text-faint); font-size: 13px; }
 
     /* АДАПТИВ */
+    /* Широкие планшеты (≤1250): меню из 6 пунктов + кнопки — ужимаем шапку (как в faq/o_nas) */
+    @media (max-width: 1250px) {
+      .navbar__inner { padding-left: 24px; padding-right: 24px; gap: 16px; }
+      .navbar__left { gap: 20px; }
+      .navbar__brand { font-size: 17px; }
+      .navbar__menu { gap: 14px; }
+      .navbar__menu a { font-size: 13px; }
+      .navbar__actions { gap: 8px; }
+      .navbar__actions .btn { padding: 10px 14px; font-size: 13px; }
+    }
+
     @media (max-width: 1024px) {
       .contacts__grid { grid-template-columns: 1fr; }
-      .navbar__menu { gap: 22px; }
     }
+
+    /* Узкие планшеты (≤880): компактная шапка до включения бургера */
+    @media (max-width: 880px) {
+      .navbar__inner { padding-left: 16px; padding-right: 16px; gap: 10px; }
+      .navbar__left { gap: 10px; }
+      .navbar__brand { font-size: 15px; }
+      .navbar__menu { gap: 8px; }
+      .navbar__menu a { font-size: 12px; }
+      .navbar__actions { gap: 6px; }
+      .navbar__actions .btn { padding: 7px 10px; font-size: 12px; }
+    }
+
     @media (max-width: 768px) {
       .container, .navbar__inner { padding-left: 22px; padding-right: 22px; }
       .navbar__menu { display: none; }
-      .navbar__actions .btn--outline { display: none; }
+      .navbar__actions .btn { display: none; }
+      .burger { display: flex; }
+      .mobile-menu { display: flex; }
       .contact-cards { grid-template-columns: 1fr; }
       .cta { padding: 38px 24px; }
-    }
-    .navbar__menu {
-      gap: 40px !important;
     }
     .navbar__menu a {
       white-space: nowrap;
     }
+    .footer__brand { font-weight: 600; font-size: 16px; }
+
+    .footer__copy { color: var(--text-faint); font-size: 13px; }
+
+    .footer__privacy {
+
+      margin-left: 16px;
+
+      font-size: 12px;
+
+      color: var(--text-faint);
+
+      text-decoration: underline;
+
+      transition: color 0.3s var(--ease);
+
+    }
+
+    .footer__privacy:hover {
+
+      color: var(--text-white);
+
+    }
+    
   </style>
 </head>
 
@@ -248,7 +371,7 @@
         <nav class="navbar__menu">
           <a href="index.html#home">Главная</a>
           <a href="index.html#about">О нас</a>
-          <a href="index.html#services">Услуги</a>
+          <a href="services.html">Услуги</a>
           <a href="index.html#projects">Реализованные проекты</a>
           <a href="faq.html">FAQ</a>
           <a href="contacts.html" class="is-active">Контакты</a>
@@ -256,10 +379,31 @@
       </div>
       <div class="navbar__actions">
         <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
-        <a href="mailto:ckastoria@mail.ru" class="btn btn--accent">Написать нам</a>
+        <a href="https://wa.me/79017147425" class="btn btn--accent">Написать нам</a>
+
+        <!-- Кнопка бургера (видна только на экранах ≤768px) -->
+        <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- МОБИЛЬНОЕ МЕНЮ (открывается бургером на экранах ≤768px) -->
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
+    <a href="index.html#home">Главная</a>
+    <a href="index.html#about">О нас</a>
+    <a href="services.html">Услуги</a>
+    <a href="index.html#projects">Реализованные проекты</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contacts.html" class="is-active">Контакты</a>
+    <div class="mobile-menu__actions">
+      <a href="tel:+79017147425" class="btn btn--outline">Позвонить</a>
+      <a href="https://wa.me/79017147425" class="btn btn--accent">Написать нам</a>
+    </div>
+  </nav>
 
   <section class="page-head">
     <div class="container">
@@ -330,7 +474,17 @@
               </div>
             </div>
           </article>
-
+          <article class="contact-card contact-card--wide">
+            <span class="contact-card__icon" aria-hidden="true">
+              <img src="whatsapp.avif" alt="" width="45" height="45" />
+            </span>
+            <div>
+              <div class="contact-card__label">написать в WhatsApp</div>
+              <a href="https://wa.me/79017147425" target="_blank" class="contact-card__value">
+                +7 (901) 714-74-25
+              </a>
+            </div>
+          </article>
         </div>
 
         <div class="side">
@@ -391,18 +545,21 @@
           <div class="cta__title">Хотите узнать стоимость проекта?</div>
           <p class="cta__text">Оставьте заявку — подготовим смету и перезвоним в течение дня.</p>
         </div>
-        <a href="mailto:ckastoria@mail.ru?subject=Заявка на смету" class="btn btn--accent">Получить смету</a>
+        <a href="https://wa.me/79017147425" class="btn btn--accent">Получить смету</a>
       </div>
 
     </div>
   </section>
 
   <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">Астория&nbsp;К-3</div>
-      <div class="footer__copy">© 2023 Астория К-3. Все права защищены.</div>
+   <div class="container footer__inner">
+    <div class="footer__brand">Астория&nbsp;К-3</div>
+    <div class="footer__copy">
+      © 2023 Астория К-3. Все права защищены.
+       <a href="privacy.html" class="footer__privacy">Политика конфиденциальности</a>
     </div>
-  </footer>
+   </div>
+ </footer>
 
   <script>
     function copyInn() {
@@ -414,6 +571,44 @@
         setTimeout(function () { btn.textContent = old; }, 1600);
       });
     }
+
+    /* Бургер-меню (работает только на ≤768px, где кнопка видима) */
+    (function () {
+      var burger = document.querySelector('.burger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      if (!burger || !mobileMenu) return;
+
+      function setState(open) {
+        burger.classList.toggle('is-open', open);
+        mobileMenu.classList.toggle('is-open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      }
+
+      // Открытие/закрытие по клику на бургер
+      burger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setState(!mobileMenu.classList.contains('is-open'));
+      });
+
+      // Закрытие после клика по пункту меню
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () { setState(false); });
+      });
+
+      // Закрытие при клике вне меню
+      document.addEventListener('click', function (e) {
+        if (mobileMenu.classList.contains('is-open') &&
+            !mobileMenu.contains(e.target) && !burger.contains(e.target)) {
+          setState(false);
+        }
+      });
+
+      // Закрытие при переходе на десктоп
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) setState(false);
+      });
+    })();
   </script>
 
 </body>

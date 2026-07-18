@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Политика конфиденциальности — Астория К-3</title>
+  <title>Политика конфиденциальности | Астория К-3</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,7 +34,6 @@
     a { color:inherit; text-decoration:none; }
     ul { list-style:none; }
     .container { width:100%; max-width:var(--max-width); margin:0 auto; padding:0 40px; }
-
     .navbar {
       position:sticky; top:0; left:0; width:100%; height:var(--nav-height);
       z-index:50; display:flex; align-items:center;
@@ -56,23 +55,30 @@
     .navbar__actions { display:flex; align-items:center; gap:14px; }
     .burger {
      display:none;
-     width:42px;
-     height:42px;
-     border-radius:0;
-     border:none;
+     width:44px;
+     height:44px;
+     border-radius:var(--radius);
+     border:1px solid var(--border-soft);
      background:transparent;
      cursor:pointer;
      flex-direction:column;
      justify-content:center;
      align-items:center;
      gap:5px;
+     transition:border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.burger:hover {
+  background:rgba(255, 255, 255, 0.1);
+  border-color:var(--text-white);
 }
 
 .burger span {
   display:block;
-  width:18px;
+  width:20px;
   height:2px;
   background:#fff;
+  border-radius:2px;
   transition:transform 0.3s var(--ease), opacity 0.2s var(--ease);
 }
 
@@ -196,65 +202,126 @@
       color:var(--text-faint); margin-bottom:3px; }
     .contact-row__value { color:var(--text-white); font-weight:500; font-size:17px; }
     .contact-row__value:hover { color:var(--accent); }
-
-    @media (max-width:1024px) {
-
+    @media (max-width:1145px) and (min-width:1025px) {
   .container,
   .navbar__inner {
-    padding-left:30px;
-    padding-right:30px;
+    padding-left:24px;
+    padding-right:24px;
+    gap:13px;
   }
-
+ 
   .navbar__left {
-    gap:25px;
+    gap:20px;
   }
-
+ 
   .navbar__menu {
-    gap:18px;
+    gap:12px;
   }
-
+ 
   .navbar__menu a {
     font-size:14px;
+    white-space:nowrap;
   }
-
-  .btn {
-    padding:11px 18px;
+ 
+  .navbar__actions {
+    gap:10px;
+  }
+ 
+  .navbar__actions .btn {
+    padding:10px 13px;
     font-size:14px;
   }
-
+}
+    /* Планшеты (≤1024): ужимаем десктопное меню, чтобы всё помещалось */
+    @media (max-width:1024px) {
+      .container,
+      .navbar__inner { padding-left:24px; padding-right:24px; gap:16px; }
+      .navbar__left { gap:20px; }
+      .navbar__brand { font-size:17px; }
+      .navbar__menu { gap:14px; }
+      .navbar__menu a { font-size:13px; white-space:nowrap; }
+      .navbar__actions { gap:8px; }
+      .navbar__actions .btn { padding:10px 14px; font-size:13px; }
+      .policy__layout { grid-template-columns:220px 1fr; gap:35px; }
+      .policy__toc { padding:20px 18px; }
+      .policy__body { max-width:100%; }
+      .page-hero { padding:70px 0 55px; }
+}
+      @media (max-width: 825px) {
+  .container,
+  .navbar__inner {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 12px;
+  }
+ 
+  .navbar__left {
+    gap: 14px;
+  }
+ 
+  .navbar__brand {
+    font-size: 16px;
+  }
+ 
+  .navbar__menu {
+    gap: 10px;
+  }
+ 
+  .navbar__menu a {
+    font-size: 12px;
+  }
+ 
+  .navbar__actions {
+    gap: 6px;
+  }
+ 
+  .navbar__actions .btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+ 
   .policy__layout {
-    grid-template-columns:220px 1fr;
-    gap:35px;
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
-
+ 
   .policy__toc {
-    padding:20px 18px;
+    position: static;
+    width: 100%;
   }
-
-  .policy__body {
-    max-width:100%;
-  }
-
+ 
   .page-hero {
-    padding:70px 0 55px;
+    padding: 60px 0 45px;
   }
-
 }
 
 
+  @media (max-width:768px) {
+  .container,
+  .navbar__inner { padding-left:22px; padding-right:22px; }
 
-    @media (max-width:768px) {
-      .container,.navbar__inner { padding-left:22px; padding-right:22px; }
-      .navbar__menu { display:none; }
-      .burger { display:flex; }
-      .mobile-menu { display:flex; }
-      .navbar__actions .btn--outline { display:none; }
-      .page-hero { padding:56px 0 44px; }
-      .policy { padding:44px 0 72px; }
-      .policy__toc { display:none; }
-      .policy-section__head { flex-direction:column; gap:6px; }
-      .contact-card { padding:22px; }
-    }
+  .navbar__menu { display:none; }
+  .burger { display:flex; }
+  .mobile-menu { display:flex; }
+  .navbar__actions .btn--outline { display:none; }
+  .navbar__actions .btn--accent { display:none; }
+  .page-hero { padding:56px 0 44px; }
+
+  .policy { padding:44px 0 72px; }
+  .policy__toc { display:none; }
+  .policy-section__head { flex-direction:column; gap:6px; }
+  .contact-card { padding:22px; }
+
+  .policy__layout {
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+  
+  .policy__body {
+    max-width:100%;
+    padding-right: 0;
+  }
+}
 
     .footer { border-top:1px solid rgba(255,255,255,0.08); padding:32px 0; background:var(--bg-dark); }
     .footer__inner { display:flex; align-items:center; justify-content:space-between;
@@ -264,6 +331,21 @@
     .footer__privacy { margin-left:16px; font-size:12px; color:var(--text-faint);
       text-decoration:underline; transition:color 0.3s var(--ease); }
     .footer__privacy:hover { color:var(--text-white); }
+    @media (max-width: 349px) {
+      html, body {
+       max-width: 100%;
+       overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  p, h1, h2, h3, span {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
   </style>
 </head>
 
@@ -281,14 +363,15 @@
           <a href="faq.html">FAQ</a>
         </nav>
       </div>
-      <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false">
-       <span></span>
-       <span></span>
-       <span></span>
-      </button>
       <div class="navbar__actions">
         <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
-        <a href="tel:+79017147425" class="btn btn--accent">Получить смету</a>
+        <a href="https://wa.me/79017147425" class="btn btn--accent">Получить смету</a>
+
+        <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false">
+         <span></span>
+         <span></span>
+         <span></span>
+        </button>
       </div>
     </div>
   </header>
@@ -302,7 +385,7 @@
     <a href="faq.html">FAQ</a>
     <div class="mobile-menu__actions">
       <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
-      <a href="tel:+79017147425" class="btn btn--accent">Получить смету</a>
+      <a href="https://wa.me/79017147425" class="btn btn--accent">Получить смету</a>
     </div>
   </nav>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Астория К-3 — Строительная компания</title>
+  <title>Астория К-3 — Инженерные сети, благоустройство и строительство</title>
 
   <!-- ================================================================
        ШРИФТ: Inter (можно заменить на Poppins или другой sans-serif)
@@ -161,6 +161,91 @@
       gap: 14px;
     }
 
+    /* Бургер (скрыт на десктопе, показывается только ≤768px) */
+    .burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      background: transparent;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+    }
+
+    .burger:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+    }
+
+    .burger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
+    }
+
+    .burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.is-open span:nth-child(2) { opacity: 0; }
+    .burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Мобильное меню (выпадает под шапкой, только ≤768px) */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      width: 100%;
+      flex-direction: column;
+      gap: 4px;
+      padding: 22px 22px 30px;
+      background: rgba(14, 15, 17, 0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 49;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-12px);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
+    }
+
+    .mobile-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .mobile-menu a {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text-muted);
+      padding: 14px 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: color 0.25s var(--ease);
+    }
+
+    .mobile-menu a:hover { color: var(--text-white); }
+
+    .mobile-menu__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .mobile-menu__actions .btn { width: 100%; }
+    .mobile-menu__actions .btn--accent { color: #0e0f11 !important; }
+    .mobile-menu__actions .btn--accent:hover { color: #0e0f11 !important; }
+
     /* ================================================================
        4. КНОПКИ (переиспользуемые классы)
        ================================================================ */
@@ -175,8 +260,19 @@
       border-radius: var(--radius);
       cursor: pointer;
       border: 1px solid transparent;
-      transition: all 0.3s var(--ease);
+      /* Разложенные переходы вместо all — плавнее и предсказуемее */
+      transition: background 0.3s var(--ease),
+                  border-color 0.3s var(--ease),
+                  color 0.3s var(--ease),
+                  transform 0.3s var(--ease),
+                  box-shadow 0.3s var(--ease);
       white-space: nowrap;
+    }
+
+    /* Лёгкое «вдавливание» при клике — единое для всех кнопок */
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
     }
 
     /* Кнопка с обводкой (прозрачная) */
@@ -188,6 +284,8 @@
     .btn--outline:hover {
       background: rgba(255, 255, 255, 0.1);
       border-color: var(--text-white);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     }
 
     /* Акцентная светлая кнопка (заполненная) */
@@ -198,6 +296,7 @@
     .btn--accent:hover {
       background: var(--accent-hover);
       transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
     }
 
     /* Белая скруглённая кнопка с тёмным текстом (CTA под заголовком) */
@@ -206,11 +305,12 @@
       color: #111;
       padding: 15px 30px;
       font-weight: 600;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
     }
     .btn--white:hover {
       background: var(--accent);
       transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
     }
 
     /* ================================================================
@@ -224,18 +324,6 @@
       display: flex;
       /* Контент прижат к низу экрана */
       align-items: flex-end;
-
-      /* --------------------------------------------------------------
-         ФОНОВОЕ ФОТО:
-         Здесь два слоя через запятую:
-         1) linear-gradient — затемнение поверх фото для читаемости текста
-         2) url(...) — САМА КАРТИНКА  <<< ВСТАВЬТЕ СВОЁ ФОТО СЮДА >>>
-
-         Замените 'YOUR-IMAGE.jpg' на путь к вашему изображению,
-         например: url('images/house-evening.jpg')
-
-         Градиент можно усилить/ослабить, меняя значения rgba (0.x = прозрачность).
-         -------------------------------------------------------------- */
       background-image:
         linear-gradient(
           to bottom,
@@ -243,7 +331,7 @@
           rgba(14, 15, 17, 0.25) 35%,  /* светлее в середине */
           rgba(14, 15, 17, 0.85) 100%  /* сильное затемнение снизу (под текстом) */
         ),
-        url('tf2o8xbr.png'); /* <<< ВСТАВЬТЕ ФОТО ДОМА (вечер/закат) СЮДА */
+        url('tf2o8xbr.avif'); /* <<< ВСТАВЬТЕ ФОТО ДОМА (вечер/закат) СЮДА */
 
       background-size: cover;
       background-position: center;
@@ -354,26 +442,83 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       overflow: hidden;
-      transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+      transition: transform 0.4s var(--ease),
+                  border-color 0.4s var(--ease),
+                  box-shadow 0.4s var(--ease);
     }
 
     .project-card:hover {
       transform: translateY(-6px);
       border-color: var(--border-soft);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
     }
 
     /* Место под фото проекта (замените фон на своё изображение) */
     .project-card__image {
+      position: relative;               /* база для shimmer-слоя */
       aspect-ratio: 4 / 3;
       width: 100%;
+      overflow: hidden;
       /* Плейсхолдер-градиент. Замените на: url('images/project-1.jpg') */
       background: linear-gradient(135deg, #23262b 0%, #16181b 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-faint);
-      font-size: 14px;
-      letter-spacing: 1px;
+      /* Надпись почти растворена — визуально ведёт shimmer */
+      color: rgba(255, 255, 255, 0.14);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: background 0.4s var(--ease);
+    }
+
+    /* Реальное фото проекта (вставляется скриптом после загрузки).
+       Появляется сразу, без анимации. */
+    .project-card__image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Shimmer показывается ТОЛЬКО во время загрузки (класс .is-loading) */
+    .project-card__image.is-loading::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        100deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(255, 255, 255, 0.10) 50%,
+        rgba(255, 255, 255, 0.05) 60%,
+        transparent 80%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 2.6s linear infinite;
+      pointer-events: none;
+    }
+
+    /* Загрузка завершена: прячем подпись, фото показывается сразу */
+    .project-card__image.is-loaded { color: transparent; }
+
+    /* Нет URL или ошибка загрузки: статичный placeholder без анимации
+       (специальных правил не требует — просто отсутствие .is-loading) */
+
+    /* На наведении карточки плейсхолдер чуть светлеет */
+    .project-card:hover .project-card__image {
+      background: linear-gradient(135deg, #2a2e35 0%, #1b1e22 100%);
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Уважаем настройку «меньше движения» — отключаем блик */
+    @media (prefers-reduced-motion: reduce) {
+      .project-card__image.is-loading::after { animation: none; }
     }
 
     .project-card__body {
@@ -403,16 +548,62 @@
     /* ================================================================
        8. АДАПТИВНОСТЬ (планшеты и телефоны)
        ================================================================ */
+       @media (min-width:1025px) and (max-width:1144px) {
+  .container,
+  .navbar__inner {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 14px;
+  }
+  .navbar__left {
+    gap: 18px;
+  }
+  .navbar__brand {
+    font-size: 17px;
+  }
+  .navbar__menu {
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+  .navbar__menu a {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .navbar__actions {
+    gap: 8px;
+  }
+  .navbar__actions .btn {
+    padding: 10px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+}
+
 
     /* Планшеты */
     @media (max-width: 1024px) {
-      .projects__grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      /* Прячем часть пунктов меню, оставляем ключевое */
-      .navbar__menu {
-        gap: 22px;
-      }
+      .contacts__grid { grid-template-columns: 1fr; }
+      /* Ужимаем шапку, чтобы меню и кнопки помещались (как в o_nas) */
+      .container,
+      .navbar__inner { padding-left: 24px; padding-right: 24px; gap: 16px; }
+      .navbar__left { gap: 20px; }
+      .navbar__brand { font-size: 17px; }
+      .navbar__menu { gap: 14px; }
+      .navbar__menu a { font-size: 13px; white-space: nowrap; }
+      .navbar__actions { gap: 8px; }
+      .navbar__actions .btn { padding: 10px 14px; font-size: 13px; }
+    }
+
+    /* Узкие планшеты (≤880): компактная шапка до включения бургера */
+    @media (max-width: 880px) {
+      .container,
+      .navbar__inner { padding-left: 16px; padding-right: 16px; gap: 10px; }
+      .navbar__left { gap: 10px; }
+      .navbar__brand { font-size: 15px; }
+      .navbar__menu { gap: 8px; }
+      .navbar__menu a { font-size: 12px; }
+      .navbar__actions { gap: 6px; }
+      .navbar__actions .btn { padding: 7px 10px; font-size: 12px; }
     }
 
     /* Телефоны */
@@ -424,15 +615,13 @@
         padding-right: 22px;
       }
 
-      /* Скрываем текстовое меню — оставляем бренд и главную кнопку */
-      .navbar__menu {
-        display: none;
-      }
+      /* Скрываем меню и кнопки шапки — они доступны в мобильном меню */
+      .navbar__menu { display: none; }
+      .navbar__actions .btn { display: none; }
 
-      /* Оставляем только акцентную кнопку в шапке на мобильном */
-      .navbar__actions .btn--outline {
-        display: none;
-      }
+      /* Показ бургера */
+      .burger { display: flex; }
+      .mobile-menu { display: flex; }
 
       .hero {
         min-height: 560px;
@@ -459,11 +648,38 @@
         grid-template-columns: 1fr;
       }
     }
-      .projects {
-        padding: 72px 0;
-      }
-      
-    
+    @media (max-width:250px) {
+  .container,
+  .navbar__inner,
+  .hero__content {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .burger {
+    width: 40px;
+    height: 40px;
+  }
+  .mobile-menu {
+    padding: 70px 16px 24px;
+  }
+  .mobile-menu__actions .btn {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px;
+  }
+  .mobile-menu__nav a {
+    font-size: 16px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
 
     /* ================================================================
        9. ФУТЕР
@@ -540,10 +756,30 @@
       <div class="navbar__actions">
         <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
         <a href="#estimate" class="btn btn--accent">Получить смету</a>
+
+        <!-- Кнопка бургера (видна только на экранах ≤768px) -->
+        <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
 
     </div>
   </header>
+
+  <!-- МОБИЛЬНОЕ МЕНЮ (открывается бургером на экранах ≤768px) -->
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
+    <a href="#home">Главная</a>
+    <a href="o_nas.html">О нас</a>
+    <a href="services.html">Услуги</a>
+    <a href="#projects">Реализованные проекты</a>
+    <a href="faq.html#questions">FAQ</a>
+    <div class="mobile-menu__actions">
+      <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+      <a href="#estimate" class="btn btn--accent">Получить смету</a>
+    </div>
+  </nav>
 
   <!-- ================================================================
        HERO / ШАПКА
@@ -601,7 +837,8 @@
         <!-- Карточка 1 -->
         <article class="project-card">
           <!-- Замените фон .project-card__image на url('...') с фото проекта -->
-          <div class="project-card__image">ФОТО ПРОЕКТА</div>
+          <!-- Впишите URL фото в data-src, когда оно появится (например data-src="images/project-1.jpg") -->
+          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
             <div class="project-card__tag">Жилой дом</div>
             <h3 class="project-card__name">Проект №1</h3>
@@ -613,7 +850,8 @@
 
         <!-- Карточка 2 -->
         <article class="project-card">
-          <div class="project-card__image">ФОТО ПРОЕКТА</div>
+          <!-- Впишите URL фото в data-src, когда оно появится (например data-src="images/project-1.jpg") -->
+          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
             <div class="project-card__tag">Коммерция</div>
             <h3 class="project-card__name">Проект №2</h3>
@@ -625,7 +863,8 @@
 
         <!-- Карточка 3 -->
         <article class="project-card">
-          <div class="project-card__image">ФОТО ПРОЕКТА</div>
+          <!-- Впишите URL фото в data-src, когда оно появится (например data-src="images/project-1.jpg") -->
+          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
             <div class="project-card__tag">Загородный дом</div>
             <h3 class="project-card__name">Проект №3</h3>
@@ -636,7 +875,8 @@
         </article>
         <!-- Карточка 4 -->
         <article class="project-card">
-          <div class="project-card__image">ФОТО ПРОЕКТА</div>
+          <!-- Впишите URL фото в data-src, когда оно появится (например data-src="images/project-1.jpg") -->
+          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
             <div class="project-card__tag">Офисное здание</div>
             <h3 class="project-card__name">Проект №4</h3>
@@ -647,7 +887,8 @@
         </article>
        <!-- Карточка 5 -->
         <article class="project-card">
-          <div class="project-card__image">ФОТО ПРОЕКТА</div>
+          <!-- Впишите URL фото в data-src, когда оно появится (например data-src="images/project-1.jpg") -->
+          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
             <div class="project-card__tag">Реконструкция</div>
             <h3 class="project-card__name">Проект №5</h3>
@@ -658,7 +899,8 @@
         </article>
         <!-- Карточка 6 -->
         <article class="project-card">
-          <div class="project-card__image">ФОТО ПРОЕКТА</div>
+          <!-- Впишите URL фото в data-src, когда оно появится (например data-src="images/project-1.jpg") -->
+          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
             <div class="project-card__tag">Интерьер</div>
             <h3 class="project-card__name">Проект №6</h3>
@@ -679,5 +921,84 @@
     </div>
   </div>
 </footer>
+
+<!-- ================================================================
+     СКРИПТ: управление состоянием загрузки карточек (skeleton/shimmer)
+     ================================================================ -->
+<script>
+  (function () {
+    var boxes = document.querySelectorAll('.project-card__image');
+
+    boxes.forEach(function (box) {
+      var src = (box.getAttribute('data-src') || '').trim();
+
+      // 1. URL нет → статичный placeholder, БЕЗ анимации (loading не запускаем)
+      if (!src) {
+        box.classList.add('is-empty');
+        return;
+      }
+
+      // 2. URL есть → показываем shimmer, пока картинка грузится (loading = true)
+      box.classList.add('is-loading');
+
+      var img = new Image();
+      img.alt = box.getAttribute('data-alt') || '';
+      img.decoding = 'async';
+
+      // Успех → показываем настоящий контент, loading = false
+      img.onload = function () {
+        box.appendChild(img);
+        box.classList.remove('is-loading');
+        box.classList.add('is-loaded');
+      };
+
+      // Ошибка / битый URL → обычный placeholder без shimmer, loading = false
+      img.onerror = function () {
+        box.classList.remove('is-loading');
+        box.classList.add('is-empty');
+      };
+
+      img.src = src; // старт загрузки
+    });
+  })();
+</script>
+ <script>
+    (function () {
+      var burger = document.querySelector('.burger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      if (!burger || !mobileMenu) return;
+
+      function setState(open) {
+        burger.classList.toggle('is-open', open);
+        mobileMenu.classList.toggle('is-open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      }
+
+      // Открытие/закрытие по клику на бургер
+      burger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setState(!mobileMenu.classList.contains('is-open'));
+      });
+
+      // Закрытие после клика по пункту меню
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () { setState(false); });
+      });
+
+      // Закрытие при клике вне меню
+      document.addEventListener('click', function (e) {
+        if (mobileMenu.classList.contains('is-open') &&
+            !mobileMenu.contains(e.target) && !burger.contains(e.target)) {
+          setState(false);
+        }
+      });
+
+      // Закрытие при переходе на десктоп
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) setState(false);
+      });
+    })();
+  </script>
 </body>
 </html>
