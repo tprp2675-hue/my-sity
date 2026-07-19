@@ -297,7 +297,7 @@
     /* ================================================================
        5. ШАПКА РАЗДЕЛА — теперь полноэкранный hero с фоновым фото
        ================================================================ */
-   .page-head {
+    .page-head {
       position: relative;
       height: 100vh;
       min-height: 640px;
@@ -311,17 +311,14 @@
           rgba(14, 15, 17, 0.25) 35%,
           rgba(14, 15, 17, 0.85) 100%
         ),
-        url('1.jpg');
+        url('1.avif');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       padding: 0; /* внутренние отступы управляет .page-head__content (.container) */
     }
-    /* Скрытое декоративное изображение (alt="" — декор) */
-    .page-head__decor {
-      display: none;
-    }
+    /* декоративный тег удалён — фон используется напрямую */
 
     .page-head__eyebrow {
       font-size: 13px;
@@ -760,7 +757,6 @@
        ШАПКА РАЗДЕЛА
        ================================================================ -->
   <section class="page-head">
-    <img src="1.avif" alt="" class="page-head__decor" />
     <div class="container">
       <div class="page-head__eyebrow">О компании</div>
       <h1 class="page-head__title">Строим надёжно, продуманно и ответственно</h1>
