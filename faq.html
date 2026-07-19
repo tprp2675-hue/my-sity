@@ -196,12 +196,32 @@
     }
 
     /* ================================================================
-       5. ШАПКА СТРАНИЦЫ FAQ
+       5. ШАПКА СТРАНИЦЫ FAQ — полноэкранный hero с фоном 2.jpg
        ================================================================ */
     .page-head {
-      padding: 90px 0 40px;
       position: relative;
+      height: 100vh;
+      min-height: 640px;
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      background-image:
+        linear-gradient(
+          to bottom,
+          rgba(14, 15, 17, 0.55) 0%,
+          rgba(14, 15, 17, 0.25) 35%,
+          rgba(14, 15, 17, 0.85) 100%
+        ),
+        url('2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid var(--border-faint);
+      padding: 0;
     }
+
+    /* Отступ снизу для контента внутри hero */
+    .page-head .container { padding: 0 40px 72px; }
 
     .page-head__eyebrow {
       font-size: 13px;
@@ -719,6 +739,12 @@
 
     .footer__privacy:hover {
      color: var(--text-white); }
+
+    /* Мобильные настройки для hero-шапки */
+    @media (max-width: 768px) {
+      .page-head { min-height: 560px; }
+      .page-head .container { padding-bottom: 90px; }
+    }
   </style>
 </head>
 <body>
