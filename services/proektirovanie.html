@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Проектирование | Астория К-3</title>
+<meta name="description" content="Проектирование инженерных систем и строительных решений под ключ." />
+<meta name="robots" content="index, follow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg-dark: #0e0f11; --bg-dark-2: #15171a; --bg-card: #1a1c20;
+  --text-white: #ffffff; --text-muted: rgba(255,255,255,0.6); --text-faint: rgba(255,255,255,0.4);
+  --accent: #e8e0d3; --accent-hover: #ffffff;
+  --border-soft: rgba(255,255,255,0.25); --border-faint: rgba(255,255,255,0.08);
+  --radius: 999px; --radius-card: 18px; --nav-height: 84px; --max-width: 1400px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg-dark); color: var(--text-white); line-height: 1.5;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  background-image: radial-gradient(1200px 600px at 15% -10%, rgba(232,224,211,0.06), transparent 60%),
+                    radial-gradient(1000px 500px at 100% 10%, rgba(232,224,211,0.04), transparent 55%);
+  background-attachment: fixed;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+.container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+
+.navbar { position: sticky; top: 0; width: 100%; height: var(--nav-height); z-index: 50; display: flex; align-items: center; background: rgba(14,15,17,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-faint); }
+.navbar__inner { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.navbar__left { display: flex; align-items: center; gap: 48px; }
+.navbar__brand { font-size: 20px; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; }
+.navbar__menu { display: flex; align-items: center; gap: 40px; }
+.navbar__menu a { font-size: 15px; color: var(--text-muted); position: relative; transition: color 0.3s var(--ease); }
+.navbar__menu a:hover, .navbar__menu a.is-active { color: var(--text-white); }
+.navbar__menu a::after { content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px; background: var(--text-white); transition: width 0.3s var(--ease); }
+.navbar__menu a:hover::after, .navbar__menu a.is-active::after { width: 100%; }
+.navbar__actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.burger { display: none; width: 44px; height: 44px; border-radius: var(--radius); border: 1px solid var(--border-soft); background: transparent; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 5px; transition: border-color 0.3s var(--ease), background 0.3s var(--ease); }
+.burger:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--text-white); }
+.burger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s var(--ease), opacity 0.2s var(--ease); }
+.burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { opacity: 0; }
+.burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; top: var(--nav-height); left: 0; width: 100%; flex-direction: column; gap: 4px; padding: 22px; background: rgba(14,15,17,0.97); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 49; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-12px); transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease); }
+.mobile-menu.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+.mobile-menu a { font-size: 17px; color: var(--text-muted); padding: 14px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.mobile-menu__actions { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; }
+.mobile-menu__actions .btn { width: 100%; }
+.mobile-menu__actions .btn--accent { color: #0e0f11 !important; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 500; padding: 12px 24px; border-radius: var(--radius); cursor: pointer; border: 1px solid transparent; transition: all 0.3s var(--ease); white-space: nowrap; }
+.btn--outline { background: transparent; border-color: var(--border-soft); color: var(--text-white); }
+.btn--outline:hover { background: rgba(255,255,255,0.1); border-color: var(--text-white); }
+.btn--accent { background: var(--accent); color: #111; }
+.btn--accent:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+.breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: var(--text-faint); margin-bottom: 22px; }
+.breadcrumb a { color: var(--text-muted); transition: color 0.3s var(--ease); }
+.breadcrumb a:hover { color: var(--text-white); }
+.breadcrumb__current { color: var(--text-muted); }
+
+.page-head {
+  position: relative;
+  min-height: 68vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 140px 0 74px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, rgba(14,15,17,0.35) 0%, rgba(14,15,17,0.2) 35%, rgba(14,15,17,0.9) 100%);
+}
+.page-head__image {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0;
+}
+.page-head::after {
+  content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(14,15,17,0.6) 0%, rgba(14,15,17,0.16) 45%, rgba(14,15,17,0.08) 100%); pointer-events: none; z-index: 1;
+}
+.page-head .container { position: relative; z-index: 2; }
+.page-head__eyebrow { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.page-head__title { font-size: clamp(34px, 5vw, 58px); font-weight: 600; letter-spacing: -1px; line-height: 1.05; margin-bottom: 20px; max-width: 12ch; text-shadow: 0 12px 30px rgba(0,0,0,0.36); }
+.divider { height: 1px; width: 100%; background: linear-gradient(90deg, rgba(232,224,211,0.7), transparent 70%); margin: 8px 0 0; }
+
+.content { padding: 56px 0 0; }
+.content__intro { max-width: 72ch; font-size: 16px; color: var(--text-muted); font-weight: 300; line-height: 1.75; margin-bottom: 64px; }
+.content__intro strong { color: var(--text-white); font-weight: 500; }
+.section-title { font-size: clamp(24px, 3vw, 32px); font-weight: 600; letter-spacing: -0.5px; margin-bottom: 32px; }
+.included { padding-bottom: 72px; }
+.included__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.included__item { background: var(--bg-card); border: 1px solid var(--border-faint); border-radius: var(--radius-card); padding: 24px 26px; transition: border-color 0.3s var(--ease), background 0.3s var(--ease); }
+.included__item:hover { border-color: var(--border-soft); background: #1e2126; }
+.included__item h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.included__item h3::before { content: '→'; color: var(--accent); }
+.included__item p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+.process { padding-bottom: 72px; }
+.process__list { display: flex; flex-direction: column; }
+.process__item { display: flex; gap: 28px; padding: 28px 0; border-top: 1px solid var(--border-faint); }
+.process__item:last-child { border-bottom: 1px solid var(--border-faint); }
+.process__num { font-size: 15px; font-weight: 600; color: var(--accent); min-width: 34px; padding-top: 2px; }
+.process__body h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+.process__body p { font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 62ch; }
+.faq { padding-bottom: 72px; }
+.faq__item { border-top: 1px solid var(--border-faint); }
+.faq__item:last-child { border-bottom: 1px solid var(--border-faint); }
+.faq__item summary { list-style: none; cursor: pointer; padding: 22px 4px; font-size: 16px; font-weight: 500; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after { content: '+'; font-size: 22px; font-weight: 300; color: var(--accent); transition: transform 0.3s var(--ease); flex-shrink: 0; }
+.faq__item[open] summary::after { transform: rotate(45deg); }
+.faq__item p { font-size: 14px; color: var(--text-muted); line-height: 1.7; padding: 0 4px 22px; max-width: 68ch; }
+.cta { margin-top: 8px; margin-bottom: 90px; background: linear-gradient(135deg, #1c1f24 0%, #131519 100%); border: 1px solid var(--border-faint); border-radius: 24px; padding: 56px 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; }
+.cta__title { font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.5px; max-width: 22ch; }
+.cta__text { font-size: 16px; font-weight: 300; color: var(--text-muted); margin-top: 8px; max-width: 40ch; }
+
+.footer { border-top: 1px solid var(--border-faint); padding: 34px 0; }
+.footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer__brand { font-weight: 600; font-size: 16px; }
+.footer__copy { color: var(--text-faint); font-size: 13px; }
+.footer__privacy { margin-left: 16px; font-size: 12px; color: var(--text-faint); text-decoration: underline; }
+
+@media (max-width: 1250px) {
+  .navbar__inner { padding-left: 24px; padding-right: 24px; gap: 16px; }
+  .navbar__left { gap: 20px; }
+  .navbar__brand { font-size: 17px; }
+  .navbar__menu { gap: 14px; }
+  .navbar__menu a { font-size: 13px; }
+  .navbar__actions { gap: 8px; }
+  .navbar__actions .btn { padding: 10px 14px; font-size: 13px; }
+}
+@media (max-width: 880px) {
+  .navbar__inner { padding-left: 16px; padding-right: 16px; gap: 10px; }
+  .navbar__left { gap: 10px; }
+  .navbar__brand { font-size: 15px; }
+  .navbar__menu { gap: 8px; }
+  .navbar__menu a { font-size: 12px; }
+  .navbar__actions { gap: 6px; }
+  .navbar__actions .btn { padding: 7px 10px; font-size: 12px; }
+}
+@media (max-width: 768px) {
+  .container, .navbar__inner { padding-left: 22px; padding-right: 22px; }
+  .navbar__menu { display: none; }
+  .navbar__actions .btn { display: none; }
+  .burger { display: flex; }
+  .mobile-menu { display: flex; }
+  .page-head { min-height: 560px; padding: 120px 0 54px; }
+  .page-head__title { max-width: 100%; }
+}
+@media (max-width: 295px) {
+  .container, .navbar__inner { padding-left: 10px; padding-right: 10px; }
+  .navbar { height: auto; min-height: var(--nav-height); }
+  .navbar__brand { font-size: 14px; }
+  .burger { width: 40px; height: 40px; }
+  .mobile-menu { padding: 18px 10px 20px; }
+  .mobile-menu a { font-size: 15px; }
+  .page-head { min-height: 500px; padding: 104px 0 40px; }
+  .page-head__title { font-size: clamp(28px, 8vw, 34px); }
+}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="navbar__inner">
+    <div class="navbar__left">
+      <div class="navbar__brand">Астория&nbsp;К-3</div>
+      <nav class="navbar__menu">
+        <a href="../index.html#home">Главная</a>
+        <a href="../o_nas.html">О нас</a>
+        <a href="../services.html">Услуги</a>
+        <a href="../index.html#projects">Реализованные проекты</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../contacts.html">Контакты</a>
+      </nav>
+    </div>
+    <div class="navbar__actions">
+      <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
+      <a href="https://wa.me/79017147425" class="btn btn--accent">Получить смету</a>
+      <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
+  <a href="../index.html#home">Главная</a>
+  <a href="../o_nas.html">О нас</a>
+  <a href="../services.html">Услуги</a>
+  <a href="../index.html#projects">Реализованные проекты</a>
+  <a href="../faq.html">FAQ</a>
+  <a href="../contacts.html">Контакты</a>
+  <div class="mobile-menu__actions">
+    <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
+    <a href="https://wa.me/79017147425" class="btn btn--accent">Написать нам</a>
+  </div>
+</nav>
+
+<section class="page-head">
+  <img class="page-head__image" src="nn.avif" loading="eager" decoding="async" />
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Хлебные крошки">
+      <a href="../index.html">Главная</a><span>/</span>
+      <a href="../services.html">Услуги</a><span>/</span>
+      <span class="breadcrumb__current">Проектирование</span>
+    </nav>
+    <div class="page-head__eyebrow">Услуга</div>
+    <h1 class="page-head__title">Проектирование</h1>
+    <div class="divider"></div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container">
+    <p class="content__intro">Проектирование — это основа, на которой строится надежный, безопасный и экономически эффективный объект. Мы разрабатываем решения с учетом норм, специфики участка, бюджета и дальнейшей эксплуатации — от <strong>предпроектных исследований</strong> до полного комплекта рабочей документации.</p>
+
+    <div class="included">
+      <h2 class="section-title">Что входит в проект</h2>
+      <div class="included__grid">
+        <div class="included__item">
+          <h3>Инженерные изыскания</h3>
+          <p>Анализ участка, геодезия, гидрогеологические и геологические исследования, оценка условий строительства и ограничений объекта.</p>
+        </div>
+        <div class="included__item">
+          <h3>Предпроектные решения</h3>
+          <p>Формирование архитектурной и технической концепции, подбор оптимальных инженерных схем, расчет нагрузок и параметров систем.</p>
+        </div>
+        <div class="included__item">
+          <h3>Проектная документация</h3>
+          <p>Разработка полных чертежей, спецификаций, схем и расчетов для строительства, монтажа и дальнейшей эксплуатации объекта.</p>
+        </div>
+        <div class="included__item">
+          <h3>Согласования и сопровождение</h3>
+          <p>Подготовка материалов для согласования, взаимодействие с контролирующими органами и техническое сопровождение на всех этапах.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="process">
+      <h2 class="section-title">Этапы работы</h2>
+      <div class="process__list">
+        <div class="process__item">
+          <div class="process__num">01</div>
+          <div class="process__body">
+            <h3>Анализ задачи и исходных данных</h3>
+            <p>Изучаем цели объекта, требования заказчика, особенности участка и текущие ограничения, чтобы выбрать правильную проектную стратегию.</p>
+          </div>
+        </div>
+        <div class="process__item">
+          <div class="process__num">02</div>
+          <div class="process__body">
+            <h3>Концептуальное проектирование</h3>
+            <p>Формируем техническое решение, определяем основные инженерные системы, объемы работ и ориентировочный бюджет.</p>
+          </div>
+        </div>
+        <div class="process__item">
+          <div class="process__num">03</div>
+          <div class="process__body">
+            <h3>Рабочая документация</h3>
+            <p>Подготавливаем полный комплект документов для реализации проекта: чертежи, сметы, схемы и спецификации.</p>
+          </div>
+        </div>
+        <div class="process__item">
+          <div class="process__num">04</div>
+          <div class="process__body">
+            <h3>Сопровождение на стройке</h3>
+            <p>Контролируем соответствие реализации проекту, оперативно решаем вопросы и помогаем избежать ошибок на этапе строительства.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq">
+      <h2 class="section-title">Часто задаваемые вопросы</h2>
+      <details class="faq__item">
+        <summary>Нужен ли проект, если объект уже строится?</summary>
+        <p>Да, если требуется уточнение технических решений, привязка к существующим условиям, корректировка схем или подготовка исполнительной документации.</p>
+      </details>
+      <details class="faq__item">
+        <summary>Можно ли начать с частичного проекта?</summary>
+        <p>Да. Мы можем подготовить отдельные разделы, концепцию или пакет документации под конкретный этап работ, если заказчик хочет распределить сроки и бюджет.</p>
+      </details>
+    </div>
+
+    <div class="cta">
+      <div>
+        <h2 class="cta__title">Нужен надежный проект под ключ?</h2>
+        <p class="cta__text">Подготовим комплексное проектное решение с учетом требований объекта, бюджета и сроков.</p>
+      </div>
+      <a href="https://wa.me/79017147425" class="btn btn--accent">Получить консультацию</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">Астория К-3</div>
+    <div class="footer__copy">© 2026 Все права защищены</div>
+    <a class="footer__privacy" href="../privacy.html">Политика конфиденциальности</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var burger = document.querySelector('.burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  if (!burger || !mobileMenu) return;
+
+  function setState(open) {
+    burger.classList.toggle('is-open', open);
+    mobileMenu.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  burger.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setState(!mobileMenu.classList.contains('is-open'));
+  });
+
+  mobileMenu.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      setState(false);
+    });
+  });
+
+  document.addEventListener('click', function (e) {
+    if (mobileMenu.classList.contains('is-open') && !mobileMenu.contains(e.target) && !burger.contains(e.target)) {
+      setState(false);
+    }
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) {
+      setState(false);
+    }
+  });
+})();
+</script>
+</body>
+</html>
