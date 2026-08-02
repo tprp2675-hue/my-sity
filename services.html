@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Услуги Инженерные сети, благоустройство и строительство | Астория К-3</title>
-  <meta name="description" content="Проэктирование и строительство инженерных сетей, благоустройство территорий, строительство зданий, инженерные изыскания, фасадные и отделочные работы">
+  <meta name="description" content="Проeктирование и строительство инженерных сетей, благоустройство территорий, строительство зданий, инженерные изыскания, фасадные и отделочные работы">
   <meta name="robots" content="index, follow">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -365,6 +365,25 @@
       width: 16px;
       font-size: 16px;
     }
+    .service-card__features li::before {
+  content: '→';
+  color: var(--accent);
+  font-weight: 700;
+  width: 16px;
+  font-size: 16px;
+}
+.service-card__link {
+  margin-top: auto;
+  padding-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.3s var(--ease);
+}
+.service-card:hover .service-card__link {gap: 10px; }
 
     /* Секция с дополнительными преимуществами */
     .services-features { 
@@ -606,22 +625,23 @@
     <div class="container">
       <div class="services__grid">
         
-        <article class="service-card">
-          <div class="service-card__icon">🔧</div>
-          <h3 class="service-card__title">Инженерные коммуникации</h3>
-          <p class="service-card__desc">Проектирование и строительство всех видов инженерных сетей и систем.</p>
-          <ul class="service-card__features">
-            <li>Водоснабжение и водоотведение</li>
-            <li>Теплоснабжение и электроснабжение</li>
-            <li>Газоснабжение и сети связи</li>
-            <li>Уличное освещение</li>
-            <li>Модернизация и реконструкция</li>
-          </ul>
-        </article>
+       <a href="services/inzhenernye-seti.html" class="service-card">
+  <div class="service-card__icon">🔧</div>
+  <h2 class="service-card__title">Инженерные коммуникации</h2>
+  <p class="service-card__desc">Проектирование и строительство всех видов инженерных сетей и систем.</p>
+  <ul class="service-card__features">
+    <li>Водоснабжение и водоотведение</li>
+    <li>Теплоснабжение и электроснабжение</li>
+    <li>Газоснабжение и сети связи</li>
+    <li>Уличное освещение</li>
+    <li>Модернизация и реконструкция</li>
+  </ul>
+  <span class="service-card__link">Подробнее →</span>
+</a>
 
-        <article class="service-card">
+        <a href="services/blagooustroystvo.html" class="service-card">
           <div class="service-card__icon">🌳</div>
-          <h3 class="service-card__title">Благоустройство территорий</h3>
+          <h2 class="service-card__title">Благоустройство территорий</h2>
           <p class="service-card__desc">Комплексное озеленение и благоустройство территорий любого масштаба.</p>
           <ul class="service-card__features">
             <li>Устройство дорог и тротуаров</li>
@@ -630,11 +650,12 @@
             <li>Установка малых архитектурных форм</li>
             <li>Наружное освещение</li>
           </ul>
-        </article>
+          <span class="service-card__link">Подробнее →</span>
+        </a>
 
-        <article class="service-card">
+        <a href="services/stroitelstvo-zdanij.html" class="service-card">
           <div class="service-card__icon">🏢</div>
-          <h3 class="service-card__title">Строительство зданий</h3>
+          <h2 class="service-card__title">Строительство зданий</h2>
           <p class="service-card__desc">Полный цикл возведения жилых, коммерческих и нежилых зданий.</p>
           <ul class="service-card__features">
             <li>Подготовка площадки и земляные работы</li>
@@ -643,11 +664,12 @@
             <li>Отделочные работы</li>
             <li>Монтаж инженерных систем</li>
           </ul>
-        </article>
+          <span class="service-card__link">Подробнее →</span>
+        </a>
 
-        <article class="service-card">
+        <a href="services/proektirovanie.html" class="service-card">
           <div class="service-card__icon">📐</div>
-          <h3 class="service-card__title">Проектирование</h3>
+          <h2 class="service-card__title">Проектирование</h2>
           <p class="service-card__desc">Разработка полного комплекса проектной документации и инженерных изысканий.</p>
           <ul class="service-card__features">
             <li>Инженерные изыскания</li>
@@ -656,11 +678,12 @@
             <li>Техническое сопровождение</li>
             <li>Консультационные услуги</li>
           </ul>
-        </article>
+          <span class="service-card__link">Подробнее →</span>
+        </a>
 
-        <article class="service-card">
+        <a href="services/specializirovannye-raboty.html" class="service-card">
           <div class="service-card__icon">🎯</div>
-          <h3 class="service-card__title">Специализированные работы</h3>
+          <h2 class="service-card__title">Специализированные работы</h2>
           <p class="service-card__desc">Фасадные работы, ремонт конструкций и сложные отделочные решения.</p>
           <ul class="service-card__features">
             <li>Фасадные работы любой сложности</li>
@@ -669,7 +692,8 @@
             <li>Внутренние отделочные работы</li>
             <li>Реконструкция старых зданий</li>
           </ul>
-        </article>
+          <span class="service-card__link">Подробнее →</span>
+        </a>
 
       </div>
 
