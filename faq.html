@@ -6,9 +6,6 @@
   <title>Вопросы и ответы | Астория К-3</title>
   <meta name="description" content="Ответы на популярные вопросы о строительстве инженерных сетей, сотрудничестве с Астория К-3">
   <meta name="robots" content="index, follow">
-  <!-- ================================================================
-       ШРИФТ: Inter (тот же, что и на главной)
-       ================================================================ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -954,7 +951,6 @@
         <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
         <a href="mailto:ckastoria@mail.ru" class="btn btn--accent">Получить смету</a>
 
-        <!-- Кнопка-бургер: видна только на ≤768px (управляется CSS) -->
         <button type="button" class="navbar__burger" id="navBurger"
                 aria-label="Открыть меню"
                 aria-expanded="false"
@@ -966,10 +962,6 @@
       </div>
     </div>
   </header>
-
-  <!-- ================================================================
-       МОБИЛЬНОЕ МЕНЮ (скрыто; открывается бургером на ≤768px)
-       ================================================================ -->
   <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильная навигация">
     <a href="index.html">Главная</a>
     <a href="index.html">О нас</a>
@@ -982,9 +974,6 @@
     </div>
   </nav>
 
-  <!-- ================================================================
-       ШАПКА СТРАНИЦЫ
-       ================================================================ -->
   <section class="page-head">
     <img src="2.jpg" alt="" style="display:none;" />
     <div class="container">
@@ -999,14 +988,10 @@
     </div>
   </section>
 
-  <!-- ================================================================
-       БЛОК FAQ
-       ================================================================ -->
   <section class="faq">
     <div class="container">
       <div class="faq__layout">
 
-        <!-- Левая «липкая» колонка -->
         <aside class="faq__aside">
           <div class="faq__aside-eyebrow">Поддержка</div>
           <h2 class="faq__aside-title">Всё, что важно знать перед стартом</h2>
@@ -1025,10 +1010,8 @@
           </a>
         </aside>
 
-        <!-- Аккордеон вопросов -->
         <div class="faq__list" id="faqList">
 
-          <!-- 1 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">01</span>
@@ -1051,7 +1034,6 @@
             </div>
           </article>
 
-          <!-- 2 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">02</span>
@@ -1075,7 +1057,6 @@
             </div>
           </article>
 
-          <!-- 3 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">03</span>
@@ -1099,7 +1080,6 @@
             </div>
           </article>
 
-          <!-- 4 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">04</span>
@@ -1122,7 +1102,6 @@
             </div>
           </article>
 
-          <!-- 5 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">05</span>
@@ -1146,7 +1125,6 @@
             </div>
           </article>
 
-          <!-- 6 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">06</span>
@@ -1170,7 +1148,6 @@
             </div>
           </article>
 
-          <!-- 7 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">07</span>
@@ -1193,7 +1170,6 @@
             </div>
           </article>
 
-          <!-- 8 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">08</span>
@@ -1217,7 +1193,6 @@
             </div>
           </article>
 
-          <!-- 9 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">09</span>
@@ -1240,7 +1215,6 @@
             </div>
           </article>
 
-          <!-- 10 -->
           <article class="faq-item">
             <button class="faq-item__q" type="button" aria-expanded="false">
               <span class="faq-item__num">10</span>
@@ -1268,9 +1242,6 @@
         </div>
       </div>
 
-      <!-- ================================================================
-           CTA-БЛОК
-           ================================================================ -->
       <div class="cta">
         <div class="cta__eyebrow">Консультация</div>
         <h2 class="cta__title">Есть проект? Обсудим его вместе</h2>
@@ -1301,9 +1272,6 @@
   </div>
 </footer>
 
-  <!-- ================================================================
-       СКРИПТ: аккордеон (открыт только один ответ)
-       ================================================================ -->
   <script>
     (function () {
       const list = document.getElementById('faqList');
@@ -1350,7 +1318,6 @@
     })();
   </script>
 
-  <!-- Мобильное меню: открытие/закрытие бургера -->
   <script>
     (function () {
       const burger = document.getElementById('navBurger');
