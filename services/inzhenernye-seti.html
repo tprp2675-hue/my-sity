@@ -4,8 +4,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Проектирование и строительство инженерных сетей в Москве | Астория К-3</title>
-<meta name="description" content="Водоснабжение, теплоснабжение, электроснабжение, газоснабжение и сети связи под ключ. Изыскания, проект, монтаж, сдача в эксплуатацию.">
+<meta name="description" content="Инженерные сети под ключ: водоснабжение, электро- и газоснабжение, связь. От изысканий до сдачи в эксплуатацию. Москва и область.">
 <meta name="robots" content="index, follow">
+<link rel="canonical" href="https://вашсайт.ru/uslugi/inzhenernye-seti.html">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Астория К-3">
+<meta property="og:title" content="Инженерные коммуникации под ключ | Астория К-3">
+<meta property="og:description" content="Водоснабжение, тепло- и электроснабжение, газоснабжение, связь. Изыскания, проект, монтаж, сдача в эксплуатацию.">
+<meta property="og:image" content="https://вашсайт.ru/uslugi/inzhenernye-seti-hero.jpg">
+<meta property="og:url" content="https://вашсайт.ru/uslugi/inzhenernye-seti.html">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -132,13 +142,17 @@ ul { list-style: none; }
 
 /* FAQ — нативный accordion, доступен без JS, читаем краулерами */
 .faq { padding-bottom: 72px; }
-.faq__item { border-top: 1px solid var(--border-faint); }
-.faq__item:last-child { border-bottom: 1px solid var(--border-faint); }
-.faq__item summary { list-style: none; cursor: pointer; padding: 22px 4px; font-size: 16px; font-weight: 500; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-.faq__item summary::-webkit-details-marker { display: none; }
-.faq__item summary::after { content: '+'; font-size: 22px; font-weight: 300; color: var(--accent); transition: transform 0.3s var(--ease); flex-shrink: 0; }
-.faq__item[open] summary::after { transform: rotate(45deg); }
-.faq__item p { font-size: 14px; color: var(--text-muted); line-height: 1.7; padding: 0 4px 22px; max-width: 68ch; }
+.faq-item { border-top: 1px solid var(--border-faint); }
+.faq-item:last-child { border-bottom: 1px solid var(--border-faint); }
+.faq-item__q { width: 100%; display: flex; align-items: center; gap: 16px; padding: 22px 4px; background: none; border: none; cursor: pointer; text-align: left; font-family: inherit; color: var(--text-white); }
+.faq-item__num { font-size: 13px; font-weight: 600; color: var(--accent); min-width: 24px; }
+.faq-item__q-text { flex: 1; font-size: 16px; font-weight: 500; }
+.faq-item__icon { display: inline-flex; color: var(--accent); flex-shrink: 0; transition: transform 0.3s var(--ease); }
+.faq-item__q[aria-expanded="true"] .faq-item__icon { transform: rotate(180deg); }
+.faq-item__answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s var(--ease); }
+.faq-item__answer > p { overflow: hidden; font-size: 14px; color: var(--text-muted); line-height: 1.7; padding: 0 4px 0 40px; max-width: 68ch; }
+.faq-item__q[aria-expanded="true"] + .faq-item__answer { grid-template-rows: 1fr; }
+.faq-item__q[aria-expanded="true"] + .faq-item__answer > p { padding-bottom: 22px; }
 
 .cta { margin-top: 8px; margin-bottom: 90px; background: linear-gradient(135deg, #1c1f24 0%, #131519 100%); border: 1px solid var(--border-faint); border-radius: 24px; padding: 56px 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; }
 .cta__title { font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.5px; max-width: 22ch; }
@@ -233,7 +247,7 @@ ul { list-style: none; }
 </nav>
 
 <section class="page-head">
-  <img class="page-head__image" src="kkk.avif" loading="eager" decoding="async" />
+  <img class="page-head__image" src="kkk.avif" alt="" loading="eager" fetchpriority="high" decoding="async" />
   <div class="container">
     <nav class="breadcrumb" aria-label="Хлебные крошки">
       <a href="../index.html">Главная</a><span>/</span>
@@ -305,22 +319,50 @@ ul { list-style: none; }
 
     <div class="faq">
       <h2 class="section-title">Частые вопросы</h2>
-      <details class="faq__item">
-        <summary>Сколько времени занимает прокладка инженерных сетей?</summary>
-        <p>Зависит от протяжённости и типа сетей: от 2-3 недель для локального участка до нескольких месяцев для полного комплекса сетей на крупном объекте. Точный срок даём после выезда на объект.</p>
-      </details>
-      <details class="faq__item">
-        <summary>Нужно ли отдельное согласование с городом?</summary>
-        <p>Да, для большинства сетей требуются технические условия и согласования с ресурсоснабжающими организациями — мы берём это на себя и включаем в смету.</p>
-      </details>
-      <details class="faq__item">
-        <summary>Работаете ли вы в зимний период?</summary>
-        <p>Да, ведём земляные и монтажные работы круглый год с учётом технологии производства работ в холодное время.</p>
-      </details>
-      <details class="faq__item">
-        <summary>Можно ли заказать только проектирование, без строительства?</summary>
-        <p>Да, проектирование — отдельная услуга, её можно заказать без дальнейшего строительства нашей компанией.</p>
-      </details>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">01</span>
+          <span class="faq-item__q-text">Сколько времени занимает прокладка инженерных сетей?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Зависит от протяжённости и типа сетей: от 2-3 недель для локального участка до нескольких месяцев для полного комплекса сетей на крупном объекте. Точный срок даём после выезда на объект.</p></div>
+      </article>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">02</span>
+          <span class="faq-item__q-text">Нужно ли отдельное согласование с городом?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Да, для большинства сетей требуются технические условия и согласования с ресурсоснабжающими организациями — мы берём это на себя и включаем в смету.</p></div>
+      </article>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">03</span>
+          <span class="faq-item__q-text">Работаете ли вы в зимний период?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Да, ведём земляные и монтажные работы круглый год с учётом технологии производства работ в холодное время.</p></div>
+      </article>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">04</span>
+          <span class="faq-item__q-text">Можно ли заказать только проектирование, без строительства?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Да, проектирование — отдельная услуга, её можно заказать без дальнейшего строительства нашей компанией.</p></div>
+      </article>
     </div>
 
     <div class="cta">
@@ -353,6 +395,13 @@ ul { list-style: none; }
   document.addEventListener('click', function (e) { if (mobileMenu.classList.contains('is-open') && !mobileMenu.contains(e.target) && !burger.contains(e.target)) setState(false); });
   window.addEventListener('resize', function () { if (window.innerWidth > 768) setState(false); });
 })();
+
+document.querySelectorAll('.faq-item__q').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+  });
+});
 </script>
 
 </body>

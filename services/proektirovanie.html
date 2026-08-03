@@ -150,6 +150,32 @@ ul { list-style: none; }
   .page-head { min-height: 560px; padding: 120px 0 54px; }
   .page-head__title { max-width: 100%; }
 }
+
+@media (max-width: 460px) {
+  .container, .navbar__inner, .page-head .container { padding-left: 16px; padding-right: 16px; }
+  .navbar { height: auto; min-height: var(--nav-height); }
+  .navbar__brand { font-size: 13px; letter-spacing: 0; }
+  .navbar__actions { gap: 6px; }
+  .burger { width: 40px; height: 40px; }
+  .mobile-menu { padding: 18px 16px 20px; }
+  .mobile-menu a { font-size: 15px; }
+  .page-head { min-height: 480px; padding: 100px 0 42px; }
+  .page-head__eyebrow { font-size: 12px; margin-bottom: 12px; }
+  .page-head__title { font-size: clamp(24px, 8vw, 32px); line-height: 1.08; max-width: 100%; }
+  .content { padding-top: 40px; }
+  .content__intro { font-size: 15px; margin-bottom: 40px; }
+  .included__grid { grid-template-columns: 1fr; gap: 16px; }
+  .included__item { padding: 20px 18px; }
+  .process__item { flex-direction: column; gap: 10px; padding: 20px 0; }
+  .faq__item summary { padding: 18px 0; font-size: 15px; }
+  .faq__item p { padding: 0 0 18px; }
+  .cta { padding: 28px 16px; }
+  .cta__title { font-size: 22px; max-width: 100%; }
+  .cta__text { font-size: 14px; max-width: 100%; }
+  .footer__inner { flex-direction: column; align-items: flex-start; }
+  .footer__privacy { margin-left: 0; margin-top: 6px; display: inline-block; }
+}
+
 @media (max-width: 295px) {
   .container, .navbar__inner { padding-left: 10px; padding-right: 10px; }
   .navbar { height: auto; min-height: var(--nav-height); }
@@ -199,7 +225,7 @@ ul { list-style: none; }
 </nav>
 
 <section class="page-head">
-  <img class="page-head__image" src="nn.avif" loading="eager" decoding="async" />
+  <img class="page-head__image" src="nn.avif" alt="" loading="eager" decoding="async" />
   <div class="container">
     <nav class="breadcrumb" aria-label="Хлебные крошки">
       <a href="../index.html">Главная</a><span>/</span>
