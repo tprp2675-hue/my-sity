@@ -118,13 +118,17 @@ ul { list-style: none; }
 .process__body h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
 .process__body p { font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 62ch; }
 .faq { padding-bottom: 72px; }
-.faq__item { border-top: 1px solid var(--border-faint); }
-.faq__item:last-child { border-bottom: 1px solid var(--border-faint); }
-.faq__item summary { list-style: none; cursor: pointer; padding: 22px 4px; font-size: 16px; font-weight: 500; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-.faq__item summary::-webkit-details-marker { display: none; }
-.faq__item summary::after { content: '+'; font-size: 22px; font-weight: 300; color: var(--accent); transition: transform 0.3s var(--ease); flex-shrink: 0; }
-.faq__item[open] summary::after { transform: rotate(45deg); }
-.faq__item p { font-size: 14px; color: var(--text-muted); line-height: 1.7; padding: 0 4px 22px; max-width: 68ch; }
+.faq-item { border-top: 1px solid var(--border-faint); }
+.faq-item:last-child { border-bottom: 1px solid var(--border-faint); }
+.faq-item__q { width: 100%; display: flex; align-items: center; gap: 16px; padding: 22px 4px; background: none; border: none; cursor: pointer; text-align: left; font-family: inherit; color: var(--text-white); }
+.faq-item__num { font-size: 13px; font-weight: 600; color: var(--accent); min-width: 24px; }
+.faq-item__q-text { flex: 1; font-size: 16px; font-weight: 500; }
+.faq-item__icon { display: inline-flex; color: var(--accent); flex-shrink: 0; transition: transform 0.3s var(--ease); }
+.faq-item__q[aria-expanded="true"] .faq-item__icon { transform: rotate(180deg); }
+.faq-item__answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s var(--ease); }
+.faq-item__answer > p { overflow: hidden; font-size: 14px; color: var(--text-muted); line-height: 1.7; padding: 0 4px 0 40px; max-width: 68ch; }
+.faq-item__q[aria-expanded="true"] + .faq-item__answer { grid-template-rows: 1fr; }
+.faq-item__q[aria-expanded="true"] + .faq-item__answer > p { padding-bottom: 22px; }
 .cta { margin-top: 8px; margin-bottom: 90px; background: linear-gradient(135deg, #1c1f24 0%, #131519 100%); border: 1px solid var(--border-faint); border-radius: 24px; padding: 56px 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; }
 .cta__title { font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.5px; max-width: 22ch; }
 .cta__text { font-size: 16px; font-weight: 300; color: var(--text-muted); margin-top: 8px; max-width: 40ch; }
@@ -181,8 +185,9 @@ ul { list-style: none; }
   .included__grid { grid-template-columns: 1fr; gap: 16px; }
   .included__item { padding: 20px 18px; }
   .process__item { flex-direction: column; gap: 10px; padding: 20px 0; }
-  .faq__item summary { padding: 18px 0; font-size: 15px; }
-  .faq__item p { padding: 0 0 18px; }
+  .faq-item__q { padding: 18px 4px; }
+  .faq-item__q-text { font-size: 15px; }
+  .faq-item__answer > p { padding-left: 4px; }
   .cta { padding: 28px 16px; }
   .cta__title { font-size: 22px; max-width: 100%; }
   .cta__text { font-size: 14px; max-width: 100%; }
@@ -313,18 +318,39 @@ ul { list-style: none; }
 
     <div class="faq">
       <h2 class="section-title">FAQ</h2>
-      <details class="faq__item" open>
-        <summary>Строите ли вы здания под ключ?</summary>
-        <p>Да. Мы берём на себя полный цикл работ: от проекта и подготовки площадки до внутренней отделки, монтажа инженерных систем и сдачи объекта.</p>
-      </details>
-      <details class="faq__item">
-        <summary>Работаете ли вы с жилыми и коммерческими объектами?</summary>
-        <p>Да, выполняем строительство жилых домов, коммерческих помещений, административных и общественных зданий.</p>
-      </details>
-      <details class="faq__item">
-        <summary>Можно ли начать стройку по уже готовому проекту?</summary>
-        <p>Да, мы работаем как по собственным решениям, так и по проектной документации заказчика, при необходимости адаптируя её под реальность участка и бюджета.</p>
-      </details>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">01</span>
+          <span class="faq-item__q-text">Строите ли вы здания под ключ?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Да. Мы берём на себя полный цикл работ: от проекта и подготовки площадки до внутренней отделки, монтажа инженерных систем и сдачи объекта.</p></div>
+      </article>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">02</span>
+          <span class="faq-item__q-text">Работаете ли вы с жилыми и коммерческими объектами?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Да, выполняем строительство жилых домов, коммерческих помещений, административных и общественных зданий.</p></div>
+      </article>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">03</span>
+          <span class="faq-item__q-text">Можно ли начать стройку по уже готовому проекту?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Да, мы работаем как по собственным решениям, так и по проектной документации заказчика, при необходимости адаптируя её под реальность участка и бюджета.</p></div>
+      </article>
     </div>
 
     <div class="cta">
@@ -377,6 +403,13 @@ ul { list-style: none; }
     if (window.innerWidth > 768) setOpen(false);
   });
 })();
+
+document.querySelectorAll('.faq-item__q').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+  });
+});
 </script>
 
 </body>
