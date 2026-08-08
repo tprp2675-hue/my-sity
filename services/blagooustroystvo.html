@@ -172,6 +172,67 @@ ul { list-style: none; }
   .process__item { gap: 16px; }
   .cta { padding: 38px 24px; }
 }
+/* ===== МОДАЛЬНОЕ ОКНО ЗАЯВКИ ===== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(8, 9, 10, 0.72);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.3s var(--ease), visibility 0.3s var(--ease);
+}
+.modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+.modal {
+  position: relative; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto;
+  background: var(--bg-dark-2); border: 1px solid var(--border-soft); border-radius: 24px;
+  padding: 40px 32px; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  transform: translateY(20px) scale(0.97); opacity: 0;
+  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+}
+.modal-overlay.is-open .modal { transform: translateY(0) scale(1); opacity: 1; }
+.modal__close {
+  position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: var(--text-muted);
+  cursor: pointer; transition: all 0.25s var(--ease);
+}
+.modal__close:hover { background: rgba(255,255,255,0.1); color: var(--text-white); border-color: var(--border-soft); }
+.modal__eyebrow { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.modal__title { font-size: 25px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px; }
+.modal__desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 26px; max-width: 34ch; }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+.field input, .field select, .field textarea {
+  width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 12px 14px; font-family: inherit; font-size: 15px; color: var(--text-white);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.4); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--accent); background: rgba(255,255,255,0.05);
+}
+.field textarea { resize: vertical; min-height: 74px; }
+.field select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8e0d3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+}
+.field select option { background: var(--bg-dark-2); color: var(--text-white); }
+.modal__submit { width: 100%; margin-top: 6px; }
+.modal__submit[disabled] { opacity: 0.6; cursor: not-allowed; }
+.modal__privacy-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 14px; line-height: 1.5; text-align: center; }
+.modal__privacy-note a { color: var(--text-muted); text-decoration: underline; }
+.modal__success { text-align: center; padding: 10px 0 4px; }
+.modal__success-icon {
+  width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 50%;
+  background: rgba(232,224,211,0.12); display: flex; align-items: center; justify-content: center; color: var(--accent);
+}
+.modal__success h2 { font-size: 21px; font-weight: 600; margin-bottom: 10px; }
+.modal__success p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+@media (max-width: 480px) {
+  .modal { padding: 32px 22px; }
+  .modal__title { font-size: 22px; }
+}
 </style>
 </head>
 <body>
@@ -191,7 +252,7 @@ ul { list-style: none; }
     </div>
     <div class="navbar__actions">
       <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
-      <a href="https://wa.me/79017147425" class="btn btn--accent">Получить смету</a>
+      <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
       <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -206,7 +267,7 @@ ul { list-style: none; }
   <a href="../contacts.html">Контакты</a>
   <div class="mobile-menu__actions">
     <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
-    <a href="https://wa.me/79017147425" class="btn btn--accent">Написать нам</a>
+    <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
   </div>
 </nav>
 
@@ -318,7 +379,7 @@ ul { list-style: none; }
         <div class="cta__title">Есть участок или двор?</div>
         <p class="cta__text">Оставьте заявку — подготовим решение и смету по благоустройству под ваш объект.</p>
       </div>
-      <a href="https://wa.me/79017147425" class="btn btn--accent">Получить консультацию</a>
+      <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
     </div>
   </div>
 </section>
@@ -351,6 +412,140 @@ document.querySelectorAll('.faq-item__q').forEach(function (btn) {
   });
 });
 </script>
+<div class="modal-overlay" id="quoteModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" type="button" aria-label="Закрыть">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
 
+    <div id="modalFormState">
+      <div class="modal__eyebrow">Заявка</div>
+      <h2 class="modal__title" id="modalTitle">Получить консультацию</h2>
+      <p class="modal__desc">Оставьте контакты — рассчитаем стоимость и перезвоним в течение дня.</p>
+
+      <form id="quoteForm">
+        <div class="field">
+          <label for="qName">Имя</label>
+          <input type="text" id="qName" name="name" required placeholder="Как к вам обращаться" />
+        </div>
+        <div class="field">
+          <label for="qPhone">Телефон</label>
+          <input type="tel" id="qPhone" name="phone" required placeholder="+7 (___) ___-__-__" />
+        </div>
+        <div class="field">
+          <label for="qService">Услуга</label>
+          <select id="qService" name="service">
+            <option value="">Не выбрано</option>
+            <option>Инженерные коммуникации</option>
+            <option>Благоустройство территорий</option>
+            <option>Строительство зданий</option>
+            <option>Проектирование</option>
+            <option>Специализированные работы</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="qMessage">Комментарий (необязательно)</label>
+          <textarea id="qMessage" name="message" placeholder="Кратко опишите задачу"></textarea>
+        </div>
+        <button type="submit" class="btn btn--accent modal__submit">
+          <span class="modal__submit-text">Отправить заявку</span>
+        </button>
+        <p class="modal__privacy-note">Нажимая «Отправить», вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</p>
+      </form>
+    </div>
+
+    <div class="modal__success" id="modalSuccessState" hidden>
+      <div class="modal__success-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h2>Заявка отправлена</h2>
+      <p>Спасибо! Мы свяжемся с вами в ближайшее время.</p>
+      <button class="btn btn--outline" id="modalCloseSuccess">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var overlay = document.getElementById('quoteModal');
+  var closeBtn = overlay.querySelector('.modal__close');
+  var closeSuccessBtn = document.getElementById('modalCloseSuccess');
+  var form = document.getElementById('quoteForm');
+  var formState = document.getElementById('modalFormState');
+  var successState = document.getElementById('modalSuccessState');
+  var submitBtn = form.querySelector('.modal__submit');
+  var submitText = submitBtn.querySelector('.modal__submit-text');
+  var lastFocused = null;
+
+  function openModal(e) {
+    if (e) e.preventDefault();
+    lastFocused = document.activeElement;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () { document.getElementById('qName').focus(); }, 300);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  function resetModal() {
+    form.reset();
+    formState.hidden = false;
+    successState.hidden = true;
+  }
+
+  document.querySelectorAll('[data-open-quote]').forEach(function (btn) {
+    btn.addEventListener('click', openModal);
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  closeSuccessBtn.addEventListener('click', function () {
+    closeModal();
+    setTimeout(resetModal, 300);
+  });
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitText.textContent = 'Отправляем...';
+
+    var data = {
+      name: form.name.value.trim(),
+      phone: form.phone.value.trim(),
+      service: form.service.value,
+      message: form.message.value.trim(),
+      page: window.location.pathname
+    };
+
+    fetch('/api/send-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function (res) {
+      if (!res.ok) throw new Error('bad response');
+      formState.hidden = true;
+      successState.hidden = false;
+    })
+    .catch(function () {
+      alert('Не получилось отправить заявку. Попробуйте ещё раз или позвоните нам: +7 (926) 892-43-31');
+    })
+    .finally(function () {
+      submitBtn.disabled = false;
+      submitText.textContent = 'Отправить заявку';
+    });
+  });
+})();
+</script>
 </body>
 </html>
