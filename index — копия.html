@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Астория К-3 — строительная компания полного цикла в Москве</title>
+  <meta name="description" content="Астория К-3 — инженерно-строительная компания полного цикла. Выполняем строительство объектов, монтаж инженерных сетей и комплексные строительные работы в Москве и Московской области.">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+ 
+    <style>
+    /* ================================================================
+       1. ПЕРЕМЕННЫЕ — здесь можно быстро поменять всю палитру и текст
+       ================================================================ */
+    :root {
+      /* --- Цвета --- */
+      --bg-dark:        #0e0f11;   /* Основной тёмный фон */
+      --bg-dark-2:      #15171a;   /* Второй тёмный оттенок (секции) */
+      --text-white:     #ffffff;   /* Основной белый текст */
+      --text-muted:     rgba(255, 255, 255, 0.6); /* Приглушённый текст */
+      --text-faint:     rgba(255, 255, 255, 0.4); /* Совсем тихий текст */
+      --accent:         #e8e0d3;   /* Акцентный светлый/бежевый (кнопки) */
+      --accent-hover:   #ffffff;   /* Акцент при наведении */
+      --border-soft:    rgba(255, 255, 255, 0.25); /* Обводка кнопок/линии */
+
+      /* --- Прочее --- */
+      --radius:         999px;     /* Скругление кнопок */
+      --nav-height:     84px;      /* Высота навбара */
+      --max-width:      1400px;    /* Максимальная ширина контента */
+      --ease:           cubic-bezier(0.22, 1, 0.36, 1); /* Плавность анимаций */
+    }
+
+    
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* Утилита-контейнер для ограничения ширины */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ================================================================
+       3. НАВБАР (полупрозрачный, поверх фото)
+       ================================================================ */
+    .navbar {
+      position: absolute;   /* Лежит поверх hero, не занимая места */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      /* Лёгкая полупрозрачная подложка + размытие */
+      background: rgba(14, 15, 17, 0.15);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar__inner {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    /* Левый блок: логотип + пункты меню */
+    .navbar__left {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .navbar__brand {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    /* Пункты меню */
+    .navbar__menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .navbar__menu a {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-muted);
+      position: relative;
+      transition: color 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover,
+    .navbar__menu a.is-active {
+  color: var(--text-white);
+}
+
+    /* Подчёркивание, «выезжающее» при наведении */
+    .navbar__menu a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1px;
+      background: var(--text-white);
+      transition: width 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover::after,
+.navbar__menu a.is-active::after {
+  width: 100%;
+}
+
+    /* Правый блок: кнопки действий */
+    .navbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Бургер (скрыт на десктопе, показывается только ≤768px) */
+    .burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      background: transparent;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+    }
+
+    .burger:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+    }
+
+    .burger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
+    }
+
+    .burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.is-open span:nth-child(2) { opacity: 0; }
+    .burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Мобильное меню (выпадает под шапкой, только ≤768px) */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      width: 100%;
+      flex-direction: column;
+      gap: 4px;
+      padding: 22px 22px 30px;
+      background: rgba(14, 15, 17, 0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 49;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-12px);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
+    }
+
+    .mobile-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .mobile-menu a {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text-muted);
+      padding: 14px 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: color 0.25s var(--ease);
+    }
+
+    .mobile-menu a:hover { color: var(--text-white); }
+
+    .mobile-menu__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .mobile-menu__actions .btn { width: 100%; }
+    .mobile-menu__actions .btn--accent { color: #0e0f11 !important; }
+    .mobile-menu__actions .btn--accent:hover { color: #0e0f11 !important; }
+
+    /* ================================================================
+       4. КНОПКИ (переиспользуемые классы)
+       ================================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      /* Разложенные переходы вместо all — плавнее и предсказуемее */
+      transition: background 0.3s var(--ease),
+                  border-color 0.3s var(--ease),
+                  color 0.3s var(--ease),
+                  transform 0.3s var(--ease),
+                  box-shadow 0.3s var(--ease);
+      white-space: nowrap;
+    }
+
+    /* Лёгкое «вдавливание» при клике — единое для всех кнопок */
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    /* Кнопка с обводкой (прозрачная) */
+    .btn--outline {
+      background: transparent;
+      border-color: var(--border-soft);
+      color: var(--text-white);
+    }
+    .btn--outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Акцентная светлая кнопка (заполненная) */
+    .btn--accent {
+      background: var(--accent);
+      color: #111;
+    }
+    .btn--accent:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Белая скруглённая кнопка с тёмным текстом (CTA под заголовком) */
+    .btn--white {
+      background: var(--text-white);
+      color: #111;
+      padding: 15px 30px;
+      font-weight: 600;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+    .btn--white:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ================================================================
+       5. HERO — полноэкранная шапка с фоновым фото
+       ================================================================ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      width: 100%;
+      display: flex;
+      /* Контент прижат к низу экрана */
+      align-items: flex-end;
+      background-image:
+        linear-gradient(
+          to bottom,
+          rgba(14, 15, 17, 0.55) 0%, 
+          rgba(14, 15, 17, 0.25) 35%,  
+          rgba(14, 15, 17, 0.85) 100%  
+        ),
+        url('tf2o8xbr.avif');
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero__content {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px 72px; 
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    
+    .hero__title {
+      font-size: clamp(40px, 6vw, 84px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      max-width: 15ch;
+      margin-bottom: 24px;
+    }
+
+    /* Пояснение под заголовком */
+    .hero__subtitle {
+      font-size: clamp(16px, 1.4vw, 19px);
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 52ch;
+      margin-bottom: 36px;
+    }
+
+    /* ================================================================
+       6. ПОДПИСЬ «Прокрутите вниз» в правом нижнем углу
+       ================================================================ */
+    .scroll-hint {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      z-index: 10;
+    }
+
+    .scroll-hint__arrow {
+      display: inline-flex;
+      /* Плавная анимация «подпрыгивания» стрелки */
+      animation: bounce 1.8s var(--ease) infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(6px); }
+    }
+
+    /* ================================================================
+       7. СЕКЦИЯ «НАШИ ПРОЕКТЫ» — заглушка с 3 карточками
+       ================================================================ */
+    .projects {
+      background: var(--bg-dark-2);
+      padding: 120px 0;
+    }
+
+    .projects__header {
+      margin-bottom: 56px;
+      max-width: 640px;
+    }
+
+    .projects__eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .projects__title {
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .projects__desc {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* Сетка карточек: 3 в ряд на десктопе */
+    .projects__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    /* Отдельная карточка проекта (заглушка) */
+    .project-card {
+      background: var(--bg-dark);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.4s var(--ease),
+                  border-color 0.4s var(--ease),
+                  box-shadow 0.4s var(--ease);
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-soft);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Место под фото проекта (замените фон на своё изображение) */
+    .project-card__image {
+      position: relative;               /* база для shimmer-слоя */
+      aspect-ratio: 4 / 3;
+      width: 100%;
+      overflow: hidden;
+      /* Плейсхолдер-градиент. Замените на: url('images/project-1.jpg') */
+      background: linear-gradient(135deg, #23262b 0%, #16181b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Надпись почти растворена — визуально ведёт shimmer */
+      color: rgba(255, 255, 255, 0.14);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: background 0.4s var(--ease);
+    }
+
+    /* Реальное фото проекта (вставляется скриптом после загрузки).
+       Появляется сразу, без анимации. */
+    .project-card__image img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Shimmer показывается ТОЛЬКО во время загрузки (класс .is-loading) */
+    .project-card__image.is-loading::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        100deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(255, 255, 255, 0.10) 50%,
+        rgba(255, 255, 255, 0.05) 60%,
+        transparent 80%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 2.6s linear infinite;
+      pointer-events: none;
+    }
+
+    /* Загрузка завершена: прячем подпись, фото показывается сразу */
+    .project-card__image.is-loaded { color: transparent; }
+
+    /* Нет URL или ошибка загрузки: статичный placeholder без анимации
+       (специальных правил не требует — просто отсутствие .is-loading) */
+
+    /* На наведении карточки плейсхолдер чуть светлеет */
+    .project-card:hover .project-card__image {
+      background: linear-gradient(135deg, #2a2e35 0%, #1b1e22 100%);
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Уважаем настройку «меньше движения» — отключаем блик */
+    @media (prefers-reduced-motion: reduce) {
+      .project-card__image.is-loading::after { animation: none; }
+    }
+
+    .project-card__body {
+      padding: 24px;
+    }
+
+    .project-card__tag {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .project-card__name {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .project-card__text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ================================================================
+       8. АДАПТИВНОСТЬ (планшеты и телефоны)
+       ================================================================ */
+       @media (min-width:1025px) and (max-width:1144px) {
+  .container,
+  .navbar__inner {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 14px;
+  }
+  .navbar__left {
+    gap: 18px;
+  }
+  .navbar__brand {
+    font-size: 17px;
+  }
+  .navbar__menu {
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+  .navbar__menu a {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .navbar__actions {
+    gap: 8px;
+  }
+  .navbar__actions .btn {
+    padding: 10px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+}
+
+
+    /* Планшеты */
+    @media (max-width: 1024px) {
+      .contacts__grid { grid-template-columns: 1fr; }
+      /* Ужимаем шапку, чтобы меню и кнопки помещались (как в o_nas) */
+      .container,
+      .navbar__inner { padding-left: 24px; padding-right: 24px; gap: 16px; }
+      .navbar__left { gap: 20px; }
+      .navbar__brand { font-size: 17px; }
+      .navbar__menu { gap: 14px; }
+      .navbar__menu a { font-size: 13px; white-space: nowrap; }
+      .navbar__actions { gap: 8px; }
+      .navbar__actions .btn { padding: 10px 14px; font-size: 13px; }
+    }
+
+    /* Узкие планшеты (≤880): компактная шапка до включения бургера */
+    @media (max-width: 880px) {
+      .container,
+      .navbar__inner { padding-left: 16px; padding-right: 16px; gap: 10px; }
+      .navbar__left { gap: 10px; }
+      .navbar__brand { font-size: 15px; }
+      .navbar__menu { gap: 8px; }
+      .navbar__menu a { font-size: 12px; }
+      .navbar__actions { gap: 6px; }
+      .navbar__actions .btn { padding: 7px 10px; font-size: 12px; }
+    }
+
+    /* Телефоны */
+    @media (max-width: 768px) {
+      .container,
+      .navbar__inner,
+      .hero__content {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      /* Скрываем меню и кнопки шапки — они доступны в мобильном меню */
+      .navbar__menu { display: none; }
+      .navbar__actions .btn { display: none; }
+
+      /* Показ бургера */
+      .burger { display: flex; }
+      .mobile-menu { display: flex; }
+
+      .hero {
+        min-height: 560px;
+      }
+
+      .hero__content {
+        padding-bottom: 90px;
+      }
+
+      .hero__title {
+        font-size: clamp(34px, 9vw, 52px);
+      }
+
+      /* Скрываем подсказку прокрутки на маленьких экранах */
+      .scroll-hint {
+        display: none;
+      }
+
+      .projects {
+        padding: 72px 0;
+      }
+
+      .projects__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width:250px) {
+  .container,
+  .navbar__inner,
+  .hero__content {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .burger {
+    width: 40px;
+    height: 40px;
+  }
+  .mobile-menu {
+    padding: 70px 16px 24px;
+  }
+  .mobile-menu__actions .btn {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px;
+  }
+  .mobile-menu__nav a {
+    font-size: 16px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
+
+    /* ================================================================
+       9. ФУТЕР
+       ================================================================ */
+      .footer {
+
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+      padding: 32px 0;
+
+    }
+
+    .footer__inner {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      flex-wrap: wrap;
+
+    }
+
+    .footer__brand { font-weight: 600; font-size: 16px; }
+
+    .footer__copy { color: var(--text-faint); font-size: 13px; }
+
+    .footer__privacy {
+
+      margin-left: 16px;
+
+      font-size: 12px;
+
+      color: var(--text-faint);
+
+      text-decoration: underline;
+
+      transition: color 0.3s var(--ease);
+
+    }
+
+    .footer__privacy:hover {
+
+      color: var(--text-white);
+
+    }
+ .navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+ 
+.navbar__logo {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+    /* ===== МОДАЛЬНОЕ ОКНО ЗАЯВКИ ===== */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(8, 9, 10, 0.72);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.3s var(--ease), visibility 0.3s var(--ease);
+    }
+    .modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+    .modal {
+      position: relative; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto;
+      background: var(--bg-dark-2); border: 1px solid var(--border-soft); border-radius: 24px;
+      padding: 40px 32px; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      transform: translateY(20px) scale(0.97); opacity: 0;
+      transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+    }
+    .modal-overlay.is-open .modal { transform: translateY(0) scale(1); opacity: 1; }
+    .modal__close {
+      position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: var(--text-muted);
+      cursor: pointer; transition: all 0.25s var(--ease);
+    }
+    .modal__close:hover { background: rgba(255,255,255,0.1); color: var(--text-white); border-color: var(--border-soft); }
+    .modal__eyebrow { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .modal__title { font-size: 25px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .modal__desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 26px; max-width: 34ch; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+    /* honeypot: скрыто от людей, но заметно ботам, которые заполняют все поля подряд */
+.field--hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .field input, .field select, .field textarea {
+      width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 12px 14px; font-family: inherit; font-size: 15px; color: var(--text-white);
+      transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.4); }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none; border-color: var(--accent); background: rgba(255,255,255,0.05);
+    }
+    .field textarea { resize: vertical; min-height: 74px; }
+    .field select {
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8e0d3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+    }
+    .field select option { background: var(--bg-dark-2); color: var(--text-white); }
+    .modal__submit { width: 100%; margin-top: 6px; }
+    .modal__submit[disabled] { opacity: 0.6; cursor: not-allowed; }
+    .modal__privacy-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 14px; line-height: 1.5; text-align: center; }
+    .modal__privacy-note a { color: var(--text-muted); text-decoration: underline; }
+    .modal__success { text-align: center; padding: 10px 0 4px; }
+    .modal__success-icon {
+      width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 50%;
+      background: rgba(232,224,211,0.12); display: flex; align-items: center; justify-content: center; color: var(--accent);
+    }
+    .modal__success h2 { font-size: 21px; font-weight: 600; margin-bottom: 10px; }
+    .modal__success p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+    @media (max-width: 480px) {
+      .modal { padding: 32px 22px; }
+      .modal__title { font-size: 22px; }
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "name": "Астория К-3",
+  "legalName": "ООО «АСТОРИЯ К-3»",
+  "url": "",
+  "telephone": "+7-926-892-43-31",
+  "description": "Инженерно-строительная компания. Строительно-монтажные работы, инженерные коммуникации, благоустройство территорий, проектирование.",
+  "areaServed": "Москва и Московская область",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "г. Москва, Красносельский р-н,
+пер. 3-й Новый, дом 5, стр. 1",
+    "addressLocality": "Москва",
+    "addressCountry": "RU"
+  }
+}
+</script>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+
+      <div class="navbar__left">
+        <div class="navbar__brand">Астория&nbsp;К-3
+            </div>
+        <nav class="navbar__menu">
+          <a href="#home" class="is-active">Главная</a>
+          <a href="o_nas.html">О нас</a>
+          <a href="services.html">Услуги</a>
+          <a href="#projects">Реализованные проекты</a>
+          <a href="faq.html#questions">FAQ</a>
+        </nav>
+      </div>
+
+      <div class="navbar__actions">
+        <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+        <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
+
+        <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
+    <a href="#home">Главная</a>
+    <a href="o_nas.html">О нас</a>
+    <a href="services.html">Услуги</a>
+    <a href="#projects">Реализованные проекты</a>
+    <a href="faq.html#questions">FAQ</a>
+    <div class="mobile-menu__actions">
+      <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+      <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero__content">
+
+      <h1 class="hero__title">Воплотим ваше видение в реальность</h1>
+
+      <p class="hero__subtitle">
+        Мы реализуем ваши идеи — от концепции до сдачи объекта —
+        с гарантией качества и прозрачностью на каждом этапе.
+      </p>
+
+      <a href="#projects" class="btn btn--white">Смотреть проекты</a>
+
+    </div>
+
+    <div class="scroll-hint">
+      <span>Прокрутите вниз</span>
+      <span class="scroll-hint__arrow" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.6"
+             stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="4" x2="12" y2="20"></line>
+          <polyline points="6 14 12 20 18 14"></polyline>
+        </svg>
+      </span>
+    </div>
+  </section>
+
+  <section class="projects" id="projects">
+    <div class="container">
+
+      <div class="projects__header">
+        <div class="projects__eyebrow">Портфолио</div>
+        <h2 class="projects__title">Наши реализованные проекты</h2>
+        <p class="projects__desc">
+          Избранные работы, в которых точность инженерии встречается
+          с продуманной архитектурой. Скоро здесь появятся детали.
+        </p>
+      </div>
+
+      <div class="projects__grid">
+
+        <article class="project-card">
+          <div class="project-card__image" data-src="URmVo.avif" data-alt="Фото проекта 1">ФОТО ПРОЕКТА</div>
+          <div class="project-card__body">
+            <div class="project-card__tag">Жилой дом</div>
+            <h3 class="project-card__name">Проект</h3>
+            <p class="project-card__text">
+              Многоквартирный жилой дом: от разработки проекта до завершения строительства.
+            </p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card__image" data-src="bussines.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__body">
+            <div class="project-card__tag">Коммерция</div>
+            <h3 class="project-card__name">Проект</h3>
+            <p class="project-card__text">
+              Бизнес центр с современным дизайном и функциональными решениями.
+            </p>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card__image" data-src="road.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__body">
+            <div class="project-card__tag">Благоустройство</div>
+            <h3 class="project-card__name">Проект</h3>
+            <p class="project-card__text">
+              Профессиональное асфальтирование и благоустройство дорог для безопасного движения транспорта.
+            </p>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__image" data-src="light.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__body">
+            <div class="project-card__tag">Уличное освещение</div>
+            <h3 class="project-card__name">Проект</h3>
+            <p class="project-card__text">
+              Профессиональное создание энергоэффективных систем наружного освещения любого масштаба.
+            </p>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__image" data-src="dom.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__body">
+            <div class="project-card__tag">Реконструкция</div>
+            <h3 class="project-card__name">Проект</h3>
+            <p class="project-card__text">
+              Реставрация жилого дома с восстановлением оригинального кирпичного фасада.
+            </p>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-card__image" data-src="hotel.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__body">
+            <div class="project-card__tag">Отель</div>
+            <h3 class="project-card__name">Проект</h3>
+            <p class="project-card__text">
+              Проектирование современного отеля с комфортными номерами и удобствами для гостей.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">Астория&nbsp;К-3</div>
+    <div class="footer__copy">
+      © 2023—2026 Астория К-3. Все права защищены.
+       <a href="privacy.html" class="footer__privacy">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var boxes = document.querySelectorAll('.project-card__image');
+
+    boxes.forEach(function (box) {
+      var src = (box.getAttribute('data-src') || '').trim();
+
+      // 1. URL нет → статичный placeholder, БЕЗ анимации (loading не запускаем)
+      if (!src) {
+        box.classList.add('is-empty');
+        return;
+      }
+
+      // 2. URL есть → показываем shimmer, пока картинка грузится (loading = true)
+      box.classList.add('is-loading');
+
+      var img = new Image();
+      img.alt = '';
+      img.decoding = 'async';
+
+      // Успех → показываем настоящий контент, loading = false
+      img.onload = function () {
+        box.appendChild(img);
+        box.classList.remove('is-loading');
+        box.classList.add('is-loaded');
+      };
+
+      // Ошибка / битый URL → обычный placeholder без shimmer, loading = false
+      img.onerror = function () {
+        box.classList.remove('is-loading');
+        box.classList.add('is-empty');
+      };
+
+      img.src = src; // старт загрузки
+    });
+  })();
+</script>
+ <script>
+    (function () {
+      var burger = document.querySelector('.burger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      if (!burger || !mobileMenu) return;
+
+      function setState(open) {
+        burger.classList.toggle('is-open', open);
+        mobileMenu.classList.toggle('is-open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      }
+
+      // Открытие/закрытие по клику на бургер
+      burger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setState(!mobileMenu.classList.contains('is-open'));
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () { setState(false); });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (mobileMenu.classList.contains('is-open') &&
+            !mobileMenu.contains(e.target) && !burger.contains(e.target)) {
+          setState(false);
+        }
+      });
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) setState(false);
+      });
+    })();
+  </script>
+<div class="modal-overlay" id="quoteModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" type="button" aria-label="Закрыть">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+ 
+    <div id="modalFormState">
+      <div class="modal__eyebrow">Заявка</div>
+      <h2 class="modal__title" id="modalTitle">Получить консультацию</h2>
+      <p class="modal__desc">Оставьте контакты — рассчитаем стоимость и перезвоним в течение дня.</p>
+ 
+      <form id="quoteForm">
+        <div class="field">
+          <label for="qName">Имя</label>
+          <input type="text" id="qName" name="name" required placeholder="Как к вам обращаться" />
+        </div>
+        <div class="field">
+          <label for="qPhone">Телефон</label>
+          <input type="tel" id="qPhone" name="phone" required placeholder="+7 (___) ___-__-__" />
+        </div>
+        <div class="field">
+          <label for="qService">Услуга</label>
+          <select id="qService" name="service">
+            <option value="">Не выбрано</option>
+            <option>Инженерные коммуникации</option>
+            <option>Благоустройство территорий</option>
+            <option>Строительство зданий</option>
+            <option>Проектирование</option>
+            <option>Специализированные работы</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="qMessage">Комментарий (необязательно)</label>
+          <textarea id="qMessage" name="message" placeholder="Кратко опишите задачу"></textarea>
+        </div>
+        <div class="field field--hp" aria-hidden="true">
+  <label for="qWebsite">Website</label>
+  <input type="text" id="qWebsite" name="website" tabindex="-1" autocomplete="off" />
+</div>
+<input type="hidden" id="qFormLoadedAt" name="formLoadedAt" value="" />
+        <button type="submit" class="btn btn--accent modal__submit">
+          <span class="modal__submit-text">Отправить заявку</span>
+        </button>
+        <p class="modal__privacy-note">Нажимая «Отправить», вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</p>
+      </form>
+    </div>
+ 
+    <div class="modal__success" id="modalSuccessState" hidden>
+      <div class="modal__success-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h2>Заявка отправлена</h2>
+      <p>Спасибо! Мы свяжемся с вами в ближайшее время.</p>
+      <button class="btn btn--outline" id="modalCloseSuccess">Закрыть</button>
+    </div>
+  </div>
+</div>
+ 
+<script>
+(function () {
+  var overlay = document.getElementById('quoteModal');
+  var closeBtn = overlay.querySelector('.modal__close');
+  var closeSuccessBtn = document.getElementById('modalCloseSuccess');
+  var form = document.getElementById('quoteForm');
+  var formState = document.getElementById('modalFormState');
+  var successState = document.getElementById('modalSuccessState');
+  var submitBtn = form.querySelector('.modal__submit');
+  var submitText = submitBtn.querySelector('.modal__submit-text');
+  var lastFocused = null;
+ 
+  function openModal(e) {
+    if (e) e.preventDefault();
+    lastFocused = document.activeElement;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('qFormLoadedAt').value = Date.now();
+    setTimeout(function () { document.getElementById('qName').focus(); }, 300);
+  }
+ 
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+ 
+  function resetModal() {
+    form.reset();
+    formState.hidden = false;
+    successState.hidden = true;
+  }
+ 
+  document.querySelectorAll('[data-open-quote]').forEach(function (btn) {
+    btn.addEventListener('click', openModal);
+  });
+ 
+  closeBtn.addEventListener('click', closeModal);
+  closeSuccessBtn.addEventListener('click', function () {
+    closeModal();
+    setTimeout(resetModal, 300);
+  });
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+  });
+ 
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitText.textContent = 'Отправляем...';
+ 
+   var data = {
+  name: form.name.value.trim(),
+  phone: form.phone.value.trim(),
+  service: form.service.value,
+  message: form.message.value.trim(),
+  page: window.location.pathname,
+  website: form.website.value,          // honeypot — у людей всегда пусто
+  formLoadedAt: form.formLoadedAt.value  // когда открылась форма (мс)
+};
+ 
+    fetch('/send.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function (res) {
+      if (!res.ok) throw new Error('bad response');
+      formState.hidden = true;
+      successState.hidden = false;
+    })
+    .catch(function () {
+      alert('Не получилось отправить заявку. Попробуйте ещё раз или позвоните нам: +7 (926) 892-43-31');
+    })
+    .finally(function () {
+      submitBtn.disabled = false;
+      submitText.textContent = 'Отправить заявку';
+    });
+  });
+})();
+</script>
+</body>
+</html>

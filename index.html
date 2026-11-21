@@ -130,9 +130,10 @@
       transition: color 0.3s var(--ease);
     }
 
-    .navbar__menu a:hover {
-      color: var(--text-white);
-    }
+    .navbar__menu a:hover,
+    .navbar__menu a.is-active {
+  color: var(--text-white);
+}
 
     /* Подчёркивание, «выезжающее» при наведении */
     .navbar__menu a::after {
@@ -146,9 +147,10 @@
       transition: width 0.3s var(--ease);
     }
 
-    .navbar__menu a:hover::after {
-      width: 100%;
-    }
+    .navbar__menu a:hover::after,
+.navbar__menu a.is-active::after {
+  width: 100%;
+}
 
     /* Правый блок: кнопки действий */
     .navbar__actions {
@@ -767,6 +769,8 @@
     .modal__desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 26px; max-width: 34ch; }
     .field { margin-bottom: 14px; }
     .field label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+    /* honeypot: скрыто от людей, но заметно ботам, которые заполняют все поля подряд */
+.field--hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .field input, .field select, .field textarea {
       width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
       border-radius: 12px; padding: 12px 14px; font-family: inherit; font-size: 15px; color: var(--text-white);
@@ -799,6 +803,25 @@
       .modal__title { font-size: 22px; }
     }
   </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  "name": "Астория К-3",
+  "legalName": "ООО «АСТОРИЯ К-3»",
+  "url": "",
+  "telephone": "+7-926-892-43-31",
+  "description": "Инженерно-строительная компания. Строительно-монтажные работы, инженерные коммуникации, благоустройство территорий, проектирование.",
+  "areaServed": "Москва и Московская область",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "г. Москва, Красносельский р-н,
+пер. 3-й Новый, дом 5, стр. 1",
+    "addressLocality": "Москва",
+    "addressCountry": "RU"
+  }
+}
+</script>
 </head>
 
 <body>
@@ -810,7 +833,7 @@
         <div class="navbar__brand">Астория&nbsp;К-3
             </div>
         <nav class="navbar__menu">
-          <a href="#home">Главная</a>
+          <a href="#home" class="is-active">Главная</a>
           <a href="o_nas.html">О нас</a>
           <a href="services.html">Услуги</a>
           <a href="#projects">Реализованные проекты</a>
@@ -889,61 +912,61 @@
           <div class="project-card__image" data-src="URmVo.avif" data-alt="Фото проекта 1">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
             <div class="project-card__tag">Жилой дом</div>
-            <h3 class="project-card__name">Проект №1</h3>
+            <h3 class="project-card__name">Проект</h3>
             <p class="project-card__text">
-              Краткое описание проекта появится здесь.
+              Многоквартирный жилой дом: от разработки проекта до завершения строительства.
             </p>
           </div>
         </article>
 
         <article class="project-card">
-          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__image" data-src="bussines.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
             <div class="project-card__tag">Коммерция</div>
-            <h3 class="project-card__name">Проект №2</h3>
+            <h3 class="project-card__name">Проект</h3>
             <p class="project-card__text">
-              Краткое описание проекта появится здесь.
+              Бизнес центр с современным дизайном и функциональными решениями.
             </p>
           </div>
         </article>
 
         <article class="project-card">
-          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__image" data-src="road.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
-            <div class="project-card__tag">Загородный дом</div>
-            <h3 class="project-card__name">Проект №3</h3>
+            <div class="project-card__tag">Благоустройство</div>
+            <h3 class="project-card__name">Проект</h3>
             <p class="project-card__text">
-              Краткое описание проекта появится здесь.
+              Профессиональное асфальтирование и благоустройство дорог для безопасного движения транспорта.
             </p>
           </div>
         </article>
         <article class="project-card">
-          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__image" data-src="light.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
-            <div class="project-card__tag">Офисное здание</div>
-            <h3 class="project-card__name">Проект №4</h3>
+            <div class="project-card__tag">Уличное освещение</div>
+            <h3 class="project-card__name">Проект</h3>
             <p class="project-card__text">
-              Краткое описание проекта появится здесь.
+              Профессиональное создание энергоэффективных систем наружного освещения любого масштаба.
             </p>
           </div>
         </article>
         <article class="project-card">
-          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__image" data-src="dom.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
             <div class="project-card__tag">Реконструкция</div>
-            <h3 class="project-card__name">Проект №5</h3>
+            <h3 class="project-card__name">Проект</h3>
             <p class="project-card__text">
-              Краткое описание проекта появится здесь.
+              Реставрация жилого дома с восстановлением оригинального кирпичного фасада.
             </p>
           </div>
         </article>
         <article class="project-card">
-          <div class="project-card__image" data-src="" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
+          <div class="project-card__image" data-src="hotel.avif" data-alt="Фото проекта">ФОТО ПРОЕКТА</div>
           <div class="project-card__body">
-            <div class="project-card__tag">Интерьер</div>
-            <h3 class="project-card__name">Проект №6</h3>
+            <div class="project-card__tag">Отель</div>
+            <h3 class="project-card__name">Проект</h3>
             <p class="project-card__text">
-              Краткое описание проекта появится здесь.
+              Проектирование современного отеля с комфортными номерами и удобствами для гостей.
             </p>
           </div>
         </article>
@@ -1067,6 +1090,11 @@
           <label for="qMessage">Комментарий (необязательно)</label>
           <textarea id="qMessage" name="message" placeholder="Кратко опишите задачу"></textarea>
         </div>
+        <div class="field field--hp" aria-hidden="true">
+  <label for="qWebsite">Website</label>
+  <input type="text" id="qWebsite" name="website" tabindex="-1" autocomplete="off" />
+</div>
+<input type="hidden" id="qFormLoadedAt" name="formLoadedAt" value="" />
         <button type="submit" class="btn btn--accent modal__submit">
           <span class="modal__submit-text">Отправить заявку</span>
         </button>
@@ -1103,6 +1131,7 @@
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    document.getElementById('qFormLoadedAt').value = Date.now();
     setTimeout(function () { document.getElementById('qName').focus(); }, 300);
   }
  
@@ -1138,15 +1167,17 @@
     submitBtn.disabled = true;
     submitText.textContent = 'Отправляем...';
  
-    var data = {
-      name: form.name.value.trim(),
-      phone: form.phone.value.trim(),
-      service: form.service.value,
-      message: form.message.value.trim(),
-      page: window.location.pathname
-    };
+   var data = {
+  name: form.name.value.trim(),
+  phone: form.phone.value.trim(),
+  service: form.service.value,
+  message: form.message.value.trim(),
+  page: window.location.pathname,
+  website: form.website.value,          // honeypot — у людей всегда пусто
+  formLoadedAt: form.formLoadedAt.value  // когда открылась форма (мс)
+};
  
-    fetch('/api/send-lead', {
+    fetch('/send.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)

@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>О компании Астория К-3 | Инженерно-строительная компания</title>
+  <meta name="description" content="Узнайте больше об инженерно-строительной компании Астория К-3, нашем опыте, принципах работы и комплексном подходе к реализации строительных проэктов">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================================
+       1. ПЕРЕМЕННЫЕ — идентичны главной странице
+       ================================================================ */
+    :root {
+      --bg-dark:        #0e0f11;
+      --bg-dark-2:      #15171a;
+      --text-white:     #ffffff;
+      --text-muted:     rgba(255, 255, 255, 0.6);
+      --text-faint:     rgba(255, 255, 255, 0.4);
+      --accent:         #e8e0d3;
+      --accent-hover:   #ffffff;
+      --border-soft:    rgba(255, 255, 255, 0.25);
+
+      --radius:         999px;
+      --nav-height:     84px;
+      --max-width:      1400px;
+      --ease:           cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ================================================================
+       2. БАЗОВЫЕ СБРОСЫ И ТИПОГРАФИКА
+       ================================================================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ================================================================
+       3. НАВБАР — тот же, но фиксированный на тёмном фоне
+       ================================================================ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      background: rgba(14, 15, 17, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar__inner {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .navbar__left {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .navbar__brand {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .navbar__menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .navbar__menu a {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-muted);
+      position: relative;
+      transition: color 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover,
+    .navbar__menu a.is-active {
+      color: var(--text-white);
+    }
+
+    .navbar__menu a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0;
+      height: 1px;
+      background: var(--text-white);
+      transition: width 0.3s var(--ease);
+    }
+
+    .navbar__menu a:hover::after,
+    .navbar__menu a.is-active::after {
+      width: 100%;
+    }
+
+    .navbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* ================================================================
+       3b. БУРГЕР (скрыт на десктопе, показывается только ≤768px)
+       ================================================================ */
+    .burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      background: transparent;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+    }
+
+    .burger:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+    }
+
+    .burger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s var(--ease), opacity 0.2s var(--ease);
+    }
+
+    /* Три линии превращаются в «крестик» при открытии */
+    .burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger.is-open span:nth-child(2) { opacity: 0; }
+    .burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ================================================================
+       3c. МОБИЛЬНОЕ ВЫПАДАЮЩЕЕ МЕНЮ
+       ================================================================ */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      width: 100%;
+      flex-direction: column;
+      gap: 4px;
+      padding: 22px 22px 30px;
+      background: rgba(14, 15, 17, 0.97);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 49;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-12px);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
+    }
+
+    .mobile-menu.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .mobile-menu a {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text-muted);
+      padding: 14px 4px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: color 0.25s var(--ease);
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a.is-active { color: var(--text-white); }
+
+    .mobile-menu__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .mobile-menu__actions .btn { width: 100%; }
+    .mobile-menu__actions .btn--accent {
+      color:#0e0f11 !important;
+    }
+    .mobile-menu__actions .btn--accent:hover {
+      color:#0e0f11 !important;
+    }
+
+
+    /* ================================================================
+       4. КНОПКИ — те же классы
+       ================================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.3s var(--ease);
+      white-space: nowrap;
+    }
+
+    .btn--outline {
+      background: transparent;
+      border-color: var(--border-soft);
+      color: var(--text-white);
+    }
+    .btn--outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--text-white);
+    }
+
+    .btn--accent {
+      background: var(--accent);
+      color: #111;
+    }
+    .btn--accent:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn--white {
+      background: var(--text-white);
+      color: #111;
+      padding: 15px 30px;
+      font-weight: 600;
+    }
+    .btn--white:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    /* ================================================================
+       5. ШАПКА РАЗДЕЛА — теперь полноэкранный hero с фоновым фото
+       ================================================================ */
+    .page-head {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      width: 100%;
+      display: flex;
+      align-items: flex-end; /* контент прижат к низу, как на главной */
+      background-image:
+        linear-gradient(
+          to bottom,
+          rgba(14, 15, 17, 0.55) 0%,
+          rgba(14, 15, 17, 0.25) 35%,
+          rgba(14, 15, 17, 0.85) 100%
+        ),
+        url('1.avif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0; /* внутренние отступы управляет .page-head__content (.container) */
+    }
+    /* декоративный тег удалён — фон используется напрямую */
+
+    .page-head__eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .page-head__title {
+      font-size: clamp(36px, 5.5vw, 72px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 28px;
+      max-width: 16ch;
+    }
+
+    .page-head__lead {
+      font-size: clamp(17px, 1.5vw, 20px);
+      font-weight: 300;
+      color: var(--text-muted);
+      max-width: 60ch;
+    }
+
+    /* ================================================================
+       6. ОСНОВНОЙ ТЕКСТ «КТО МЫ»
+       ================================================================ */
+    .about-intro {
+      padding: 96px 0;
+    }
+
+    .about-intro__grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-intro__side {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-top: 8px;
+    }
+
+    .about-intro__body p {
+      font-size: clamp(17px, 1.5vw, 21px);
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 24px;
+    }
+
+    .about-intro__body p:last-child { margin-bottom: 0; }
+
+    .about-intro__body strong {
+      font-weight: 600;
+      color: var(--text-white);
+    }
+
+    /* ================================================================
+       7. БЛОК ПРЕИМУЩЕСТВ — 4 карточки (стиль project-card)
+       ================================================================ */
+    .advantages {
+      background: var(--bg-dark-2);
+      padding: 120px 0;
+    }
+
+    .advantages__header {
+      margin-bottom: 56px;
+      max-width: 640px;
+    }
+
+    .advantages__eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .advantages__title {
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .advantages__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .adv-card {
+      background: var(--bg-dark);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: transform 0.4s var(--ease), border-color 0.4s var(--ease);
+    }
+
+    .adv-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-soft);
+    }
+
+    .adv-card__icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(232, 224, 211, 0.08);
+      border: 1px solid rgba(232, 224, 211, 0.2);
+      color: var(--accent);
+      margin-bottom: 22px;
+    }
+
+    .adv-card__title {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    .adv-card__text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ================================================================
+       8. БЛОК «НАШ ПОДХОД»
+       ================================================================ */
+    .approach {
+      padding: 120px 0;
+    }
+
+    .approach__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .approach__eyebrow {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .approach__title {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+      line-height: 1.1;
+    }
+
+    .approach__text {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* Список принципов справа */
+    .approach__list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .approach__item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 22px 24px;
+      background: var(--bg-dark-2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      transition: border-color 0.3s var(--ease);
+    }
+
+    .approach__item:hover { border-color: var(--border-soft); }
+
+    .approach__item-num {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      min-width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(232, 224, 211, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .approach__item-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .approach__item-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    /* ================================================================
+       9. CTA-БЛОК
+       ================================================================ */
+    .cta {
+      background: var(--bg-dark-2);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 110px 0;
+    }
+
+    .cta__inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-size: clamp(30px, 4.5vw, 54px);
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      margin-bottom: 22px;
+      line-height: 1.08;
+    }
+
+    .cta__text {
+      font-size: clamp(16px, 1.4vw, 19px);
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 38px;
+    }
+
+    /* ================================================================
+       10. ФУТЕР — идентичен главной
+       ================================================================ */
+    .footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 32px 0;
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer__brand { font-weight: 600; font-size: 16px; }
+    .footer__copy { color: var(--text-faint); font-size: 13px; }
+    .footer__privacy {
+      margin-left: 16px;
+      font-size: 12px;
+      color: var(--text-faint);
+      text-decoration: underline;
+      transition: color 0.3s var(--ease);
+    }
+    .footer__privacy:hover { color: var(--text-white); }
+
+    /* ================================================================
+       11. АДАПТИВНОСТЬ
+       ================================================================ */
+  @media (max-width:1145px) and (min-width:1025px) {
+  .container,
+  .navbar__inner {
+    padding-left:24px;
+    padding-right:24px;
+    gap:13px;
+  }
+ 
+  .navbar__left {
+    gap:20px;
+  }
+ 
+  .navbar__menu {
+    gap:12px;
+  }
+ 
+  .navbar__menu a {
+    font-size:14px;
+    white-space:nowrap;
+  }
+ 
+  .navbar__actions {
+    gap:10px;
+  }
+ 
+  .navbar__actions .btn {
+    padding:10px 13px;
+    font-size:14px;
+  }
+}
+  @media (max-width: 1024px) {
+  .container,
+  .navbar__inner { padding-left: 24px; padding-right: 24px; gap: 16px; }
+  .navbar__left { gap: 20px; }
+  .navbar__brand { font-size:17px; }
+  .navbar__menu { gap: 14px; }
+  .navbar__menu a { font-size: 13px; white-space: nowrap; }
+  .navbar__actions { gap: 8px; }
+  .navbar__actions .btn { padding:10px 14px; font-size:13px; }
+  .page-hero { padding:70px 0 55px; }
+  /* Сетки контента: убираем переполнение на планшетах */
+  .about-intro__grid { grid-template-columns: 1fr; gap: 32px; }
+  .advantages__grid { grid-template-columns: repeat(2, 1fr); }
+  .approach__grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* Узкие планшеты (≤880): ещё сильнее ужимаем шапку, чтобы меню и кнопки помещались */
+@media (max-width: 880px) {
+  .container,
+  .navbar__inner {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 12px;
+  }
+
+  .navbar__left {
+    gap: 14px;
+  }
+
+  .navbar__brand {
+    font-size: 16px;
+  }
+
+  .navbar__menu {
+    gap: 10px;
+  }
+
+  .navbar__menu a {
+    font-size: 12px;
+  }
+
+  .navbar__actions {
+    gap: 6px;
+  }
+
+  .navbar__actions .btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .page-hero {
+    padding: 66px 0 45px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container,
+  .navbar__inner {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+
+  /* Полное скрытие меню и кнопок */
+  .navbar__menu { display: none; }
+  .navbar__actions .btn { display: none; }
+
+  /* Показ бургера */
+  .burger { display: flex; }
+  .mobile-menu { display: flex; }
+
+  /* Мобильные стили */
+  .page-head { padding: 64px 0 48px; }
+  .about-intro,
+  .advantages,
+  .approach,
+  .cta { padding: 72px 0; }
+
+  .advantages__grid { grid-template-columns: 1fr; }
+  .about-intro__grid { gap: 28px; }
+  .approach__grid { gap: 32px; }
+}
+/* ===== МОДАЛЬНОЕ ОКНО ЗАЯВКИ ===== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(8, 9, 10, 0.72);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.3s var(--ease), visibility 0.3s var(--ease);
+}
+.modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+.modal {
+  position: relative; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto;
+  background: var(--bg-dark-2); border: 1px solid var(--border-soft); border-radius: 24px;
+  padding: 40px 32px; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  transform: translateY(20px) scale(0.97); opacity: 0;
+  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+}
+.modal-overlay.is-open .modal { transform: translateY(0) scale(1); opacity: 1; }
+.modal__close {
+  position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: var(--text-muted);
+  cursor: pointer; transition: all 0.25s var(--ease);
+}
+.modal__close:hover { background: rgba(255,255,255,0.1); color: var(--text-white); border-color: var(--border-soft); }
+.modal__eyebrow { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.modal__title { font-size: 25px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px; }
+.modal__desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 26px; max-width: 34ch; }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+/* honeypot: скрыто от людей, но заметно ботам, которые заполняют все поля подряд */
+.field--hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.field input, .field select, .field textarea {
+  width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 12px 14px; font-family: inherit; font-size: 15px; color: var(--text-white);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.4); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--accent); background: rgba(255,255,255,0.05);
+}
+.field textarea { resize: vertical; min-height: 74px; }
+.field select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8e0d3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+}
+.field select option { background: var(--bg-dark-2); color: var(--text-white); }
+.modal__submit { width: 100%; margin-top: 6px; }
+.modal__submit[disabled] { opacity: 0.6; cursor: not-allowed; }
+.modal__privacy-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 14px; line-height: 1.5; text-align: center; }
+.modal__privacy-note a { color: var(--text-muted); text-decoration: underline; }
+.modal__success { text-align: center; padding: 10px 0 4px; }
+.modal__success-icon {
+  width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 50%;
+  background: rgba(232,224,211,0.12); display: flex; align-items: center; justify-content: center; color: var(--accent);
+}
+.modal__success h2 { font-size: 21px; font-weight: 600; margin-bottom: 10px; }
+.modal__success p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+@media (max-width: 480px) {
+  .modal { padding: 32px 22px; }
+  .modal__title { font-size: 22px; }
+}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"AboutPage",
+  "name":"О компании Астория-К3",
+  "url":"https://astoriak3.ru/o_nas.html",
+  "about":{
+    "@type":"Organization",
+    "name":"ООО «Астория-К3»",
+    "url":"https://astoriak3.ru/",
+    "telephone":"+7 (901) 714-74-25"
+  }
+}
+</script>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+      <div class="navbar__left">
+        <div class="navbar__brand">Астория&nbsp;К-3</div>
+        <nav class="navbar__menu">
+          <a href="index.html">Главная</a>
+          <a href="o_nas.html" class="is-active">О нас</a>
+          <a href="services.html">Услуги</a>
+          <a href="index.html#projects">Реализованные проекты</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </div>
+
+      <div class="navbar__actions">
+        <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+        <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
+
+        <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
+    <a href="index.html">Главная</a>
+    <a href="o_nas.html" class="is-active">О нас</a>
+    <a href="services.html">Услуги</a>
+    <a href="index.html#projects">Реализованные проекты</a>
+    <a href="faq.html">FAQ</a>
+    <div class="mobile-menu__actions">
+      <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+      <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
+    </div>
+  </nav>
+
+  <section class="page-head">
+    <img src="1.avif" alt="" style="display:none;" />
+    <div class="container">
+      <div class="page-head__eyebrow">О компании</div>
+      <h1 class="page-head__title">Строим надёжно, продуманно и ответственно</h1>
+      <p class="page-head__lead">
+        ООО «АСТОРИЯ К-3» — строительная компания, объединяющая инженерную
+        точность и высокий стандарт исполнения на каждом этапе работ.
+      </p>
+    </div>
+  </section>
+
+  <section class="about-intro">
+    <div class="container">
+      <div class="about-intro__grid">
+
+        <div class="about-intro__side">Кто мы</div>
+
+        <div class="about-intro__body">
+          <p>
+            <strong>ООО «АСТОРИЯ К-3»</strong> специализируется на строительном
+            направлении: выполняем строительно-монтажные работы, возводим объекты
+            и разрабатываем строительные проекты. Мы сопровождаем каждый объект
+            от первичной проработки решения до его реализации.
+          </p>
+          <p>
+            В основе нашей работы — инженерный подход и внимание к деталям.
+            Мы стремимся к тому, чтобы каждый этап был прозрачным для заказчика,
+            а результат соответствовал заявленным требованиям качества и технологиям
+            строительства.
+          </p>
+          <p>
+            Нам доверяют, потому что мы ответственно подходим к обязательствам,
+            выстраиваем понятное взаимодействие и предлагаем решения, отвечающие
+            конкретным задачам клиента. Наша цель — не просто выполнить работу,
+            а создать результат, который служит долго.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="advantages">
+    <div class="container">
+
+      <div class="advantages__header">
+        <div class="advantages__eyebrow">Почему мы</div>
+        <h2 class="advantages__title">Наши принципы работы</h2>
+      </div>
+
+      <div class="advantages__grid">
+
+        <article class="adv-card">
+          <div class="adv-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="adv-card__title">Комплексный подход к строительству</h3>
+          <p class="adv-card__text">
+            Ведём объект целостно — от проектных решений до строительно-монтажных
+            работ, сохраняя единый стандарт на всех этапах.
+          </p>
+        </article>
+
+        <article class="adv-card">
+          <div class="adv-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <h3 class="adv-card__title">Контроль качества на каждом этапе</h3>
+          <p class="adv-card__text">
+            Проверяем соответствие работ технологиям и требованиям, чтобы
+            результат был предсказуемым и надёжным.
+          </p>
+        </article>
+
+        <article class="adv-card">
+          <div class="adv-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"></path>
+              <path d="M2 8l4-4h12l4 4"></path>
+              <path d="M9 12l2 2 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="adv-card__title">Ответственное выполнение обязательств</h3>
+          <p class="adv-card__text">
+            Держим слово и соблюдаем договорённости, выстраивая долгосрочные
+            и доверительные отношения с заказчиками.
+          </p>
+        </article>
+
+        <article class="adv-card">
+          <div class="adv-card__icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="1.6"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </div>
+          <h3 class="adv-card__title">Индивидуальные решения под задачи клиента</h3>
+          <p class="adv-card__text">
+            Подбираем оптимальные решения, исходя из специфики объекта
+            и конкретных целей заказчика.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="approach">
+    <div class="container">
+      <div class="approach__grid">
+
+        <div class="approach__left">
+          <div class="approach__eyebrow">Наш подход</div>
+          <h2 class="approach__title">Качество, технологии и партнёрство</h2>
+          <p class="approach__text">
+            Мы уделяем особое внимание качеству работ и строгому соблюдению
+            строительных технологий. Для нас это не формальность, а основа
+            надёжного и долговечного результата.
+          </p>
+          <p class="approach__text">
+            Не менее важным мы считаем профессиональное взаимодействие
+            с заказчиком: открытый диалог, понятные решения и внимание
+            к задачам клиента на каждом этапе сотрудничества.
+          </p>
+        </div>
+
+        <div class="approach__list">
+
+          <div class="approach__item">
+            <div class="approach__item-num">01</div>
+            <div>
+              <div class="approach__item-title">Качество работ</div>
+              <div class="approach__item-text">
+                Ориентируемся на высокий стандарт исполнения и надёжность
+                каждого выполненного этапа.
+              </div>
+            </div>
+          </div>
+
+          <div class="approach__item">
+            <div class="approach__item-num">02</div>
+            <div>
+              <div class="approach__item-title">Соблюдение технологий</div>
+              <div class="approach__item-text">
+                Следуем требованиям и строительным нормам, обеспечивая
+                корректное выполнение работ.
+              </div>
+            </div>
+          </div>
+
+          <div class="approach__item">
+            <div class="approach__item-num">03</div>
+            <div>
+              <div class="approach__item-title">Взаимодействие с заказчиком</div>
+              <div class="approach__item-text">
+                Выстраиваем прозрачное и профессиональное сотрудничество
+                на всех стадиях проекта.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <div class="cta__inner">
+        <h2 class="cta__title">Готовы обсудить ваш проект?</h2>
+        <p class="cta__text">
+          Свяжитесь с ООО «АСТОРИЯ-К3», чтобы получить консультацию
+          и обсудить возможности реализации вашего объекта.
+        </p>
+        <a href="contacts.html" class="btn btn--white">Связаться с нами</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">Астория&nbsp;К-3</div>
+      <div class="footer__copy">
+        © 2023—2026 Астория К-3. Все права защищены.
+        <a href="privacy.html" class="footer__privacy">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var burger = document.querySelector('.burger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      if (!burger || !mobileMenu) return;
+
+      function setState(open) {
+        burger.classList.toggle('is-open', open);
+        mobileMenu.classList.toggle('is-open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      }
+
+      burger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setState(!mobileMenu.classList.contains('is-open'));
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () { setState(false); });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (mobileMenu.classList.contains('is-open') &&
+            !mobileMenu.contains(e.target) && !burger.contains(e.target)) {
+          setState(false);
+        }
+      });
+
+      // Закрытие при переходе на десктоп
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) setState(false);
+      });
+    })();
+  </script>
+<div class="modal-overlay" id="quoteModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" type="button" aria-label="Закрыть">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <div id="modalFormState">
+      <div class="modal__eyebrow">Заявка</div>
+      <h2 class="modal__title" id="modalTitle">Получить консультацию</h2>
+      <p class="modal__desc">Оставьте контакты — рассчитаем стоимость и перезвоним в течение дня.</p>
+
+      <form id="quoteForm">
+        <div class="field">
+          <label for="qName">Имя</label>
+          <input type="text" id="qName" name="name" required placeholder="Как к вам обращаться" />
+        </div>
+        <div class="field">
+          <label for="qPhone">Телефон</label>
+          <input type="tel" id="qPhone" name="phone" required placeholder="+7 (___) ___-__-__" />
+        </div>
+        <div class="field">
+          <label for="qService">Услуга</label>
+          <select id="qService" name="service">
+            <option value="">Не выбрано</option>
+            <option>Инженерные коммуникации</option>
+            <option>Благоустройство территорий</option>
+            <option>Строительство зданий</option>
+            <option>Проектирование</option>
+            <option>Специализированные работы</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="qMessage">Комментарий (необязательно)</label>
+          <textarea id="qMessage" name="message" placeholder="Кратко опишите задачу"></textarea>
+        </div>
+        <div class="field field--hp" aria-hidden="true">
+  <label for="qWebsite">Website</label>
+  <input type="text" id="qWebsite" name="website" tabindex="-1" autocomplete="off" />
+</div>
+<input type="hidden" id="qFormLoadedAt" name="formLoadedAt" value="" />
+        <button type="submit" class="btn btn--accent modal__submit">
+          <span class="modal__submit-text">Отправить заявку</span>
+        </button>
+        <p class="modal__privacy-note">Нажимая «Отправить», вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</p>
+      </form>
+    </div>
+
+    <div class="modal__success" id="modalSuccessState" hidden>
+      <div class="modal__success-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h2>Заявка отправлена</h2>
+      <p>Спасибо! Мы свяжемся с вами в ближайшее время.</p>
+      <button class="btn btn--outline" id="modalCloseSuccess">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var overlay = document.getElementById('quoteModal');
+  var closeBtn = overlay.querySelector('.modal__close');
+  var closeSuccessBtn = document.getElementById('modalCloseSuccess');
+  var form = document.getElementById('quoteForm');
+  var formState = document.getElementById('modalFormState');
+  var successState = document.getElementById('modalSuccessState');
+  var submitBtn = form.querySelector('.modal__submit');
+  var submitText = submitBtn.querySelector('.modal__submit-text');
+  var lastFocused = null;
+
+  function openModal(e) {
+    if (e) e.preventDefault();
+    lastFocused = document.activeElement;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('qFormLoadedAt').value = Date.now();
+    setTimeout(function () { document.getElementById('qName').focus(); }, 300);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  function resetModal() {
+    form.reset();
+    formState.hidden = false;
+    successState.hidden = true;
+  }
+
+  document.querySelectorAll('[data-open-quote]').forEach(function (btn) {
+    btn.addEventListener('click', openModal);
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  closeSuccessBtn.addEventListener('click', function () {
+    closeModal();
+    setTimeout(resetModal, 300);
+  });
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitText.textContent = 'Отправляем...';
+
+   var data = {
+  name: form.name.value.trim(),
+  phone: form.phone.value.trim(),
+  service: form.service.value,
+  message: form.message.value.trim(),
+  page: window.location.pathname,
+  website: form.website.value,          // honeypot — у людей всегда пусто
+  formLoadedAt: form.formLoadedAt.value  // когда открылась форма (мс)
+};
+
+    fetch('/send.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function (res) {
+      if (!res.ok) throw new Error('bad response');
+      formState.hidden = true;
+      successState.hidden = false;
+    })
+    .catch(function () {
+      alert('Не получилось отправить заявку. Попробуйте ещё раз или позвоните нам: +7 (926) 892-43-31');
+    })
+    .finally(function () {
+      submitBtn.disabled = false;
+      submitText.textContent = 'Отправить заявку';
+    });
+  });
+})();
+</script>
+</body>
+</html>
