@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Политика конфиденциальности | Астория К-3</title>
+  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="Политика конфиденциальности компании Астория К-3. Порядок обработки, хранения и защиты персональных данных пользователей сайта.">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-dark:        #0e0f11;
+      --bg-dark-2:      #15171a;
+      --text-white:     #ffffff;
+      --text-muted:     rgba(255, 255, 255, 0.6);
+      --text-faint:     rgba(255, 255, 255, 0.4);
+      --accent:         #e8e0d3;
+      --accent-hover:   #ffffff;
+      --border-soft:    rgba(255, 255, 255, 0.25);
+      --radius:         999px;
+      --nav-height:     84px;
+      --max-width:      1400px;
+      --ease:           cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      background-color:var(--bg-dark); color:var(--text-white);
+      line-height:1.5; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    a { color:inherit; text-decoration:none; }
+    ul { list-style:none; }
+    .container { width:100%; max-width:var(--max-width); margin:0 auto; padding:0 40px; }
+    .navbar {
+      position:sticky; top:0; left:0; width:100%; height:var(--nav-height);
+      z-index:50; display:flex; align-items:center;
+      background:rgba(14,15,17,0.85);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .navbar__inner { width:100%; max-width:var(--max-width); margin:0 auto; padding:0 40px;
+      display:flex; align-items:center; justify-content:space-between; gap:32px; }
+    .navbar__left { display:flex; align-items:center; gap:48px; }
+    .navbar__brand { font-size:20px; font-weight:600; letter-spacing:0.5px; white-space:nowrap; }
+    .navbar__menu { display:flex; align-items:center; gap:32px; }
+    .navbar__menu a { font-size:15px; font-weight:400; color:var(--text-muted);
+      position:relative; transition:color 0.3s var(--ease); }
+    .navbar__menu a:hover { color:var(--text-white); }
+    .navbar__menu a::after { content:''; position:absolute; left:0; bottom:-6px;
+      width:0; height:1px; background:var(--text-white); transition:width 0.3s var(--ease); }
+    .navbar__menu a:hover::after { width:100%; }
+    .navbar__actions { display:flex; align-items:center; gap:14px; }
+    .burger {
+     display:none;
+     width:44px;
+     height:44px;
+     border-radius:var(--radius);
+     border:1px solid var(--border-soft);
+     background:transparent;
+     cursor:pointer;
+     flex-direction:column;
+     justify-content:center;
+     align-items:center;
+     gap:5px;
+     transition:border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.burger:hover {
+  background:rgba(255, 255, 255, 0.1);
+  border-color:var(--text-white);
+}
+
+.burger span {
+  display:block;
+  width:20px;
+  height:2px;
+  background:#fff;
+  border-radius:2px;
+  transition:transform 0.3s var(--ease), opacity 0.2s var(--ease);
+}
+
+/* Анимация бургера в «крестик» при открытии */
+.burger.is-open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.burger.is-open span:nth-child(2) { opacity:0; }
+.burger.is-open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      font-size:15px; font-weight:500; padding:12px 24px; border-radius:var(--radius);
+      cursor:pointer; border:1px solid transparent; transition:all 0.3s var(--ease); white-space:nowrap; }
+    .btn--outline { background:transparent; border-color:var(--border-soft); color:var(--text-white); }
+    .btn--outline:hover { background:rgba(255,255,255,0.1); border-color:var(--text-white); }
+    .btn--accent { background:var(--accent); color:#111; }
+    .btn--accent:hover { background:var(--accent-hover); transform:translateY(-1px); }
+
+    /* Мобильное выпадающее меню (скрыто по умолчанию, показывается только на мобильных) */
+    .mobile-menu {
+      display:none;
+      position:fixed;
+      top:var(--nav-height); left:0;
+      width:100%;
+      flex-direction:column;
+      gap:4px;
+      padding:22px 22px 30px;
+      background:rgba(14,15,17,0.97);
+      backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      z-index:49;
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transform:translateY(-12px);
+      transition:opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s var(--ease);
+    }
+    .mobile-menu.is-open {
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+      transform:translateY(0);
+    }
+    .mobile-menu a {
+      font-size:17px; font-weight:400; color:var(--text-muted);
+      padding:14px 4px;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+      transition:color 0.25s var(--ease);
+    }
+    .mobile-menu a:hover { color:var(--text-white); }
+    .mobile-menu__actions {
+      display:flex; flex-direction:column; gap:12px; margin-top:22px;
+    }
+    .mobile-menu__actions .btn { width:100%; }
+    .mobile-menu__actions .btn--accent {
+      color:#0e0f11 !important
+    }
+    .mobile-menu__actions .btn--accent:hover {
+      color: #0e0f11 !important;
+    }
+
+    .page-hero { position:relative; padding:88px 0 64px;
+      background:radial-gradient(1200px 480px at 50% -10%, rgba(232,224,211,0.10), transparent 70%), var(--bg-dark);
+      border-bottom:1px solid rgba(255,255,255,0.06); overflow:hidden; }
+    .breadcrumbs { display:flex; align-items:center; gap:10px; font-size:13px;
+      letter-spacing:0.5px; color:var(--text-faint); margin-bottom:24px; }
+    .breadcrumbs a { color:var(--text-muted); transition:color 0.3s var(--ease); }
+    .breadcrumbs a:hover { color:var(--text-white); }
+    .breadcrumbs span { color:var(--text-faint); }
+    .page-hero__eyebrow { font-size:13px; letter-spacing:2px; text-transform:uppercase;
+      color:var(--accent); margin-bottom:16px; }
+    .page-hero__title { font-size:clamp(32px,5vw,60px); font-weight:600;
+      letter-spacing:-1px; line-height:1.06; max-width:22ch; margin-bottom:18px; }
+    .page-hero__meta { font-size:15px; font-weight:300; color:var(--text-muted); }
+    .page-hero__meta strong { color:var(--text-white); font-weight:500; }
+
+    .policy { padding:64px 0 100px; background:var(--bg-dark-2); }
+    .policy__layout { display:grid; grid-template-columns:260px 1fr; gap:56px; align-items:start; }
+    .policy__toc { position:sticky; top:calc(var(--nav-height) + 28px);
+      background:var(--bg-dark); border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px; padding:26px 24px; }
+    .policy__toc-title { font-size:12px; letter-spacing:1.5px; text-transform:uppercase;
+      color:var(--text-faint); margin-bottom:18px; }
+    .policy__toc a { display:block; font-size:14px; color:var(--text-muted); padding:9px 0;
+      border-left:2px solid transparent; padding-left:14px; margin-left:-2px;
+      transition:color 0.25s var(--ease), border-color 0.25s var(--ease); }
+    .policy__toc a:hover { color:var(--text-white); border-left-color:var(--accent); }
+
+    .policy__body { max-width:820px; }
+    .policy__intro { font-size:18px; font-weight:300; color:var(--text-muted); line-height:1.7;
+      padding-bottom:40px; margin-bottom:8px; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .policy-section { padding-top:48px; scroll-margin-top:calc(var(--nav-height) + 24px); }
+    .policy-section__head { display:flex; align-items:baseline; gap:16px; margin-bottom:22px; }
+    .policy-section__num { font-size:15px; font-weight:600; color:var(--accent);
+      flex-shrink:0; font-variant-numeric:tabular-nums; }
+    .policy-section__title { font-size:clamp(22px,2.6vw,30px); font-weight:600;
+      letter-spacing:-0.4px; line-height:1.2; }
+    .policy-section p { font-size:16.5px; font-weight:300; color:rgba(255,255,255,0.72);
+      line-height:1.8; margin-bottom:18px; }
+    .policy-section p:last-child { margin-bottom:0; }
+    .policy-section strong { color:var(--text-white); font-weight:500; }
+
+    .policy-list { margin:6px 0 18px; display:flex; flex-direction:column; gap:12px; }
+    .policy-list li { position:relative; padding-left:26px; font-size:16.5px;
+      font-weight:300; color:rgba(255,255,255,0.72); line-height:1.7; }
+    .policy-list li::before { content:''; position:absolute; left:4px; top:11px;
+      width:6px; height:6px; border-radius:50%; background:var(--accent); }
+
+    .policy-callout { margin:8px 0 4px; padding:22px 26px;
+      background:rgba(232,224,211,0.06); border:1px solid rgba(232,224,211,0.18);
+      border-radius:14px; display:flex; gap:16px; align-items:flex-start; }
+    .policy-callout__icon { flex-shrink:0; color:var(--accent); margin-top:2px; }
+    .policy-callout p { margin:0; color:rgba(255,255,255,0.82); font-size:16px; line-height:1.7; }
+
+    .contact-card { margin-top:8px; padding:28px; background:var(--bg-dark);
+      border:1px solid rgba(255,255,255,0.08); border-radius:16px; display:grid; gap:18px; }
+    .contact-row { display:flex; align-items:center; gap:14px; font-size:16px; color:var(--text-muted); }
+    .contact-row__icon { display:inline-flex; align-items:center; justify-content:center;
+      width:40px; height:40px; flex-shrink:0; border-radius:10px;
+      background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); color:var(--accent); }
+    .contact-row__label { display:block; font-size:12px; letter-spacing:1px; text-transform:uppercase;
+      color:var(--text-faint); margin-bottom:3px; }
+    .contact-row__value { color:var(--text-white); font-weight:500; font-size:17px; }
+    .contact-row__value:hover { color:var(--accent); }
+    @media (max-width:1145px) and (min-width:1025px) {
+  .container,
+  .navbar__inner {
+    padding-left:24px;
+    padding-right:24px;
+    gap:13px;
+  }
+ 
+  .navbar__left {
+    gap:20px;
+  }
+ 
+  .navbar__menu {
+    gap:12px;
+  }
+ 
+  .navbar__menu a {
+    font-size:14px;
+    white-space:nowrap;
+  }
+ 
+  .navbar__actions {
+    gap:10px;
+  }
+ 
+  .navbar__actions .btn {
+    padding:10px 13px;
+    font-size:14px;
+  }
+}
+    /* Планшеты (≤1024): ужимаем десктопное меню, чтобы всё помещалось */
+    @media (max-width:1024px) {
+      .container,
+      .navbar__inner { padding-left:24px; padding-right:24px; gap:16px; }
+      .navbar__left { gap:20px; }
+      .navbar__brand { font-size:17px; }
+      .navbar__menu { gap:14px; }
+      .navbar__menu a { font-size:13px; white-space:nowrap; }
+      .navbar__actions { gap:8px; }
+      .navbar__actions .btn { padding:10px 14px; font-size:13px; }
+      .policy__layout { grid-template-columns:220px 1fr; gap:35px; }
+      .policy__toc { padding:20px 18px; }
+      .policy__body { max-width:100%; }
+      .page-hero { padding:70px 0 55px; }
+}
+      @media (max-width: 825px) {
+  .container,
+  .navbar__inner {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 12px;
+  }
+ 
+  .navbar__left {
+    gap: 14px;
+  }
+ 
+  .navbar__brand {
+    font-size: 16px;
+  }
+ 
+  .navbar__menu {
+    gap: 10px;
+  }
+ 
+  .navbar__menu a {
+    font-size: 12px;
+  }
+ 
+  .navbar__actions {
+    gap: 6px;
+  }
+ 
+  .navbar__actions .btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+ 
+  .policy__layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+ 
+  .policy__toc {
+    position: static;
+    width: 100%;
+  }
+ 
+  .page-hero {
+    padding: 60px 0 45px;
+  }
+}
+
+
+  @media (max-width:768px) {
+  .container,
+  .navbar__inner { padding-left:22px; padding-right:22px; }
+
+  .navbar__menu { display:none; }
+  .burger { display:flex; }
+  .mobile-menu { display:flex; }
+  .navbar__actions .btn--outline { display:none; }
+  .navbar__actions .btn--accent { display:none; }
+  .page-hero { padding:56px 0 44px; }
+
+  .policy { padding:44px 0 72px; }
+  .policy__toc { display:none; }
+  .policy-section__head { flex-direction:column; gap:6px; }
+  .contact-card { padding:22px; }
+
+  .policy__layout {
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+  
+  .policy__body {
+    max-width:100%;
+    padding-right: 0;
+  }
+}
+
+    .footer { border-top:1px solid rgba(255,255,255,0.08); padding:32px 0; background:var(--bg-dark); }
+    .footer__inner { display:flex; align-items:center; justify-content:space-between;
+      gap:20px; flex-wrap:wrap; }
+    .footer__brand { font-weight:600; font-size:16px; }
+    .footer__copy { color:var(--text-faint); font-size:13px; }
+    .footer__privacy { margin-left:16px; font-size:12px; color:var(--text-faint);
+      text-decoration:underline; transition:color 0.3s var(--ease); }
+    .footer__privacy:hover { color:var(--text-white); }
+    @media (max-width: 349px) {
+      html, body {
+       max-width: 100%;
+       overflow-x: hidden;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  p, h1, h2, h3, span {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}
+/* ===== МОДАЛЬНОЕ ОКНО ЗАЯВКИ ===== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(8, 9, 10, 0.72);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.3s var(--ease), visibility 0.3s var(--ease);
+}
+.modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+.modal {
+  position: relative; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto;
+  background: var(--bg-dark-2); border: 1px solid var(--border-soft); border-radius: 24px;
+  padding: 40px 32px; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  transform: translateY(20px) scale(0.97); opacity: 0;
+  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+}
+.modal-overlay.is-open .modal { transform: translateY(0) scale(1); opacity: 1; }
+.modal__close {
+  position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: var(--text-muted);
+  cursor: pointer; transition: all 0.25s var(--ease);
+}
+.modal__close:hover { background: rgba(255,255,255,0.1); color: var(--text-white); border-color: var(--border-soft); }
+.modal__eyebrow { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.modal__title { font-size: 25px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px; }
+.modal__desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 26px; max-width: 34ch; }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+/* honeypot: скрыто от людей, но заметно ботам, которые заполняют все поля подряд */
+.field--hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.field input, .field select, .field textarea {
+  width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 12px 14px; font-family: inherit; font-size: 15px; color: var(--text-white);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.4); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--accent); background: rgba(255,255,255,0.05);
+}
+.field textarea { resize: vertical; min-height: 74px; }
+.field select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8e0d3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+}
+.field select option { background: var(--bg-dark-2); color: var(--text-white); }
+.modal__submit { width: 100%; margin-top: 6px; }
+.modal__submit[disabled] { opacity: 0.6; cursor: not-allowed; }
+.modal__privacy-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 14px; line-height: 1.5; text-align: center; }
+.modal__privacy-note a { color: var(--text-muted); text-decoration: underline; }
+.modal__success { text-align: center; padding: 10px 0 4px; }
+.modal__success-icon {
+  width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 50%;
+  background: rgba(232,224,211,0.12); display: flex; align-items: center; justify-content: center; color: var(--accent);
+}
+.modal__success h2 { font-size: 21px; font-weight: 600; margin-bottom: 10px; }
+.modal__success p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+@media (max-width: 480px) {
+  .modal { padding: 32px 22px; }
+  .modal__title { font-size: 22px; }
+}
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+      <div class="navbar__left">
+        <a href="index.html" class="navbar__brand">Астория&nbsp;К-3</a>
+        <nav class="navbar__menu">
+          <a href="index.html#home">Главная</a>
+          <a href="o_nas.html">О нас</a>
+          <a href="services.html">Услуги</a>
+          <a href="index.html#projects">Реализованные проекты</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+      </div>
+      <div class="navbar__actions">
+        <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+        <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
+
+        <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false">
+         <span></span>
+         <span></span>
+         <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
+    <a href="index.html#home">Главная</a>
+    <a href="o_nas.html">О нас</a>
+    <a href="services.html">Услуги</a>
+    <a href="index.html#projects">Реализованные проекты</a>
+    <a href="faq.html">FAQ</a>
+    <div class="mobile-menu__actions">
+      <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
+      <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Хлебные крошки">
+        <a href="index.html">Главная</a>
+        <span>/</span>
+        <span>Политика конфиденциальности</span>
+      </nav>
+      <div class="page-hero__eyebrow">Правовая информация</div>
+      <h1 class="page-hero__title">Политика конфиденциальности</h1>
+      <p class="page-hero__meta">
+        ООО «АСТОРИЯ К-3» · Действует с <strong>30 августа 2023 года</strong>
+      </p>
+    </div>
+  </section>
+
+  <section class="policy">
+    <div class="container">
+      <div class="policy__layout">
+
+        <aside class="policy__toc">
+          <div class="policy__toc-title">Содержание</div>
+          <nav>
+            <a href="#s1">1. Общие положения</a>
+            <a href="#s2">2. Отсутствие сбора персональных данных</a>
+            <a href="#s3">3. Использование технических данных</a>
+            <a href="#s4">4. Защита информации</a>
+            <a href="#s5">5. Права пользователей</a>
+            <a href="#s6">6. Контактная информация</a>
+          </nav>
+        </aside>
+
+        <div class="policy__body">
+
+          <p class="policy__intro">
+            Настоящая Политика конфиденциальности определяет подход
+            ООО «АСТОРИЯ К-3» (далее — «Компания») к вопросам защиты
+            информации пользователей, посещающих официальный сайт Компании.
+            Мы уважаем частную жизнь каждого посетителя и стремимся обеспечить
+            Федерального закона от 27.07.2006 №152-ФЗ «О персональных данных»,
+            Федерального закона от 27.07.2006 №149-ФЗ «Об информации, информационных технологиях и о защите информации»,
+            а также иными применимыми нормативными правовыми актами Российской Федерации.
+
+          </p>
+
+          <div class="policy-section" id="s1">
+            <div class="policy-section__head">
+              <span class="policy-section__num">01</span>
+              <h2 class="policy-section__title">Общие положения</h2>
+            </div>
+            <p>
+             Настоящая Политика конфиденциальности (далее — «Политика») разработана
+             в соответствии с законодательством Российской Федерации и регулирует порядок
+             обработки персональных данных, которые становятся доступны Компании в процессе функционирования сайта,
+             в том числе через форму заявки.
+            </p>
+            <p>
+              Используя сайт ООО «АСТОРИЯ К-3» и/или заполняя форму заявки, пользователь подтверждает,
+              что ознакомлен с условиями настоящей Политики и принимает их. В случае несогласия с положениями
+              Политики пользователю следует воздержаться от использования сайта и заполнения формы.
+            </p>
+            <p>
+              Компания оставляет за собой право вносить изменения в настоящую Политику.
+              Актуальная редакция документа всегда доступна на данной странице сайта.
+              Рекомендуем периодически знакомиться с содержанием Политики для получения актуальной информации.
+            </p>
+          </div>
+
+          <div class="policy-section" id="s2">
+            <div class="policy-section__head">
+              <span class="policy-section__num">02</span>
+              <h2 class="policy-section__title">Персональные данные, которые обрабатывает Компания</h2>
+            </div>
+            <p>
+             Сайт Компании содержит форму заявки («Получить консультацию»). При заполнении формы пользователь
+             самостоятельно и добровольно предоставляет следующие персональные данные:
+            </p>
+            <ul class="policy-list">
+              <li>имя;</li>
+              <li>номер телефона;</li>
+              <li>сведения о выбранной услуге и иные данные,
+                  указанные пользователем в комментарии к заявке.</li>
+            </ul>
+            <h3 class="policy-section__subtitle">Цели обработки:</h3>
+            <ul class="policy-list">
+              <li>обратная связь с пользователем по оставленной заявке;</li>
+              <li>подготовка и направление коммерческого предложения (сметы);</li>
+              <li>в случае дальнейшего взаимодействия — заключение и исполнение договора.</li>
+            </ul>
+              <p>
+                <strong>Правовое основание обработки</strong> — согласие пользователя на обработку
+                персональных данных (ст. 6 152-ФЗ), предоставляемое отдельной отметкой при
+                заполнении формы. Согласие не считается предоставленным, если соответствующая
+                отметка не проставлена пользователем самостоятельно. Условия обработки приведены
+                в отдельном документе «Согласие на обработку персональных данных», размещённом на сайте рядом с формой.
+              </p>
+              <p>
+                <strong>Срок хранения</strong> — персональные данные хранятся в течение срока,
+                необходимого для достижения целей обработки, либо до момента отзыва согласия пользователем,
+                если он наступит раньше.
+              </p>
+              <p>
+                 Также пользователь может связаться с Компанией по телефону, указанному на сайте,
+                 — в этом случае Компания не получает персональные данные через сайт: звонок осуществляется
+                 средствами связи пользователя, а не инструментами сайта.
+              </p>
+          </div>
+
+          <div class="policy-section" id="s3">
+            <div class="policy-section__head">
+              <span class="policy-section__num">03</span>
+              <h2 class="policy-section__title">Использование технических данных</h2>
+            </div>
+            <p>
+              При посещении сайта в автоматическом режиме может обрабатываться
+              обезличенная техническая информация, которая не позволяет
+              идентифицировать конкретного пользователя. К такой информации могут
+              относиться:
+            </p>
+            <ul class="policy-list">
+              <li>файлы cookie, необходимые для корректной работы сайта;</li>
+              <li>тип и версия браузера, параметры операционной системы;</li>
+              <li>обезличенный IP-адрес и данные о провайдере;</li>
+              <li>сведения о посещённых страницах, дате и времени визита;</li>
+              <li>источник перехода на сайт и данные о разрешении экрана устройства.</li>
+            </ul>
+            <p>
+              Указанные технические данные используются исключительно в
+              статистических целях — для анализа посещаемости, улучшения работы
+              сайта и повышения удобства его использования. Обработка может
+              осуществляться с применением сервисов веб-аналитики.
+            </p>
+            <p>
+              Пользователь вправе в любой момент отключить использование файлов
+              cookie в настройках своего браузера. Обращаем внимание, что
+              отключение cookie может повлиять на корректность отображения
+              отдельных элементов сайта.
+            </p>
+          </div>
+
+          <div class="policy-section" id="s4">
+            <div class="policy-section__head">
+              <span class="policy-section__num">04</span>
+              <h2 class="policy-section__title">Защита информации</h2>
+            </div>
+            <p>
+              Компания принимает необходимые организационные и технические меры
+              для защиты обрабатываемой технической информации от неправомерного
+              доступа, изменения, раскрытия или уничтожения.
+            </p>
+            <p>
+              ООО «АСТОРИЯ К-3» <strong>не продаёт, не передаёт и не раскрывает</strong>
+              какую-либо информацию третьим лицам в коммерческих целях. Передача
+              обезличенных технических данных возможна только поставщикам сервисов
+              веб-аналитики в объёме, необходимом для их работы, либо
+              уполномоченным государственным органам в случаях, прямо
+              предусмотренных законодательством Российской Федерации.
+            </p>
+          </div>
+
+          <div class="policy-section" id="s5">
+            <div class="policy-section__head">
+              <span class="policy-section__num">05</span>
+              <h2 class="policy-section__title">Права пользователей</h2>
+            </div>
+            <p>
+             Пользователю, чьи персональные данные обрабатываются Компанией
+             (в том числе при заполнении формы заявки), гарантируются следующие права:
+            </p>
+            <ul class="policy-list">
+              <li>управлять использованием файлов cookie через настройки браузера;</li>
+              <li>получать разъяснения об обработке технических данных сайта;</li>
+              <li>обращаться в Компанию по вопросам, связанным с настоящей Политикой;</li>
+              <li>отказаться от использования сайта в случае несогласия с Политикой.</li>
+            </ul>
+            <p>
+              Для реализации своих прав или получения дополнительной информации
+              пользователь может связаться с Компанией по контактным данным,
+              указанным в разделе 6 настоящей Политики.
+            </p>
+          </div>
+
+          <div class="policy-section" id="s6">
+            <div class="policy-section__head">
+              <span class="policy-section__num">06</span>
+              <h2 class="policy-section__title">Контактная информация</h2>
+            </div>
+            <p>
+              По всем вопросам, связанным с настоящей Политикой конфиденциальности
+              и работой сайта, вы можете обратиться в Компанию по указанным ниже
+              контактам. Напоминаем, что телефонный звонок совершается
+              пользователем самостоятельно.
+            </p>
+            <div class="contact-card">
+              <div class="contact-row">
+                <span class="contact-row__icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 21h18M4 21V7l8-4 8 4v14M9 21v-6h6v6"></path>
+                  </svg>
+                </span>
+                <div>
+                  <span class="contact-row__label">Организация</span>
+                  <span class="contact-row__value">ООО «АСТОРИЯ К-3»</span>
+                </div>
+              </div>
+              <div class="contact-row">
+                <span class="contact-row__icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </span>
+                <div>
+                  <span class="contact-row__label">Телефон</span>
+                  <a href="tel:+79017147425" class="contact-row__value">+7 (901) 714-74-25</a>
+                </div>
+              </div>
+              <div class="contact-row">
+                <span class="contact-row__icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                    <path d="m3 7 9 6 9-6"></path>
+                  </svg>
+                </span>
+                <div>
+                  <span class="contact-row__label">E-mail</span>
+                  <a href="mailto:ckastoria@mail.ru" class="contact-row__value">ckastoria@mail.ru</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">Астория&nbsp;К-3</div>
+      <div class="footer__copy">
+        © 2023—2026 Астория К-3. Все права защищены.
+        <a href="privacy.html" class="footer__privacy">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var burger = document.querySelector('.burger');
+      var mobileMenu = document.getElementById('mobileMenu');
+      if (!burger || !mobileMenu) return;
+
+      function setState(open) {
+        burger.classList.toggle('is-open', open);
+        mobileMenu.classList.toggle('is-open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      }
+
+      burger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setState(!mobileMenu.classList.contains('is-open'));
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () { setState(false); });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (mobileMenu.classList.contains('is-open') &&
+            !mobileMenu.contains(e.target) && !burger.contains(e.target)) {
+          setState(false);
+        }
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) setState(false);
+      });
+    })();
+  </script>
+<div class="modal-overlay" id="quoteModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" type="button" aria-label="Закрыть">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <div id="modalFormState">
+      <div class="modal__eyebrow">Заявка</div>
+      <h2 class="modal__title" id="modalTitle">Получить консультацию</h2>
+      <p class="modal__desc">Оставьте контакты — рассчитаем стоимость и перезвоним в течение дня.</p>
+
+      <form id="quoteForm">
+        <div class="field">
+          <label for="qName">Имя</label>
+          <input type="text" id="qName" name="name" required placeholder="Как к вам обращаться" />
+        </div>
+        <div class="field">
+          <label for="qPhone">Телефон</label>
+          <input type="tel" id="qPhone" name="phone" required placeholder="+7 (___) ___-__-__" />
+        </div>
+        <div class="field">
+          <label for="qService">Услуга</label>
+          <select id="qService" name="service">
+            <option value="">Не выбрано</option>
+            <option>Инженерные коммуникации</option>
+            <option>Благоустройство территорий</option>
+            <option>Строительство зданий</option>
+            <option>Проектирование</option>
+            <option>Специализированные работы</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="qMessage">Комментарий (необязательно)</label>
+          <textarea id="qMessage" name="message" placeholder="Кратко опишите задачу"></textarea>
+        </div>
+        <div class="field field--hp" aria-hidden="true">
+  <label for="qWebsite">Website</label>
+  <input type="text" id="qWebsite" name="website" tabindex="-1" autocomplete="off" />
+</div>
+<input type="hidden" id="qFormLoadedAt" name="formLoadedAt" value="" />
+        <button type="submit" class="btn btn--accent modal__submit">
+          <span class="modal__submit-text">Отправить заявку</span>
+        </button>
+        <p class="modal__privacy-note">Нажимая «Отправить», вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</p>
+      </form>
+    </div>
+
+    <div class="modal__success" id="modalSuccessState" hidden>
+      <div class="modal__success-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h2>Заявка отправлена</h2>
+      <p>Спасибо! Мы свяжемся с вами в ближайшее время.</p>
+      <button class="btn btn--outline" id="modalCloseSuccess">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var overlay = document.getElementById('quoteModal');
+  var closeBtn = overlay.querySelector('.modal__close');
+  var closeSuccessBtn = document.getElementById('modalCloseSuccess');
+  var form = document.getElementById('quoteForm');
+  var formState = document.getElementById('modalFormState');
+  var successState = document.getElementById('modalSuccessState');
+  var submitBtn = form.querySelector('.modal__submit');
+  var submitText = submitBtn.querySelector('.modal__submit-text');
+  var lastFocused = null;
+
+  function openModal(e) {
+    if (e) e.preventDefault();
+    lastFocused = document.activeElement;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('qFormLoadedAt').value = Date.now();
+    setTimeout(function () { document.getElementById('qName').focus(); }, 300);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  function resetModal() {
+    form.reset();
+    formState.hidden = false;
+    successState.hidden = true;
+  }
+
+  document.querySelectorAll('[data-open-quote]').forEach(function (btn) {
+    btn.addEventListener('click', openModal);
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  closeSuccessBtn.addEventListener('click', function () {
+    closeModal();
+    setTimeout(resetModal, 300);
+  });
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitText.textContent = 'Отправляем...';
+
+   var data = {
+  name: form.name.value.trim(),
+  phone: form.phone.value.trim(),
+  service: form.service.value,
+  message: form.message.value.trim(),
+  page: window.location.pathname,
+  website: form.website.value,          // honeypot — у людей всегда пусто
+  formLoadedAt: form.formLoadedAt.value  // когда открылась форма (мс)
+};
+
+    fetch('/send.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function (res) {
+      if (!res.ok) throw new Error('bad response');
+      formState.hidden = true;
+      successState.hidden = false;
+    })
+    .catch(function () {
+      alert('Не получилось отправить заявку. Попробуйте ещё раз или позвоните нам: +7 (926) 892-43-31');
+    })
+    .finally(function () {
+      submitBtn.disabled = false;
+      submitText.textContent = 'Отправить заявку';
+    });
+  });
+})();
+</script>
+</body>
+</html>

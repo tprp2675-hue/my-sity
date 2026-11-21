@@ -33,16 +33,17 @@ a { color: inherit; text-decoration: none; }
 ul { list-style: none; }
 .container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
 
+/* НАВБАР — идентичен основному сайту */
 .navbar { position: sticky; top: 0; width: 100%; height: var(--nav-height); z-index: 50; display: flex; align-items: center; background: rgba(14,15,17,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-faint); }
 .navbar__inner { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .navbar__left { display: flex; align-items: center; gap: 48px; }
 .navbar__brand { font-size: 20px; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; }
-.navbar__menu { display: flex; align-items: center; gap: 40px; flex-wrap: nowrap; white-space: nowrap; }
-.navbar__menu a { font-size: 15px; color: var(--text-muted); position: relative; transition: color 0.3s var(--ease); white-space: nowrap; }
+.navbar__menu { display: flex; align-items: center; gap: 40px; }
+.navbar__menu a { font-size: 15px; color: var(--text-muted); position: relative; transition: color 0.3s var(--ease); }
 .navbar__menu a:hover, .navbar__menu a.is-active { color: var(--text-white); }
 .navbar__menu a::after { content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px; background: var(--text-white); transition: width 0.3s var(--ease); }
 .navbar__menu a:hover::after, .navbar__menu a.is-active::after { width: 100%; }
-.navbar__actions { display: flex; align-items: center; gap: 14px; }
+.navbar__actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .burger { display: none; width: 44px; height: 44px; border-radius: var(--radius); border: 1px solid var(--border-soft); background: transparent; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
 .burger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; }
 .mobile-menu { display: none; position: fixed; top: var(--nav-height); left: 0; width: 100%; flex-direction: column; gap: 4px; padding: 22px; background: rgba(14,15,17,0.97); border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 49; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-12px); transition: all 0.3s var(--ease); }
@@ -58,6 +59,7 @@ ul { list-style: none; }
 .btn--accent { background: var(--accent); color: #111; }
 .btn--accent:hover { background: var(--accent-hover); transform: translateY(-1px); }
 
+/* ХЛЕБНЫЕ КРОШКИ — новое, для навигации и SEO-структуры */
 .breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: var(--text-faint); margin-bottom: 22px; }
 .breadcrumb a { color: var(--text-muted); transition: color 0.3s var(--ease); }
 .breadcrumb a:hover { color: var(--text-white); }
@@ -65,7 +67,7 @@ ul { list-style: none; }
 
 .page-head {
   position: relative;
-  min-height: 72vh;
+  min-height: 70vh;
   display: flex;
   align-items: flex-end;
   padding: 140px 0 74px;
@@ -90,7 +92,7 @@ ul { list-style: none; }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(14, 15, 17, 0.65) 0%, rgba(14, 15, 17, 0.22) 45%, rgba(14, 15, 17, 0.1) 100%);
+  background: linear-gradient(90deg, rgba(14, 15, 17, 0.6) 0%, rgba(14, 15, 17, 0.16) 45%, rgba(14, 15, 17, 0.08) 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -103,11 +105,14 @@ ul { list-style: none; }
 .page-head__desc { font-size: clamp(16px, 1.4vw, 18px); font-weight: 300; color: rgba(255,255,255,0.84); max-width: 62ch; text-shadow: 0 4px 20px rgba(0,0,0,0.25); }
 .divider { height: 1px; width: 100%; background: linear-gradient(90deg, rgba(232,224,211,0.7), transparent 70%); margin: 8px 0 0; }
 
+/* КОНТЕНТ УСЛУГИ */
 .content { padding: 56px 0 0; }
 .content__intro { max-width: 72ch; font-size: 16px; color: var(--text-muted); font-weight: 300; line-height: 1.75; margin-bottom: 64px; }
 .content__intro strong { color: var(--text-white); font-weight: 500; }
+
 .section-title { font-size: clamp(24px, 3vw, 32px); font-weight: 600; letter-spacing: -0.5px; margin-bottom: 32px; }
 
+/* Что входит — расширенная сетка (не просто список, а мини-карточки) */
 .included { padding-bottom: 72px; }
 .included__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .included__item { background: var(--bg-card); border: 1px solid var(--border-faint); border-radius: var(--radius-card); padding: 24px 26px; transition: border-color 0.3s var(--ease), background 0.3s var(--ease); }
@@ -116,6 +121,7 @@ ul { list-style: none; }
 .included__item h3::before { content: '→'; color: var(--accent); }
 .included__item p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
+/* Этапы работ — нумерация оправдана: это реальная последовательность */
 .process { padding-bottom: 72px; }
 .process__list { display: flex; flex-direction: column; }
 .process__item { display: flex; gap: 28px; padding: 28px 0; border-top: 1px solid var(--border-faint); }
@@ -124,6 +130,7 @@ ul { list-style: none; }
 .process__body h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
 .process__body p { font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 62ch; }
 
+/* FAQ — нативный accordion, доступен без JS, читаем краулерами */
 .faq { padding-bottom: 72px; }
 .faq-item { border-top: 1px solid var(--border-faint); }
 .faq-item:last-child { border-bottom: 1px solid var(--border-faint); }
@@ -136,6 +143,7 @@ ul { list-style: none; }
 .faq-item__answer > p { overflow: hidden; font-size: 14px; color: var(--text-muted); line-height: 1.7; padding: 0 4px 0 40px; max-width: 68ch; }
 .faq-item__q[aria-expanded="true"] + .faq-item__answer { grid-template-rows: 1fr; }
 .faq-item__q[aria-expanded="true"] + .faq-item__answer > p { padding-bottom: 22px; }
+
 .cta { margin-top: 8px; margin-bottom: 90px; background: linear-gradient(135deg, #1c1f24 0%, #131519 100%); border: 1px solid var(--border-faint); border-radius: 24px; padding: 56px 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; }
 .cta__title { font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.5px; max-width: 22ch; }
 .cta__text { font-size: 16px; font-weight: 300; color: var(--text-muted); margin-top: 8px; max-width: 40ch; }
@@ -148,17 +156,21 @@ ul { list-style: none; }
 
 @media (max-width: 1250px) {
   .navbar__inner { padding-left: 24px; padding-right: 24px; gap: 16px; }
+  .navbar__left { gap: 20px; }
+  .navbar__brand { font-size: 17px; }
   .navbar__menu { gap: 14px; }
   .navbar__menu a { font-size: 13px; }
-}
-@media (max-width: 900px) {
-  .navbar__inner { gap: 12px; }
-  .navbar__left { gap: 16px; }
-  .navbar__brand { font-size: 16px; }
-  .navbar__menu { gap: 10px; }
-  .navbar__menu a { font-size: 12px; }
   .navbar__actions { gap: 8px; }
-  .navbar__actions .btn { padding: 10px 14px; font-size: 12px; }
+  .navbar__actions .btn { padding: 10px 14px; font-size: 13px; }
+}
+@media (max-width: 880px) {
+  .navbar__inner { padding-left: 16px; padding-right: 16px; gap: 10px; }
+  .navbar__left { gap: 10px; }
+  .navbar__brand { font-size: 15px; }
+  .navbar__menu { gap: 8px; }
+  .navbar__menu a { font-size: 12px; }
+  .navbar__actions { gap: 6px; }
+  .navbar__actions .btn { padding: 7px 10px; font-size: 12px; }
 }
 @media (max-width: 768px) {
   .container, .navbar__inner { padding-left: 22px; padding-right: 22px; }
@@ -171,6 +183,20 @@ ul { list-style: none; }
   .included__grid { grid-template-columns: 1fr; }
   .process__item { gap: 16px; }
   .cta { padding: 38px 24px; }
+}
+
+@media (max-width: 295px) {
+  .container, .navbar__inner { padding-left: 10px; padding-right: 10px; }
+  .navbar { height: auto; min-height: var(--nav-height); }
+  .navbar__brand { font-size: 14px; }
+  .burger { width: 40px; height: 40px; }
+  .mobile-menu { padding: 18px 10px 20px; }
+  .mobile-menu a { font-size: 15px; }
+  .page-head { min-height: 500px; padding: 104px 0 40px; }
+  .page-head__title { font-size: clamp(28px, 8vw, 34px); }
+  .page-head__desc { font-size: 14px; }
+  .cta { padding: 24px 16px; }
+  .included__item, .process__item { padding-left: 0; padding-right: 0; }
 }
 /* ===== МОДАЛЬНОЕ ОКНО ЗАЯВКИ ===== */
 .modal-overlay {
@@ -202,6 +228,8 @@ ul { list-style: none; }
 .modal__desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 26px; max-width: 34ch; }
 .field { margin-bottom: 14px; }
 .field label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+/* honeypot: скрыто от людей, но заметно ботам, которые заполняют все поля подряд */
+.field--hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .field input, .field select, .field textarea {
   width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
   border-radius: 12px; padding: 12px 14px; font-family: inherit; font-size: 15px; color: var(--text-white);
@@ -448,6 +476,11 @@ document.querySelectorAll('.faq-item__q').forEach(function (btn) {
           <label for="qMessage">Комментарий (необязательно)</label>
           <textarea id="qMessage" name="message" placeholder="Кратко опишите задачу"></textarea>
         </div>
+        <div class="field field--hp" aria-hidden="true">
+  <label for="qWebsite">Website</label>
+  <input type="text" id="qWebsite" name="website" tabindex="-1" autocomplete="off" />
+</div>
+<input type="hidden" id="qFormLoadedAt" name="formLoadedAt" value="" />
         <button type="submit" class="btn btn--accent modal__submit">
           <span class="modal__submit-text">Отправить заявку</span>
         </button>
@@ -484,6 +517,7 @@ document.querySelectorAll('.faq-item__q').forEach(function (btn) {
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    document.getElementById('qFormLoadedAt').value = Date.now();
     setTimeout(function () { document.getElementById('qName').focus(); }, 300);
   }
 
@@ -520,12 +554,14 @@ document.querySelectorAll('.faq-item__q').forEach(function (btn) {
     submitText.textContent = 'Отправляем...';
 
     var data = {
-      name: form.name.value.trim(),
-      phone: form.phone.value.trim(),
-      service: form.service.value,
-      message: form.message.value.trim(),
-      page: window.location.pathname
-    };
+  name: form.name.value.trim(),
+  phone: form.phone.value.trim(),
+  service: form.service.value,
+  message: form.message.value.trim(),
+  page: window.location.pathname,
+  website: form.website.value,          // honeypot — у людей всегда пусто
+  formLoadedAt: form.formLoadedAt.value  // когда открылась форма (мс)
+};
 
     fetch('/api/send-lead', {
       method: 'POST',

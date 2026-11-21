@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Проектирование и строительство инженерных сетей в Москве | Астория К-3</title>
+<meta name="description" content="Инженерные сети под ключ: водоснабжение, электро- и газоснабжение, связь. От изысканий до сдачи в эксплуатацию. Москва и область.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://вашсайт.ru/uslugi/inzhenernye-seti.html">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Астория К-3">
+<meta property="og:title" content="Инженерные коммуникации под ключ | Астория К-3">
+<meta property="og:description" content="Водоснабжение, тепло- и электроснабжение, газоснабжение, связь. Изыскания, проект, монтаж, сдача в эксплуатацию.">
+<meta property="og:image" content="https://вашсайт.ru/uslugi/inzhenernye-seti-hero.jpg">
+<meta property="og:url" content="https://вашсайт.ru/uslugi/inzhenernye-seti.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg-dark: #0e0f11; --bg-dark-2: #15171a; --bg-card: #1a1c20;
+  --text-white: #ffffff; --text-muted: rgba(255,255,255,0.6); --text-faint: rgba(255,255,255,0.4);
+  --accent: #e8e0d3; --accent-hover: #ffffff;
+  --border-soft: rgba(255,255,255,0.25); --border-faint: rgba(255,255,255,0.08);
+  --radius: 999px; --radius-card: 18px; --nav-height: 84px; --max-width: 1400px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg-dark); color: var(--text-white); line-height: 1.5;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  background-image: radial-gradient(1200px 600px at 15% -10%, rgba(232,224,211,0.06), transparent 60%),
+                     radial-gradient(1000px 500px at 100% 10%, rgba(232,224,211,0.04), transparent 55%);
+  background-attachment: fixed;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+.container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 40px; }
+
+/* НАВБАР — идентичен основному сайту */
+.navbar { position: sticky; top: 0; width: 100%; height: var(--nav-height); z-index: 50; display: flex; align-items: center; background: rgba(14,15,17,0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-faint); }
+.navbar__inner { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.navbar__left { display: flex; align-items: center; gap: 48px; }
+.navbar__brand { font-size: 20px; font-weight: 600; letter-spacing: 0.5px; white-space: nowrap; }
+.navbar__menu { display: flex; align-items: center; gap: 40px; }
+.navbar__menu a { font-size: 15px; color: var(--text-muted); position: relative; transition: color 0.3s var(--ease); }
+.navbar__menu a:hover, .navbar__menu a.is-active { color: var(--text-white); }
+.navbar__menu a::after { content: ''; position: absolute; left: 0; bottom: -6px; width: 0; height: 1px; background: var(--text-white); transition: width 0.3s var(--ease); }
+.navbar__menu a:hover::after, .navbar__menu a.is-active::after { width: 100%; }
+.navbar__actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.burger { display: none; width: 44px; height: 44px; border-radius: var(--radius); border: 1px solid var(--border-soft); background: transparent; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
+.burger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; }
+.mobile-menu { display: none; position: fixed; top: var(--nav-height); left: 0; width: 100%; flex-direction: column; gap: 4px; padding: 22px; background: rgba(14,15,17,0.97); border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 49; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-12px); transition: all 0.3s var(--ease); }
+.mobile-menu.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+.mobile-menu a { font-size: 17px; color: var(--text-muted); padding: 14px 4px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.mobile-menu__actions { display: flex; flex-direction: column; gap: 12px; margin-top: 22px; }
+.mobile-menu__actions .btn { width: 100%; }
+.mobile-menu__actions .btn--accent { color: #0e0f11 !important; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 500; padding: 12px 24px; border-radius: var(--radius); cursor: pointer; border: 1px solid transparent; transition: all 0.3s var(--ease); white-space: nowrap; }
+.btn--outline { background: transparent; border-color: var(--border-soft); color: var(--text-white); }
+.btn--outline:hover { background: rgba(255,255,255,0.1); border-color: var(--text-white); }
+.btn--accent { background: var(--accent); color: #111; }
+.btn--accent:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+/* ХЛЕБНЫЕ КРОШКИ — новое, для навигации и SEO-структуры */
+.breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; color: var(--text-faint); margin-bottom: 22px; }
+.breadcrumb a { color: var(--text-muted); transition: color 0.3s var(--ease); }
+.breadcrumb a:hover { color: var(--text-white); }
+.breadcrumb__current { color: var(--text-muted); }
+
+.page-head {
+  position: relative;
+  min-height: 70vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 140px 0 74px;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    rgba(14, 15, 17, 0.35) 0%,
+    rgba(14, 15, 17, 0.2) 35%,
+    rgba(14, 15, 17, 0.9) 100%
+  );
+}
+.page-head__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+.page-head::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(14, 15, 17, 0.6) 0%, rgba(14, 15, 17, 0.16) 45%, rgba(14, 15, 17, 0.08) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.page-head .container {
+  position: relative;
+  z-index: 2;
+}
+.page-head__eyebrow { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.page-head__title { font-size: clamp(34px, 5vw, 58px); font-weight: 600; letter-spacing: -1px; line-height: 1.05; margin-bottom: 20px; max-width: 14ch; text-shadow: 0 12px 30px rgba(0,0,0,0.36); }
+.page-head__desc { font-size: clamp(16px, 1.4vw, 18px); font-weight: 300; color: rgba(255,255,255,0.84); max-width: 62ch; text-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+.divider { height: 1px; width: 100%; background: linear-gradient(90deg, rgba(232,224,211,0.7), transparent 70%); margin: 8px 0 0; }
+
+/* КОНТЕНТ УСЛУГИ */
+.content { padding: 56px 0 0; }
+.content__intro { max-width: 72ch; font-size: 16px; color: var(--text-muted); font-weight: 300; line-height: 1.75; margin-bottom: 64px; }
+.content__intro strong { color: var(--text-white); font-weight: 500; }
+
+.section-title { font-size: clamp(24px, 3vw, 32px); font-weight: 600; letter-spacing: -0.5px; margin-bottom: 32px; }
+
+/* Что входит — расширенная сетка (не просто список, а мини-карточки) */
+.included { padding-bottom: 72px; }
+.included__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.included__item { background: var(--bg-card); border: 1px solid var(--border-faint); border-radius: var(--radius-card); padding: 24px 26px; transition: border-color 0.3s var(--ease), background 0.3s var(--ease); }
+.included__item:hover { border-color: var(--border-soft); background: #1e2126; }
+.included__item h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.included__item h3::before { content: '→'; color: var(--accent); }
+.included__item p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+/* Этапы работ — нумерация оправдана: это реальная последовательность */
+.process { padding-bottom: 72px; }
+.process__list { display: flex; flex-direction: column; }
+.process__item { display: flex; gap: 28px; padding: 28px 0; border-top: 1px solid var(--border-faint); }
+.process__item:last-child { border-bottom: 1px solid var(--border-faint); }
+.process__num { font-size: 15px; font-weight: 600; color: var(--accent); min-width: 34px; padding-top: 2px; }
+.process__body h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+.process__body p { font-size: 14px; color: var(--text-muted); line-height: 1.6; max-width: 62ch; }
+
+/* FAQ — нативный accordion, доступен без JS, читаем краулерами */
+.faq { padding-bottom: 72px; }
+.faq-item { border-top: 1px solid var(--border-faint); }
+.faq-item:last-child { border-bottom: 1px solid var(--border-faint); }
+.faq-item__q { width: 100%; display: flex; align-items: center; gap: 16px; padding: 22px 4px; background: none; border: none; cursor: pointer; text-align: left; font-family: inherit; color: var(--text-white); }
+.faq-item__num { font-size: 13px; font-weight: 600; color: var(--accent); min-width: 24px; }
+.faq-item__q-text { flex: 1; font-size: 16px; font-weight: 500; }
+.faq-item__icon { display: inline-flex; color: var(--accent); flex-shrink: 0; transition: transform 0.3s var(--ease); }
+.faq-item__q[aria-expanded="true"] .faq-item__icon { transform: rotate(180deg); }
+.faq-item__answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s var(--ease); }
+.faq-item__answer > p { overflow: hidden; font-size: 14px; color: var(--text-muted); line-height: 1.7; padding: 0 4px 0 40px; max-width: 68ch; }
+.faq-item__q[aria-expanded="true"] + .faq-item__answer { grid-template-rows: 1fr; }
+.faq-item__q[aria-expanded="true"] + .faq-item__answer > p { padding-bottom: 22px; }
+
+.cta { margin-top: 8px; margin-bottom: 90px; background: linear-gradient(135deg, #1c1f24 0%, #131519 100%); border: 1px solid var(--border-faint); border-radius: 24px; padding: 56px 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px; }
+.cta__title { font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.5px; max-width: 22ch; }
+.cta__text { font-size: 16px; font-weight: 300; color: var(--text-muted); margin-top: 8px; max-width: 40ch; }
+
+.footer { border-top: 1px solid var(--border-faint); padding: 34px 0; }
+.footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.footer__brand { font-weight: 600; font-size: 16px; }
+.footer__copy { color: var(--text-faint); font-size: 13px; }
+.footer__privacy { margin-left: 16px; font-size: 12px; color: var(--text-faint); text-decoration: underline; }
+
+@media (max-width: 1250px) {
+  .navbar__inner { padding-left: 24px; padding-right: 24px; gap: 16px; }
+  .navbar__left { gap: 20px; }
+  .navbar__brand { font-size: 17px; }
+  .navbar__menu { gap: 14px; }
+  .navbar__menu a { font-size: 13px; }
+  .navbar__actions { gap: 8px; }
+  .navbar__actions .btn { padding: 10px 14px; font-size: 13px; }
+}
+@media (max-width: 880px) {
+  .navbar__inner { padding-left: 16px; padding-right: 16px; gap: 10px; }
+  .navbar__left { gap: 10px; }
+  .navbar__brand { font-size: 15px; }
+  .navbar__menu { gap: 8px; }
+  .navbar__menu a { font-size: 12px; }
+  .navbar__actions { gap: 6px; }
+  .navbar__actions .btn { padding: 7px 10px; font-size: 12px; }
+}
+@media (max-width: 768px) {
+  .container, .navbar__inner { padding-left: 22px; padding-right: 22px; }
+  .navbar__menu { display: none; }
+  .navbar__actions .btn { display: none; }
+  .burger { display: flex; }
+  .mobile-menu { display: flex; }
+  .page-head { min-height: 560px; padding: 120px 0 54px; }
+  .page-head__title { max-width: 100%; }
+  .included__grid { grid-template-columns: 1fr; }
+  .process__item { gap: 16px; }
+  .cta { padding: 38px 24px; }
+}
+
+@media (max-width: 295px) {
+  .container, .navbar__inner { padding-left: 10px; padding-right: 10px; }
+  .navbar { height: auto; min-height: var(--nav-height); }
+  .navbar__brand { font-size: 14px; }
+  .burger { width: 40px; height: 40px; }
+  .mobile-menu { padding: 18px 10px 20px; }
+  .mobile-menu a { font-size: 15px; }
+  .page-head { min-height: 500px; padding: 104px 0 40px; }
+  .page-head__title { font-size: clamp(28px, 8vw, 34px); }
+  .page-head__desc { font-size: 14px; }
+  .cta { padding: 24px 16px; }
+  .included__item, .process__item { padding-left: 0; padding-right: 0; }
+}
+/* ===== МОДАЛЬНОЕ ОКНО ЗАЯВКИ ===== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(8, 9, 10, 0.72);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.3s var(--ease), visibility 0.3s var(--ease);
+}
+.modal-overlay.is-open { opacity: 1; visibility: visible; pointer-events: auto; }
+.modal {
+  position: relative; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto;
+  background: var(--bg-dark-2); border: 1px solid var(--border-soft); border-radius: 24px;
+  padding: 40px 32px; box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  transform: translateY(20px) scale(0.97); opacity: 0;
+  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+}
+.modal-overlay.is-open .modal { transform: translateY(0) scale(1); opacity: 1; }
+.modal__close {
+  position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: var(--text-muted);
+  cursor: pointer; transition: all 0.25s var(--ease);
+}
+.modal__close:hover { background: rgba(255,255,255,0.1); color: var(--text-white); border-color: var(--border-soft); }
+.modal__eyebrow { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.modal__title { font-size: 25px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px; }
+.modal__desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 26px; max-width: 34ch; }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+/* honeypot: скрыто от людей, но заметно ботам, которые заполняют все поля подряд */
+.field--hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.field input, .field select, .field textarea {
+  width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 12px 14px; font-family: inherit; font-size: 15px; color: var(--text-white);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.4); }
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--accent); background: rgba(255,255,255,0.05);
+}
+.field textarea { resize: vertical; min-height: 74px; }
+.field select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e8e0d3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
+}
+.field select option { background: var(--bg-dark-2); color: var(--text-white); }
+.modal__submit { width: 100%; margin-top: 6px; }
+.modal__submit[disabled] { opacity: 0.6; cursor: not-allowed; }
+.modal__privacy-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 14px; line-height: 1.5; text-align: center; }
+.modal__privacy-note a { color: var(--text-muted); text-decoration: underline; }
+.modal__success { text-align: center; padding: 10px 0 4px; }
+.modal__success-icon {
+  width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 50%;
+  background: rgba(232,224,211,0.12); display: flex; align-items: center; justify-content: center; color: var(--accent);
+}
+.modal__success h2 { font-size: 21px; font-weight: 600; margin-bottom: 10px; }
+.modal__success p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
+@media (max-width: 480px) {
+  .modal { padding: 32px 22px; }
+  .modal__title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="navbar__inner">
+    <div class="navbar__left">
+      <div class="navbar__brand">Астория&nbsp;К-3</div>
+      <nav class="navbar__menu">
+        <a href="../index.html#home">Главная</a>
+        <a href="../o_nas.html">О нас</a>
+        <a href="../services.html" class="is-active">Услуги</a>
+        <a href="../index.html#projects">Реализованные проекты</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../contacts.html">Контакты</a>
+      </nav>
+    </div>
+    <div class="navbar__actions">
+      <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
+      <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
+      <button class="burger" type="button" aria-label="Открыть меню" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
+  <a href="../index.html#home">Главная</a>
+  <a href="../o_nas.html">О нас</a>
+  <a href="../services.html" class="is-active">Услуги</a>
+  <a href="../index.html#projects">Реализованные проекты</a>
+  <a href="../faq.html">FAQ</a>
+  <a href="../contacts.html">Контакты</a>
+  <div class="mobile-menu__actions">
+    <a href="tel:+79268924331" class="btn btn--outline">Позвонить</a>
+    <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
+  </div>
+</nav>
+
+<section class="page-head">
+  <img class="page-head__image" src="kkk.avif" alt="" loading="eager" fetchpriority="high" decoding="async" />
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Хлебные крошки">
+      <a href="../index.html">Главная</a><span>/</span>
+      <a href="../services.html">Услуги</a><span>/</span>
+      <span class="breadcrumb__current">Инженерные коммуникации</span>
+    </nav>
+    <div class="page-head__eyebrow">Услуга</div>
+    <h1 class="page-head__title">Инженерные коммуникации</h1>
+    <p class="page-head__desc">Проектируем и строим инженерные сети под ключ — от точки подключения до сдачи в эксплуатацию. Работаем в Москве и Московской области.</p>
+    <div class="divider"></div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container">
+    <p class="content__intro">Прокладка инженерных сетей — это фундамент, без которого объект не введут в эксплуатацию. Мы берём проект от точки подключения к городским сетям до <strong>полной сдачи с оформлением исполнительной документации</strong>. Работаем как с новым строительством, так и с модернизацией существующих коммуникаций на действующих объектах.</p>
+
+    <div class="included">
+      <h2 class="section-title">Что входит</h2>
+      <div class="included__grid">
+        <div class="included__item">
+          <h3>Водоснабжение и водоотведение</h3>
+          <p>Наружные сети холодного и горячего водоснабжения, канализация, ливневая канализация, врезка в городские магистрали.</p>
+        </div>
+        <div class="included__item">
+          <h3>Теплоснабжение и электроснабжение</h3>
+          <p>Тепловые сети от котельной или ЦТП, кабельные линии, трансформаторные подстанции, узлы учёта.</p>
+        </div>
+        <div class="included__item">
+          <h3>Газоснабжение и сети связи</h3>
+          <p>Наружный газопровод с оформлением разрешительной документации, слаботочные сети и связь.</p>
+        </div>
+        <div class="included__item">
+          <h3>Уличное освещение</h3>
+          <p>Опоры, кабельные линии, подключение к распределительным сетям, автоматика управления освещением.</p>
+        </div>
+        <div class="included__item">
+          <h3>Модернизация и реконструкция</h3>
+          <p>Замена изношенных сетей на действующих объектах без остановки эксплуатации, с поэтапным графиком работ.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="process">
+      <h2 class="section-title">Как проходит работа</h2>
+      <div class="process__list">
+        <div class="process__item">
+          <div class="process__num">01</div>
+          <div class="process__body"><h3>Обследование и изыскания</h3><p>Выезд на объект, инженерно-геологические изыскания, сбор технических условий у ресурсоснабжающих организаций.</p></div>
+        </div>
+        <div class="process__item">
+          <div class="process__num">02</div>
+          <div class="process__body"><h3>Проектирование</h3><p>Разработка проектной документации, расчёт нагрузок, согласование трассировки сетей с заказчиком.</p></div>
+        </div>
+        <div class="process__item">
+          <div class="process__num">03</div>
+          <div class="process__body"><h3>Согласования</h3><p>Получение разрешений и согласований с городскими инстанциями и сетевыми организациями.</p></div>
+        </div>
+        <div class="process__item">
+          <div class="process__num">04</div>
+          <div class="process__body"><h3>Строительно-монтажные работы</h3><p>Земляные работы, прокладка сетей, монтаж оборудования, соблюдение технологии и сроков графика.</p></div>
+        </div>
+        <div class="process__item">
+          <div class="process__num">05</div>
+          <div class="process__body"><h3>Пусконаладка и сдача</h3><p>Испытания, пусконаладочные работы, оформление исполнительной документации, сдача заказчику и в эксплуатирующие организации.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq">
+      <h2 class="section-title">Частые вопросы</h2>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">01</span>
+          <span class="faq-item__q-text">Сколько времени занимает прокладка инженерных сетей?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Зависит от протяжённости и типа сетей: от 2-3 недель для локального участка до нескольких месяцев для полного комплекса сетей на крупном объекте. Точный срок даём после выезда на объект.</p></div>
+      </article>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">02</span>
+          <span class="faq-item__q-text">Нужно ли отдельное согласование с городом?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Да, для большинства сетей требуются технические условия и согласования с ресурсоснабжающими организациями — мы берём это на себя и включаем в смету.</p></div>
+      </article>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">03</span>
+          <span class="faq-item__q-text">Работаете ли вы в зимний период?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Да, ведём земляные и монтажные работы круглый год с учётом технологии производства работ в холодное время.</p></div>
+      </article>
+
+      <article class="faq-item">
+        <button class="faq-item__q" type="button" aria-expanded="false">
+          <span class="faq-item__num">04</span>
+          <span class="faq-item__q-text">Можно ли заказать только проектирование, без строительства?</span>
+          <span class="faq-item__icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div class="faq-item__answer"><p>Да, проектирование — отдельная услуга, её можно заказать без дальнейшего строительства нашей компанией.</p></div>
+      </article>
+    </div>
+
+    <div class="cta">
+      <div>
+        <div class="cta__title">Обсудим ваш объект?</div>
+        <p class="cta__text">Оставьте заявку — выедем на объект и подготовим смету по инженерным сетям.</p>
+      </div>
+      <a href="#" class="btn btn--accent" data-open-quote>Получить консультацию</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">Астория&nbsp;К-3</div>
+    <div class="footer__copy">© 2023—2026 Астория К-3. Все права защищены.
+      <a href="../privacy.html" class="footer__privacy">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var burger = document.querySelector('.burger');
+  var mobileMenu = document.getElementById('mobileMenu');
+  if (!burger || !mobileMenu) return;
+  function setState(open) { burger.classList.toggle('is-open', open); mobileMenu.classList.toggle('is-open', open); burger.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  burger.addEventListener('click', function (e) { e.stopPropagation(); setState(!mobileMenu.classList.contains('is-open')); });
+  mobileMenu.querySelectorAll('a').forEach(function (link) { link.addEventListener('click', function () { setState(false); }); });
+  document.addEventListener('click', function (e) { if (mobileMenu.classList.contains('is-open') && !mobileMenu.contains(e.target) && !burger.contains(e.target)) setState(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth > 768) setState(false); });
+})();
+
+document.querySelectorAll('.faq-item__q').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+  });
+});
+</script>
+<div class="modal-overlay" id="quoteModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal__close" type="button" aria-label="Закрыть">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <div id="modalFormState">
+      <div class="modal__eyebrow">Заявка</div>
+      <h2 class="modal__title" id="modalTitle">Получить консультацию</h2>
+      <p class="modal__desc">Оставьте контакты — рассчитаем стоимость и перезвоним в течение дня.</p>
+
+      <form id="quoteForm">
+        <div class="field">
+          <label for="qName">Имя</label>
+          <input type="text" id="qName" name="name" required placeholder="Как к вам обращаться" />
+        </div>
+        <div class="field">
+          <label for="qPhone">Телефон</label>
+          <input type="tel" id="qPhone" name="phone" required placeholder="+7 (___) ___-__-__" />
+        </div>
+        <div class="field">
+          <label for="qService">Услуга</label>
+          <select id="qService" name="service">
+            <option value="">Не выбрано</option>
+            <option>Инженерные коммуникации</option>
+            <option>Благоустройство территорий</option>
+            <option>Строительство зданий</option>
+            <option>Проектирование</option>
+            <option>Специализированные работы</option>
+            <option>Другое</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="qMessage">Комментарий (необязательно)</label>
+          <textarea id="qMessage" name="message" placeholder="Кратко опишите задачу"></textarea>
+        </div>
+        <div class="field field--hp" aria-hidden="true">
+  <label for="qWebsite">Website</label>
+  <input type="text" id="qWebsite" name="website" tabindex="-1" autocomplete="off" />
+</div>
+<input type="hidden" id="qFormLoadedAt" name="formLoadedAt" value="" />
+        <button type="submit" class="btn btn--accent modal__submit">
+          <span class="modal__submit-text">Отправить заявку</span>
+        </button>
+        <p class="modal__privacy-note">Нажимая «Отправить», вы соглашаетесь с <a href="privacy.html">политикой конфиденциальности</a>.</p>
+      </form>
+    </div>
+
+    <div class="modal__success" id="modalSuccessState" hidden>
+      <div class="modal__success-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h2>Заявка отправлена</h2>
+      <p>Спасибо! Мы свяжемся с вами в ближайшее время.</p>
+      <button class="btn btn--outline" id="modalCloseSuccess">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var overlay = document.getElementById('quoteModal');
+  var closeBtn = overlay.querySelector('.modal__close');
+  var closeSuccessBtn = document.getElementById('modalCloseSuccess');
+  var form = document.getElementById('quoteForm');
+  var formState = document.getElementById('modalFormState');
+  var successState = document.getElementById('modalSuccessState');
+  var submitBtn = form.querySelector('.modal__submit');
+  var submitText = submitBtn.querySelector('.modal__submit-text');
+  var lastFocused = null;
+
+  function openModal(e) {
+    if (e) e.preventDefault();
+    lastFocused = document.activeElement;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('qFormLoadedAt').value = Date.now();
+    setTimeout(function () { document.getElementById('qName').focus(); }, 300);
+  }
+
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  function resetModal() {
+    form.reset();
+    formState.hidden = false;
+    successState.hidden = true;
+  }
+
+  document.querySelectorAll('[data-open-quote]').forEach(function (btn) {
+    btn.addEventListener('click', openModal);
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  closeSuccessBtn.addEventListener('click', function () {
+    closeModal();
+    setTimeout(resetModal, 300);
+  });
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitText.textContent = 'Отправляем...';
+
+    var data = {
+  name: form.name.value.trim(),
+  phone: form.phone.value.trim(),
+  service: form.service.value,
+  message: form.message.value.trim(),
+  page: window.location.pathname,
+  website: form.website.value,          // honeypot — у людей всегда пусто
+  formLoadedAt: form.formLoadedAt.value  // когда открылась форма (мс)
+};
+
+    fetch('/api/send-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function (res) {
+      if (!res.ok) throw new Error('bad response');
+      formState.hidden = true;
+      successState.hidden = false;
+    })
+    .catch(function () {
+      alert('Не получилось отправить заявку. Попробуйте ещё раз или позвоните нам: +7 (926) 892-43-31');
+    })
+    .finally(function () {
+      submitBtn.disabled = false;
+      submitText.textContent = 'Отправить заявку';
+    });
+  });
+})();
+</script>
+</body>
+</html>

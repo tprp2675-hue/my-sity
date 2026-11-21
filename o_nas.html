@@ -730,6 +730,8 @@
 .modal__desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 26px; max-width: 34ch; }
 .field { margin-bottom: 14px; }
 .field label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 6px; }
+/* honeypot: скрыто от людей, но заметно ботам, которые заполняют все поля подряд */
+.field--hp { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .field input, .field select, .field textarea {
   width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
   border-radius: 12px; padding: 12px 14px; font-family: inherit; font-size: 15px; color: var(--text-white);
@@ -762,6 +764,20 @@
   .modal__title { font-size: 22px; }
 }
   </style>
+  <script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"AboutPage",
+  "name":"О компании Астория-К3",
+  "url":"https://astoriak3.ru/o_nas.html",
+  "about":{
+    "@type":"Organization",
+    "name":"ООО «Астория-К3»",
+    "url":"https://astoriak3.ru/",
+    "telephone":"+7 (901) 714-74-25"
+  }
+}
+</script>
 </head>
 
 <body>
@@ -1081,6 +1097,11 @@
           <label for="qMessage">Комментарий (необязательно)</label>
           <textarea id="qMessage" name="message" placeholder="Кратко опишите задачу"></textarea>
         </div>
+        <div class="field field--hp" aria-hidden="true">
+  <label for="qWebsite">Website</label>
+  <input type="text" id="qWebsite" name="website" tabindex="-1" autocomplete="off" />
+</div>
+<input type="hidden" id="qFormLoadedAt" name="formLoadedAt" value="" />
         <button type="submit" class="btn btn--accent modal__submit">
           <span class="modal__submit-text">Отправить заявку</span>
         </button>
@@ -1117,6 +1138,7 @@
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    document.getElementById('qFormLoadedAt').value = Date.now();
     setTimeout(function () { document.getElementById('qName').focus(); }, 300);
   }
 
@@ -1152,15 +1174,17 @@
     submitBtn.disabled = true;
     submitText.textContent = 'Отправляем...';
 
-    var data = {
-      name: form.name.value.trim(),
-      phone: form.phone.value.trim(),
-      service: form.service.value,
-      message: form.message.value.trim(),
-      page: window.location.pathname
-    };
+   var data = {
+  name: form.name.value.trim(),
+  phone: form.phone.value.trim(),
+  service: form.service.value,
+  message: form.message.value.trim(),
+  page: window.location.pathname,
+  website: form.website.value,          // honeypot — у людей всегда пусто
+  formLoadedAt: form.formLoadedAt.value  // когда открылась форма (мс)
+};
 
-    fetch('/api/send-lead', {
+    fetch('/send.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
